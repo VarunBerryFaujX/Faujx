@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Role Reversal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&display=swap" rel="stylesheet">
+<style>
+  html, body { margin:0; height:100%; background:#0e201a; overflow:hidden; }
+  * { box-sizing:border-box; }
+  #root { position:fixed; inset:0; display:flex; align-items:center; justify-content:center; }
+</style>
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script>
+(function(){
+  var h = React.createElement;
+  var C = { bg:'#0e201a', panel2:'#16342a', line:'rgba(255,255,255,0.13)',
+    ink:'#EAF1EC', mut:'#A9BEB1', faint:'#7d8e84',
+    gold:'#D8B45A', green:'#5aa97e', greenBright:'#9bd0ab',
+    clay:'#C9795C', clayBright:'#E8A07E' };
+  var SERIF = "'Playfair Display', Georgia, serif";
+  var SANS  = "'DM Sans', system-ui, sans-serif";
+  var MONO  = "'DM Mono', ui-monospace, monospace";
+  var clamp = function(x,a,b){ return Math.max(a,Math.min(b,x)); };
+  var lerp  = function(a,b,p){ return a+(b-a)*p; };
+  var easeOut = function(x){ return 1-Math.pow(1-x,3); };
+  var easeInOut = function(x){ return x<0.5 ? 4*x*x*x : 1-Math.pow(-2*x+2,3)/2; };
+  var seg = function(tt,inAt,inDur,outAt,outDur){
+    var o = clamp((tt-inAt)/(inDur||0.5),0,1);
+    if (outAt!=null) o *= 1 - clamp((tt-outAt)/(outDur||0.5),0,1);
+    return o;
+  };
+
+  var candidate = 'Hana Park';
+  var roleA = 'Senior ML Engineer';
+  var roleB = 'Staff Platform Architect';
+  var initials = candidate.trim().split(/\s+/).map(function(w){return w[0];}).join('').slice(0,2).toUpperCase();
+  var DIMS = [
+    ['Model architecture', 92, 80, 74],
+    ['Experimentation rigor', 84, 72, 70],
+    ['Production ML systems', 70, 62, 87],
+    ['Distributed systems', 64, 52, 90],
+    ['Team leadership', 58, 40, 82]
+  ];
+  var TRACK = 470;
+  var T = 15.5;
+
+  function Scene(){
+    var force = React.useState(0)[1];
+    var t0Ref = React.useRef(performance.now());
+    React.useEffect(function(){
+      var raf;
+      var loop = function(){ force(function(x){ return x+1; }); raf = requestAnimationFrame(loop); };
+      raf = requestAnimationFrame(loop);
+      var iv = setInterval(function(){ force(function(x){ return x+1; }); }, 100);
+      var onR = function(){ force(function(x){ return x+1; }); };
+      window.addEventListener('resize', onR);
+      return function(){ cancelAnimationFrame(raf); clearInterval(iv); window.removeEventListener('resize', onR); };
+    }, []);
+    var t = ((performance.now() - t0Ref.current)/1000) % T;
+
+    var p = easeInOut(clamp((t-6.2)/1.4,0,1));
+    var role = p>0.5 ? roleB : roleA;
+    var score = Math.round(lerp(86,58,p));
+    var good = p<0.5;
+    var gO = Math.min(seg(t,0,0.6), 1 - clamp((t-14.4)/0.8,0,1));
+    var cardO = seg(t,0.5,0.7);
+    var cap1O = seg(t,1.6,0.6,5.6,0.5);
+    var cap2O = seg(t,8.4,0.6);
+
+    var rowEls = DIMS.map(function(d,i){
+      var appearAt = 1.0 + i*0.34;
+      var grow = easeOut(clamp((t-appearAt)/0.7,0,1));
+      var rowO = clamp((t-appearAt)/0.5,0,1);
+      var cand = d[1];
+      var req = lerp(d[2], d[3], p);
+      var met = cand >= req-0.5;
+      var barC = met ? (cand>=req+12 ? C.gold : C.green) : C.clay;
+      var statusC = met ? C.greenBright : C.clayBright;
+      return h('div',{key:i, style:{position:'absolute', left:44, right:44, top:i*58, height:46, opacity:rowO}},
+        h('div',{style:{position:'absolute', left:0, top:6, width:250, fontFamily:SANS, fontSize:22, fontWeight:500, color:C.ink, textAlign:'right'}}, d[0]),
+        h('div',{style:{position:'absolute', left:300, top:9, width:TRACK, height:14, borderRadius:7, background:'rgba(255,255,255,0.09)'}}),
+        h('div',{style:{position:'absolute', left:300, top:9, width:cand/100*TRACK*grow, height:14, borderRadius:7, background:barC}}),
+        h('div',{style:{position:'absolute', left:300 + req/100*TRACK - 1, top:2, width:3, height:28, background:'#fff', borderRadius:2, boxShadow:'0 0 0 3px '+C.bg}}),
+        h('div',{style:{position:'absolute', left:300+TRACK+16, top:6, fontFamily:MONO, fontSize:17, fontWeight:500, color:statusC}}, met ? 'meets' : 'gap')
+      );
+    });
+
+    var card = h('div',{style:{position:'absolute', left:120, top:138, width:960, height:468, borderRadius:18, background:C.panel2, border:'1px solid '+C.line, opacity:cardO, boxShadow:'0 30px 80px rgba(0,0,0,0.35)'}},
+      h('div',{style:{position:'absolute', left:44, top:30, right:44, display:'flex', alignItems:'center', justifyContent:'space-between'}},
+        h('div',{style:{display:'flex', alignItems:'center', gap:20}},
+          h('div',{style:{width:64, height:64, borderRadius:'50%', background:'rgba(216,180,90,0.16)', border:'2px solid rgba(216,180,90,0.5)', display:'flex', alignItems:'center', justifyContent:'center', fontFamily:SERIF, fontSize:26, fontWeight:700, color:C.gold}}, initials),
+          h('div',null,
+            h('div',{style:{fontFamily:SERIF, fontSize:30, fontWeight:700, color:C.ink}}, candidate),
+            h('div',{style:{fontFamily:MONO, fontSize:15, color:C.mut, marginTop:4}}, 'evaluated against: ', h('span',{style:{color:C.gold}}, role))
+          )
+        ),
+        h('div',{style:{textAlign:'right'}},
+          h('div',{style:{fontFamily:SERIF, fontSize:56, fontWeight:700, lineHeight:1, color: good?C.gold:C.clayBright}}, String(score)),
+          h('div',{style:{marginTop:6, display:'inline-block', padding:'5px 12px', borderRadius:8, fontFamily:MONO, fontSize:13, letterSpacing:'0.06em', textTransform:'uppercase', color: good?C.greenBright:C.clayBright, background: good?'rgba(155,208,171,0.14)':'rgba(176,86,54,0.2)', border:'1px solid '+(good?'rgba(155,208,171,0.4)':'rgba(176,86,54,0.5)')}}, good ? 'Strong Hire' : 'Below Bar')
+        )
+      ),
+      h('div',{style:{position:'absolute', left:44, top:130, fontFamily:MONO, fontSize:14, color:C.faint}}, 'white marker = level this role requires  \u00b7  bar = '+candidate.split(' ')[0]+'\u2019s validated level'),
+      h('div',{style:{position:'absolute', left:0, right:0, top:188}}, rowEls)
+    );
+
+    var title = h('div',{style:{position:'absolute', top:50, left:0, width:1200, textAlign:'center', fontFamily:SERIF, fontSize:50, fontWeight:700, color:C.ink, letterSpacing:'-0.01em'}}, 'R\u00e9sum\u00e9s lie. ', h('span',{style:{fontStyle:'italic', color:C.gold}}, 'Signal doesn\u2019t.'));
+
+    var capWrap = {position:'absolute', top:632, left:0, width:1200, textAlign:'center', lineHeight:1.2};
+    var cap1 = h('div',{style:Object.assign({}, capWrap, {fontFamily:SANS, fontSize:26, fontWeight:500, color:C.mut, opacity:cap1O})}, 'Same candidate. Same evidence. One role she clears comfortably \u2014');
+    var cap2 = h('div',{style:Object.assign({}, capWrap, {fontFamily:SANS, fontSize:28, fontWeight:600, color:C.ink, opacity:cap2O})}, 'The evidence never moved. ', h('span',{style:{color:C.gold, fontStyle:'italic', fontFamily:SERIF}}, 'The bar did.'));
+
+    var scale = Math.min((window.innerWidth||1200)/1200, (window.innerHeight||720)/720);
+    return h('div',{style:{width:1200, height:720, position:'relative', flex:'none', transform:'scale('+scale+')', transformOrigin:'center center', opacity:gO, fontFamily:SANS}}, title, card, cap1, cap2);
+  }
+
+  ReactDOM.createRoot(document.getElementById('root')).render(h(Scene));
+})();
+</script>
+</body>
+</html>
