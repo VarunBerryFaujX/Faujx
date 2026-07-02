@@ -1,0 +1,367 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FaujX Capability Report — R. Marek · Distributed Query Engine (Cloudera)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1B2430; --muted:#64748B; --line:#E6EAF0; --bg:#F5F7FA;
+  --forest:#1B5E3C; --green:#16A34A; --card:#FFFFFF;
+  --amber:#B45309; --red:#B91C1C;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);
+  font-family:'DM Sans',-apple-system,sans-serif;line-height:1.5;
+  -webkit-font-smoothing:antialiased;padding:32px 16px;}
+.page{max-width:880px;margin:0 auto;}
+.report{background:var(--card);border-radius:24px;overflow:hidden;
+  box-shadow:0 12px 40px rgba(27,36,48,.08);border:1px solid var(--line);}
+/* header */
+.hd{background:linear-gradient(135deg,#5663E8 0%,#8B4FD6 52%,#C24FC0 100%);
+  color:#fff;padding:40px 44px 36px;position:relative;}
+.hd .brandline{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;opacity:.85;margin-bottom:22px;}
+.avatar{width:88px;height:88px;border-radius:50%;background:rgba(255,255,255,.18);
+  border:2px solid rgba(255,255,255,.5);display:flex;align-items:center;justify-content:center;
+  font-family:'Playfair Display',serif;font-size:32px;font-weight:600;margin:0 auto 14px;}
+.hd h1{font-family:'Playfair Display',serif;font-size:34px;font-weight:600;text-align:center;letter-spacing:-.01em;}
+.hd .role{text-align:center;opacity:.92;font-size:15px;margin-top:4px;}
+.hd .cfg{text-align:center;opacity:.8;font-size:12px;margin-top:6px;font-family:'DM Mono',monospace;letter-spacing:.04em;}
+.scorerow{display:flex;justify-content:center;gap:64px;margin-top:24px;}
+.scorerow .blk{text-align:center;}
+.scorerow .num{font-family:'Playfair Display',serif;font-size:48px;font-weight:700;line-height:1;}
+.scorerow .lbl{font-size:11px;letter-spacing:.13em;text-transform:uppercase;opacity:.85;margin-top:8px;}
+.sample-tag{position:absolute;top:16px;right:18px;font-family:'DM Mono',monospace;
+  font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;background:rgba(0,0,0,.22);
+  padding:5px 10px;border-radius:6px;}
+/* body */
+.body{padding:36px 44px 12px;}
+.sec{margin-bottom:38px;}
+.sec h2{font-family:'Playfair Display',serif;font-size:24px;font-weight:600;letter-spacing:-.01em;}
+.sec .sub{color:var(--muted);font-size:13.5px;margin-top:3px;margin-bottom:20px;}
+/* stage reversal hero */
+.reversal{display:grid;grid-template-columns:1fr 72px 1fr;gap:0;align-items:stretch;margin-bottom:18px;}
+.rcard{border-radius:18px;padding:22px 24px;border:1px solid var(--line);}
+.rcard.before{background:#FDF6EC;border-color:#F2E2C4;}
+.rcard.after{background:#F0FAF4;border-color:#CDE9D8;}
+.rcard .stage-lbl{font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px;}
+.before .stage-lbl{color:var(--amber);}
+.after .stage-lbl{color:var(--forest);}
+.rcard .rank{font-family:'Playfair Display',serif;font-size:40px;font-weight:700;line-height:1;}
+.before .rank{color:var(--amber);}
+.after .rank{color:var(--forest);}
+.rcard .ranksub{font-size:12.5px;color:var(--muted);margin-top:2px;}
+.rcard .verd{font-size:14.5px;font-weight:700;margin-top:14px;}
+.before .verd{color:var(--amber);}
+.after .verd{color:var(--forest);}
+.rcard .why{font-size:12.5px;color:#4A5568;margin-top:6px;line-height:1.45;}
+.arrowcell{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;}
+.arrowcell .samecand{font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:#8B4FD6;text-align:center;line-height:1.3;}
+.arrowcell .a{font-size:22px;color:#A94FCF;font-weight:700;}
+.reversal-note{background:#F4F0FB;border:1px solid #E6DAF6;border-radius:12px;
+  padding:13px 16px;font-size:13px;color:#5B3E86;line-height:1.5;}
+.reversal-note b{color:#42286B;}
+.routeline{font-size:12.5px;color:var(--muted);margin-top:12px;font-style:italic;}
+.meter{position:relative;height:10px;background:#EDF1F5;border-radius:6px;margin:14px 0 8px;}
+.meter .mfill{height:100%;border-radius:6px;}
+.meter .thr{position:absolute;top:-5px;bottom:-5px;width:2px;background:#1B2430;border-radius:2px;}
+.barrow{display:flex;justify-content:space-between;align-items:baseline;font-size:11.5px;color:var(--muted);}
+.barrow .barval{font-family:'DM Mono',monospace;font-weight:600;color:var(--ink);font-size:13px;}
+/* stat tiles */
+.tiles{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+.tile{border-radius:16px;padding:22px 24px;}
+.tile .pct{font-size:30px;font-weight:700;}
+.tile .name{font-size:14px;font-weight:600;margin-top:6px;}
+.tile .note{font-size:11.5px;font-weight:500;opacity:.8;margin-top:4px;}
+.t-green{background:#E8F7EE;color:#15803D}.t-blue{background:#EAF1FE;color:#1E40AF}
+.t-amber{background:#FEF5E1;color:#B45309}.t-grey{background:#F1F4F8;color:#475569}
+/* match summary */
+.matchrow{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:22px;}
+.mcell{border-radius:14px;padding:16px 18px;text-align:left;}
+.mcell .v{font-size:26px;font-weight:700;}.mcell .k{font-size:11.5px;font-weight:600;margin-top:2px;}
+.m-blue{background:#EAF1FE;color:#1E40AF}.m-green{background:#E8F7EE;color:#15803D}
+.m-amber{background:#FEF5E1;color:#B45309}.m-red{background:#FDECEC;color:#B91C1C}
+.strengths{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.chip{background:#F4FAF6;border:1px solid #DCEFE3;border-radius:12px;padding:12px 14px;
+  font-size:13.5px;font-weight:500;display:flex;align-items:center;gap:9px;}
+.chip .dot{width:7px;height:7px;border-radius:50%;background:var(--forest);flex:none;}
+/* capability bars */
+.cap{margin-bottom:14px;}
+.cap .top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:5px;}
+.cap .cname{font-size:14px;font-weight:500;}
+.cap .cscore{font-family:'DM Mono',monospace;font-size:13px;font-weight:600;}
+.track{height:9px;background:#EDF1F5;border-radius:6px;overflow:hidden;}
+.fill{height:100%;border-radius:6px;}
+.avgband{display:inline-flex;align-items:baseline;gap:8px;background:#F4FAF6;
+  border:1px solid #DCEFE3;border-radius:12px;padding:10px 18px;margin-bottom:20px;}
+.avgband .b{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--forest);}
+.avgband .l{font-size:12px;color:var(--muted);letter-spacing:.04em;}
+/* stage trace */
+.trace details{border:1px solid var(--line);border-radius:14px;margin-bottom:11px;overflow:hidden;background:#fff;}
+.trace summary{list-style:none;cursor:pointer;padding:15px 18px;display:flex;align-items:center;gap:14px;}
+.trace summary::-webkit-details-marker{display:none;}
+.trace .snum{flex:none;width:30px;height:30px;border-radius:50%;background:#F0EDFB;color:#6D4AB8;
+  display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;font-family:'DM Mono',monospace;}
+.trace .stitle{flex:1;}
+.trace .stitle h4{font-size:14.5px;font-weight:600;}
+.trace .stitle p{font-size:12px;color:var(--muted);margin-top:1px;}
+.trace .sverd{flex:none;font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.05em;
+  text-transform:uppercase;padding:5px 9px;border-radius:6px;font-weight:600;}
+.sv-route{background:#FEF5E1;color:#B45309;}
+.sv-pass{background:#E8F7EE;color:#15803D;}
+.sv-flag{background:#EAF1FE;color:#1E40AF;}
+.trace .chev{flex:none;color:#B0B8C4;font-size:12px;transition:transform .2s;}
+.trace details[open] .chev{transform:rotate(90deg);}
+.trace .panel{padding:2px 18px 18px 62px;font-size:13px;color:#3F4A5A;line-height:1.55;}
+.trace .panel .ev{background:#F7F9FC;border-left:3px solid #C9A75E;border-radius:0 8px 8px 0;
+  padding:10px 14px;margin-top:10px;font-size:12.5px;color:#4A5568;}
+.trace .panel .ev b{color:var(--ink);}
+/* recommendation */
+.rec{border-radius:18px;padding:24px 28px;color:#fff;margin-top:8px;}
+.rec.strong{background:linear-gradient(120deg,#16523A,#1B5E3C 70%,#2E7D57);}
+.rec .verdict{font-family:'Playfair Display',serif;font-size:22px;font-weight:600;margin-bottom:8px;}
+.rec p{font-size:13.5px;opacity:.95;}
+.rec .sub2{font-size:12.5px;opacity:.85;margin-top:9px;padding-top:9px;border-top:1px solid rgba(255,255,255,.2);}
+/* governance note */
+.gov{background:#0E2018;color:#E8EFE9;border-radius:16px;padding:20px 24px;margin-top:18px;}
+.gov h4{font-family:'Playfair Display',serif;font-size:16px;color:#C9A75E;margin-bottom:7px;}
+.gov p{font-size:12.5px;opacity:.9;line-height:1.55;margin-bottom:8px;}
+.gov p:last-child{margin-bottom:0;}
+/* footer */
+.foot{padding:20px 44px 30px;display:flex;justify-content:space-between;align-items:center;
+  border-top:1px solid var(--line);margin-top:24px;flex-wrap:wrap;gap:8px;}
+.foot .fl{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.04em;}
+.foot .fr{font-size:11px;color:#B0B8C4;}
+@media print{body{background:#fff;padding:0;}.report{box-shadow:none;border:none;border-radius:0;}
+  .trace details{break-inside:avoid;} .trace details>.panel{display:block!important;}}
+@media(max-width:680px){.tiles{grid-template-columns:1fr}.matchrow,.strengths{grid-template-columns:1fr}
+  .scorerow{gap:36px}.reversal{grid-template-columns:1fr;gap:12px}.arrowcell{flex-direction:row;height:28px}}
+</style></head><body><div class="page"><div class="report">
+
+<div class="hd">
+  <div class="sample-tag">Illustrative sample · fictional candidate</div>
+  <div class="brandline">FaujX · The Un-Interview · Capability Validation Report</div>
+  <div class="avatar">RM</div>
+  <h1>R. Marek</h1>
+  <div class="role">Senior Software Engineer — Distributed Query Engine (Trino / Impala)</div>
+  <div class="cfg">Role profile modeled on a representative Cloudera data-platform opening · scored against two role bars</div>
+  <div class="scorerow">
+    <div class="blk"><div class="num">88</div><div class="lbl">Capability Score</div></div>
+    <div class="blk"><div class="num">7/7</div><div class="lbl">Stages Traced</div></div>
+  </div>
+</div>
+
+<div class="body">
+
+<div class="sec">
+  <h2>The Stage Reversal</h2>
+  <div class="sub">Same candidate, same evidence — scored against two role bars. Only the bar changes, and the verdict flips.</div>
+  <div class="reversal">
+    <div class="rcard after">
+      <div class="stage-lbl">Benchmark A · Query Engine (Trino / Impala)</div>
+      <div class="rank">88<span style="font-size:20px;opacity:.6"> / 100</span></div>
+      <div class="ranksub">validated capability for this role</div>
+      <div class="meter"><div class="mfill" style="width:88%;background:#15803D"></div><div class="thr" style="left:72%"></div></div>
+      <div class="barrow"><span>Bar to advance</span><span class="barval">72</span></div>
+      <div class="verd">Clears the bar → Strong Advance</div>
+      <div class="why">16 points clear of this role's bar. Distributed execution, SQL-engine internals, and JVM performance are all evidence-backed. This is the req they should be routed to.</div>
+    </div>
+    <div class="arrowcell">
+      <div class="samecand">Same<br>candidate</div>
+      <div class="a">⇄</div>
+      <div class="samecand">Same<br>evidence</div>
+    </div>
+    <div class="rcard before">
+      <div class="stage-lbl">Benchmark B · Control Plane (K8s multi-tenancy)</div>
+      <div class="rank">58<span style="font-size:20px;opacity:.6"> / 100</span></div>
+      <div class="ranksub">validated capability for this role</div>
+      <div class="meter"><div class="mfill" style="width:58%;background:#D97706"></div><div class="thr" style="left:74%"></div></div>
+      <div class="barrow"><span>Bar to advance</span><span class="barval">74</span></div>
+      <div class="verd">Below the bar → Hold</div>
+      <div class="why">Same person, same evidence — a higher, different bar. Multi-tenant control-plane and operator / SRE depth fall 16 points short here. Advancing them would be a confident mis-hire.</div>
+    </div>
+  </div>
+  <div class="reversal-note">
+    <b>What changed between these two cards is the role's bar — not the candidate.</b> That is the point at 175 hires across this stack: "is this a strong engineer?" is the wrong question; "does this person clear the bar for <i>this specific</i> req?" is the one that prevents a mis-hire. A résumé screen can't answer it, and neither can the "reach out even if there's no JD that fits" inbound you invited. Capability validation scores the person against each role's bar and routes them to the req they actually clear.
+  </div>
+  <div class="routeline">The full evidence trail below is for Benchmark A — the role this candidate clears.</div>
+</div>
+
+<div class="sec">
+  <h2>Assessment Performance</h2>
+  <div class="sub">Evidence captured across every validation stage — the résumé was one input, not the verdict.</div>
+  <div class="tiles">
+    <div class="tile t-amber"><div class="pct">64%</div><div class="name">Résumé Capability Signal</div><div class="note">understated on paper — routed to evidence, not cut</div></div>
+    <div class="tile t-green"><div class="pct">94%</div><div class="name">Adaptive Screening — Engine Internals</div><div class="note">query planning, columnar I/O, concurrency</div></div>
+    <div class="tile t-green"><div class="pct">90%</div><div class="name">Role Challenge — Coding</div><div class="note">fix a skewed join at scale</div></div>
+    <div class="tile t-blue"><div class="pct">88%</div><div class="name">Structured Capability Assessment</div><div class="note">execution-plan reasoning, failure analysis</div></div>
+  </div>
+</div>
+
+<div class="sec">
+  <h2>Resume Capability Match</h2>
+  <div class="sub">Candidate measured against 12 role-critical capabilities defined for the query-engine benchmark.</div>
+  <div class="matchrow">
+    <div class="mcell m-blue"><div class="v">85%</div><div class="k">Validated Match</div></div>
+    <div class="mcell m-green"><div class="v">9</div><div class="k">Met Fully</div></div>
+    <div class="mcell m-amber"><div class="v">2</div><div class="k">Partial</div></div>
+    <div class="mcell m-red"><div class="v">1</div><div class="k">To Probe</div></div>
+  </div>
+  <div class="strengths">
+    <div class="chip"><span class="dot"></span>Distributed query execution &amp; planning</div>
+    <div class="chip"><span class="dot"></span>SQL engine internals &amp; cost-based optimization</div>
+    <div class="chip"><span class="dot"></span>Columnar &amp; table formats (Parquet / Iceberg)</div>
+    <div class="chip"><span class="dot"></span>JVM performance tuning</div>
+    <div class="chip"><span class="dot"></span>Concurrency &amp; parallel execution</div>
+    <div class="chip"><span class="dot"></span>Apache open-source contribution</div>
+  </div>
+</div>
+
+<div class="sec">
+  <h2>Validated Capability Profile</h2>
+  <div class="sub">Each score is evidence-backed across adaptive screening, the coding challenge, and the structured assessment — then reviewed by a human expert.</div>
+  <div class="avgband"><span class="b">8.3/10</span><span class="l">average validated capability</span></div>
+  <div class="cap"><div class="top"><span class="cname">Distributed Query Execution &amp; Planning</span><span class="cscore">9/10</span></div>
+    <div class="track"><div class="fill" style="width:90%;background:#15803D"></div></div></div>
+  <div class="cap"><div class="top"><span class="cname">SQL Engine Internals (optimizer / cost model)</span><span class="cscore">9/10</span></div>
+    <div class="track"><div class="fill" style="width:90%;background:#15803D"></div></div></div>
+  <div class="cap"><div class="top"><span class="cname">Columnar &amp; Table Formats (Parquet / ORC / Iceberg)</span><span class="cscore">9/10</span></div>
+    <div class="track"><div class="fill" style="width:90%;background:#15803D"></div></div></div>
+  <div class="cap"><div class="top"><span class="cname">JVM Performance Tuning</span><span class="cscore">8/10</span></div>
+    <div class="track"><div class="fill" style="width:80%;background:#22C55E"></div></div></div>
+  <div class="cap"><div class="top"><span class="cname">Concurrency &amp; Parallel Execution</span><span class="cscore">8/10</span></div>
+    <div class="track"><div class="fill" style="width:80%;background:#22C55E"></div></div></div>
+  <div class="cap"><div class="top"><span class="cname">Query Optimization at Scale</span><span class="cscore">8/10</span></div>
+    <div class="track"><div class="fill" style="width:80%;background:#22C55E"></div></div></div>
+  <div class="cap"><div class="top"><span class="cname">Apache Open-Source Contribution</span><span class="cscore">8/10</span></div>
+    <div class="track"><div class="fill" style="width:80%;background:#22C55E"></div></div></div>
+  <div class="cap"><div class="top"><span class="cname">Data Lakehouse Architecture</span><span class="cscore">8/10</span></div>
+    <div class="track"><div class="fill" style="width:80%;background:#22C55E"></div></div></div>
+  <div class="cap"><div class="top"><span class="cname">Debugging Distributed Systems / Observability</span><span class="cscore">8/10</span></div>
+    <div class="track"><div class="fill" style="width:80%;background:#22C55E"></div></div></div>
+  <div class="cap"><div class="top"><span class="cname">Testing &amp; Query-Correctness Rigor</span><span class="cscore">8/10</span></div>
+    <div class="track"><div class="fill" style="width:80%;background:#22C55E"></div></div></div>
+  <div class="cap"><div class="top"><span class="cname">Communication of Trade-offs</span><span class="cscore">8/10</span></div>
+    <div class="track"><div class="fill" style="width:80%;background:#22C55E"></div></div></div>
+  <div class="cap"><div class="top"><span class="cname">Kubernetes-Aware Deployment (control-plane depth)</span><span class="cscore">6/10</span></div>
+    <div class="track"><div class="fill" style="width:60%;background:#EAB308"></div></div></div>
+</div>
+
+<div class="sec trace">
+  <h2>Stage Trace</h2>
+  <div class="sub">The non-discarding pipeline, step by step — open any stage to see what moved the verdict. (Expanded by default for print.)</div>
+
+  <details open>
+    <summary>
+      <span class="snum">1</span>
+      <span class="stitle"><h4>Ingestion &amp; Normalization</h4><p>Résumé parsed into capability evidence and gaps — never keyword-matched.</p></span>
+      <span class="sverd sv-route">Route — not discard</span>
+      <span class="chev">▶</span>
+    </summary>
+    <div class="panel">
+      FHOS parses the résumé into capability evidence and gaps — it does not score keywords at any point. Here the résumé surfaces strong adjacent signals (a widely-used open-source query engine, deep JVM work) but names no marquee big-data employer, so on paper only part of the role's capabilities are evidenced. A conventional keyword / ATS screen — matching for "Hadoop," "Cloudera," or "exabyte-scale" — would reject this candidate outright. FHOS does the opposite: an <b>unproven capability is something to test, not a reason to cut</b>.
+      <div class="ev"><b>Action taken:</b> the capabilities the résumé left unproven were converted into two structured probes downstream, to test whether the engine-internals depth is real and transfers to Cloudera's stack. This is the exact candidate your "reach out even if there's no JD that fits" line is meant to catch — surfaced by evidence, not filtered out by pedigree.</div>
+    </div>
+  </details>
+
+  <details open>
+    <summary>
+      <span class="snum">2</span>
+      <span class="stitle"><h4>Capability Intelligence</h4><p>Role decomposed into capability primitives; evidence requirements set per capability.</p></span>
+      <span class="sverd sv-flag">Profile built · two benchmarks</span>
+      <span class="chev">▶</span>
+    </summary>
+    <div class="panel">
+      The role was decomposed into capability primitives — "cost-based plan optimization," "columnar vectorized execution," "concurrency under load" — rather than job titles. This is also the stage where the two benchmarks diverge: the query-engine benchmark weights execution-internals heavily, while the control-plane benchmark weights multi-tenant operator design and SRE reliability. <b>Same candidate, same evidence, two different weightings — two different verdicts.</b>
+      <div class="ev"><b>Why it matters here:</b> at your hiring volume, the difference between "advance" and "mis-hire" is often not the person — it's which benchmark you measured them against. Capability Intelligence makes that comparison explicit instead of leaving it to a recruiter's read of a résumé.</div>
+    </div>
+  </details>
+
+  <details open>
+    <summary>
+      <span class="snum">3</span>
+      <span class="stitle"><h4>Adaptive Screening</h4><p>MCQ + targeted probes, difficulty adapting to responses.</p></span>
+      <span class="sverd sv-pass">94% · cleared</span>
+      <span class="chev">▶</span>
+    </summary>
+    <div class="panel">
+      Engine-internals block (query planning, join strategies, columnar I/O, memory management) scored 94%, adapting upward in difficulty as answers held. The Stage-1 probe — "is the engine depth real without a big-data-platform employer?" — was answered directly: strong on execution and optimization fundamentals, lighter on operating a multi-tenant cluster in production.
+      <div class="ev"><b>Evidence:</b> correctly reasoned about partition-pruning and predicate-pushdown interactions, and identified a spill-to-disk pathology in a skewed aggregation — a marker of real engine-debugging depth.</div>
+    </div>
+  </details>
+
+  <details open>
+    <summary>
+      <span class="snum">4</span>
+      <span class="stitle"><h4>Structured Capability Assessment</h4><p>Rubric-scored, identical structure across the slate.</p></span>
+      <span class="sverd sv-pass">88% · cleared</span>
+      <span class="chev">▶</span>
+    </summary>
+    <div class="panel">
+      Three rubric-scored segments: an execution-plan deep dive, a failure-analysis scenario (a distributed query degrading under a data-skew hotspot), and trade-off communication. Every candidate on the slate answered the same structure — no improvised loops, no interviewer-to-interviewer variance.
+      <div class="ev"><b>Evidence:</b> proposed a sound re-partitioning and adaptive-execution path for the skew case and, unprompted, raised the memory-pressure trade-off of broadcasting versus shuffling — judgment that comes from having debugged real engines, not from the résumé.</div>
+    </div>
+  </details>
+
+  <details open>
+    <summary>
+      <span class="snum">5</span>
+      <span class="stitle"><h4>Role Challenge — Technical (optional)</h4><p>Hands-on task: diagnose and fix a skewed distributed join at scale.</p></span>
+      <span class="sverd sv-pass">90% · cleared</span>
+      <span class="chev">▶</span>
+    </summary>
+    <div class="panel">
+      Given a query pathology on a large partitioned table, the candidate diagnosed the skew, implemented a fix, and validated correctness against expected results. Production-quality, well-tested code; made a defensible latency-versus-resource trade-off and documented it.
+      <div class="ev"><b>Evidence:</b> restored the join to target latency with margin and wrote the trade-off rationale into the PR description — the habit of an engineer who has shipped and owned an engine in production.</div>
+    </div>
+  </details>
+
+  <details open>
+    <summary>
+      <span class="snum">6</span>
+      <span class="stitle"><h4>Expert Panel Review</h4><p>A human engine expert reviews the evidence and the AI's read.</p></span>
+      <span class="sverd sv-flag">Confirmed · 1 deviation noted</span>
+      <span class="chev">▶</span>
+    </summary>
+    <div class="panel">
+      A human reviewer examined the full evidence trail and agreed with the Strong Advance signal for the query-engine benchmark. One deviation was logged for governance: the AI scored Kubernetes / control-plane depth at 6/10; the reviewer concurred and emphasized it as the reason <b>not</b> to route this candidate to the control-plane benchmark — a routing decision, not a rejection.
+      <div class="ev"><b>Governance:</b> every AI/human agreement and disagreement is logged. The cross-benchmark deviation is part of the audit trail, not hidden inside a black box — and the human made the final call.</div>
+    </div>
+  </details>
+
+  <details open>
+    <summary>
+      <span class="snum">7</span>
+      <span class="stitle"><h4>Decision-Ready Report</h4><p>Consolidated verdict, evidence, and routing — before any live interview.</p></span>
+      <span class="sverd sv-pass">Delivered</span>
+      <span class="chev">▶</span>
+    </summary>
+    <div class="panel">
+      The hiring manager receives this report instead of a résumé stack: a capability-backed Strong Advance <b>for the query-engine req</b>, an explicit "do not route to control plane," the evidence behind both, and a projected ramp — all before a single engineer's calendar is touched.
+      <div class="ev"><b>Net effect:</b> a candidate a keyword screen would have cut reaches the live loop for the req they clear, with the evidence to justify the engineering team's time — and is kept away from the req where they'd have failed.</div>
+    </div>
+  </details>
+</div>
+
+<div class="rec strong">
+  <div class="verdict">Strong Advance — Query Engine track</div>
+  <p>Elite, evidence-backed engine internals — distributed execution, cost-based optimization, and columnar performance all well clear of this role's bar. The résumé undersold a candidate who comfortably meets this benchmark; the capability evidence corrected it.</p>
+  <div class="sub2"><b>Do not route to the control-plane benchmark.</b> Kubernetes / multi-tenant operator depth (6/10) is below that bar. Same person, different req — advancing them there would be a confident mis-hire, and the report says so plainly.</div>
+</div>
+
+<div class="gov">
+  <h4>Built for hiring at Cloudera's scale and bar</h4>
+  <p>Every score above is traceable to evidence, every stage is rubric-consistent across the slate, and every AI/human deviation is logged — the same audit discipline your regulated-enterprise customers already expect of you. Across 175 hires and four hubs, that consistency is what keeps the bar identical at applicant #10 and applicant #400.</p>
+  <p>Self-hosted LLM and VPC / on-prem data-isolation options are available where candidate-data residency matters. Human-in-the-loop is by design: FaujX produces the decision-ready evidence, your panel makes the call.</p>
+  <p>FaujX collects no race, sex, gender, or other protected-class data — every score is capability evidence only. That is a deliberate scope boundary, not a fairness certification: this is a capability instrument, not a bias audit.</p>
+</div>
+
+</div>
+
+<div class="foot">
+  <div class="fl">Generated by FaujX Capability Intelligence · The Un-Interview</div>
+  <div class="fr">Prepared for Cloudera · account-locked · illustrative sample · fictional candidate · synthetic data</div>
+</div>
+
+</div></div></body></html>
