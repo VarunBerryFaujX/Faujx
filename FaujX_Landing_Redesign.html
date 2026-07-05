@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FaujX · The Un-Interview — Capability Validation Infrastructure</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400;1,9..40,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --forest:#0E2018;
+  --green:#1B5E3C;
+  --gold:#B89346;
+  --gold-lt:#C9A75E;
+  --cream:#F2EEE2;
+  --ink:#14211B;
+  --paper:#FBFAF6;
+  --line:rgba(14,32,24,.14);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{
+  font-family:'DM Sans',sans-serif;color:var(--ink);background:var(--cream);
+  display:flex;flex-direction:column;overflow:hidden;
+}
+a{color:inherit;text-decoration:none}
+.mono{font-family:'DM Mono',monospace}
+
+/* ============ HEADER ============ */
+header{
+  background:var(--cream);color:var(--ink);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 28px;height:64px;flex:0 0 auto;
+  border-bottom:2px solid var(--gold);
+}
+header .btn-ghost{border-color:rgba(14,32,24,.4);color:var(--ink)}
+header .btn-ghost:hover{border-color:var(--green);color:var(--green)}
+.brand{display:flex;align-items:center;gap:14px}
+.logo-plate{display:flex;align-items:center}
+.logo-plate img{height:34px;width:auto;display:block}
+.brand .tag{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--green);border-left:1px solid var(--gold);padding-left:14px}
+.head-cta{display:flex;gap:10px;align-items:center}
+.btn{
+  display:inline-block;font-weight:700;font-size:13px;letter-spacing:.03em;
+  padding:10px 18px;border-radius:3px;border:1px solid transparent;cursor:pointer;
+  transition:transform .12s ease, background .12s ease;
+}
+.btn:hover{transform:translateY(-1px)}
+.btn-gold{background:var(--gold);color:var(--forest)}
+.btn-gold:hover{background:var(--gold-lt)}
+.btn-ghost{border-color:rgba(242,240,234,.4);color:var(--cream)}
+.btn-ghost:hover{border-color:var(--gold-lt);color:var(--gold-lt)}
+.btn-forest{background:var(--green);color:var(--cream)}
+.btn-forest:hover{background:#237449}
+.btn-outline{border-color:var(--green);color:var(--green)}
+.btn-outline:hover{background:var(--green);color:var(--cream)}
+
+/* ============ HERO ============ */
+.hero{
+  background:var(--forest);color:var(--cream);flex:0 0 auto;
+  padding:20px 28px 22px;
+  display:grid;grid-template-columns:1.4fr 1fr;gap:28px;align-items:center;
+}
+.hero h1{
+  font-family:'DM Sans',sans-serif;font-weight:800;
+  font-size:clamp(22px,2.6vw,34px);line-height:1.12;
+}
+.hero h1 em{font-style:italic;color:var(--gold-lt)}
+.hero p{margin-top:10px;font-size:15px;line-height:1.55;color:rgba(242,240,234,.82);max-width:560px}
+.hero .cta-row{margin-top:16px;display:flex;gap:12px;flex-wrap:wrap}
+/* mini dossier */
+.dossier{
+  background:var(--paper);color:var(--ink);border-radius:4px;
+  border:1px solid var(--gold);padding:16px 18px;font-size:13px;
+  box-shadow:0 12px 30px rgba(0,0,0,.35);max-width:360px;justify-self:end;
+}
+.dossier .stamp{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.16em;color:var(--gold);text-transform:uppercase;display:flex;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:10px}
+.dossier .row{display:flex;justify-content:space-between;padding:4px 0;font-size:12.5px}
+.dossier .row b{font-weight:700}
+.dossier .verdict{margin-top:10px;padding-top:10px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+.dossier .verdict .pill{background:var(--green);color:var(--cream);font-weight:700;font-size:11px;padding:4px 10px;border-radius:2px;letter-spacing:.05em}
+.bar{height:5px;background:var(--cream);border-radius:3px;overflow:hidden;flex:0 0 90px;margin-left:10px}
+.bar i{display:block;height:100%;background:var(--green);transition:width .8s cubic-bezier(.2,.7,.3,1)}
+.dossier-body{transition:opacity .35s ease}
+.dossier-body.fading{opacity:0}
+.dossier-dots{display:flex;gap:6px;justify-content:center;margin-top:12px}
+.dossier-dots button{width:7px;height:7px;border-radius:50%;border:none;background:var(--line);cursor:pointer;padding:0;transition:background .2s}
+.dossier-dots button.on{background:var(--gold)}
+
+/* ============ EVALUATE STRIP ============ */
+.eval-strip{
+  flex:0 0 auto;background:var(--gold);color:var(--forest);
+  display:flex;align-items:center;justify-content:center;gap:18px;
+  padding:8px 28px;font-size:13px;font-weight:500;flex-wrap:wrap;
+}
+.eval-strip .k{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;background:var(--forest);color:var(--gold-lt);padding:4px 10px;border-radius:2px}
+.eval-strip a.go{font-weight:700;border-bottom:2px solid var(--forest);padding-bottom:1px}
+.eval-strip a.go:hover{color:var(--green);border-color:var(--green)}
+
+/* ============ TABS ============ */
+.tabbar{
+  flex:0 0 auto;display:flex;gap:4px;padding:0 28px 10px;background:var(--cream);
+  border-top:none;overflow-x:auto;
+}
+.tab{
+  font-family:'DM Sans',sans-serif;font-size:15px;letter-spacing:.01em;
+  padding:12px 20px 13px;border:1px solid rgba(14,32,24,.35);border-top:none;
+  border-radius:0 0 6px 6px;background:var(--forest);color:rgba(242,240,234,.92);
+  cursor:pointer;white-space:nowrap;transition:background .12s;font-weight:600;
+}
+.tab:hover{background:var(--green);color:#fff}
+.tab.active{background:var(--paper);color:var(--green);font-weight:700;border-color:var(--gold);position:relative}
+.tab.active::after{content:"";position:absolute;left:0;right:0;top:-2px;height:3px;background:var(--paper)}
+
+/* ============ PANELS ============ */
+.stage{flex:1 1 auto;min-height:0;overflow:hidden;background:var(--cream);padding:12px 28px 0}
+.panel{
+  display:none;height:100%;background:var(--paper);
+  border:1px solid var(--gold);border-radius:6px 6px 6px 0;
+  padding:20px 26px;overflow-y:auto;
+}
+.panel.active{display:block}
+/* compact mode: hero collapses so the active tab gets the full page */
+body.compact .hero{display:none}
+/* embedded report viewer */
+.report-viewer{display:none;height:100%;flex-direction:column}
+#report.viewing{display:flex;flex-direction:column;padding:14px 16px}
+#report.viewing .report-home{display:none}
+#report.viewing .report-viewer{display:flex}
+.viewer-bar{display:flex;align-items:center;gap:14px;padding:0 4px 10px;flex-wrap:wrap}
+.viewer-bar .back{font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.06em;color:var(--green);cursor:pointer;background:none;border:none;padding:4px 0}
+.viewer-bar .back:hover{color:var(--gold)}
+.viewer-bar .vtitle{font-weight:700;font-size:14px}
+.viewer-bar .newtab{margin-left:auto;font-family:'DM Mono',monospace;font-size:11.5px;color:var(--green);border-bottom:1px solid var(--gold);padding-bottom:1px}
+.report-frame{flex:1 1 auto;min-height:0;border:1px solid var(--line);border-radius:4px;background:#fff}
+.report-frame iframe{width:100%;height:100%;border:0;display:block}
+.panel h2{font-family:'DM Sans',sans-serif;font-weight:800;font-size:clamp(22px,2vw,28px);line-height:1.15;margin-bottom:6px}
+.panel h2 em{font-style:italic;color:var(--green)}
+.eyebrow{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.lede{font-size:15px;line-height:1.55;color:rgba(20,33,27,.82);max-width:800px;margin-bottom:16px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.card{background:var(--cream);border:1px solid var(--line);border-radius:4px;padding:16px 18px;display:flex;flex-direction:column}
+.card h3{font-size:16px;font-weight:700;margin-bottom:10px}
+.card p,.card li{font-size:14px;line-height:1.55;color:rgba(20,33,27,.85)}
+.card ul{list-style:none}
+.card li{padding:4px 0 4px 18px;position:relative}
+.card li::before{content:"→";position:absolute;left:0;color:var(--gold);font-family:'DM Mono',monospace;font-size:12px}
+.card.no li::before{content:"✕";color:#9a3b2e}
+.fixline{margin-top:auto;padding-top:12px;border-top:1px solid var(--line);font-size:14px}
+.fixline b{color:var(--green)}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
+.stat{background:var(--forest);color:var(--cream);border-radius:4px;padding:14px 16px 12px}
+.stat .n{font-family:'DM Sans',sans-serif;font-size:24px;font-weight:800;color:var(--gold-lt)}
+.stat .l{font-size:12.5px;line-height:1.45;margin-top:4px;color:rgba(242,240,234,.85)}
+
+/* process track diagram */
+.proc{margin-top:8px}
+.proc-row{display:grid;grid-template-columns:repeat(6,1fr);gap:0;position:relative;padding-top:8px}
+.proc-row::before{content:"";position:absolute;top:29px;left:8.33%;right:8.33%;height:2px;background:linear-gradient(90deg,rgba(201,167,94,.25),var(--gold),rgba(201,167,94,.25))}
+.pstep{padding:8px 14px 4px;text-align:left;position:relative}
+.pnode{width:44px;height:44px;border-radius:50%;border:2px solid var(--gold);background:var(--black);color:var(--gold-lt);font-family:'DM Mono',monospace;font-size:15px;display:flex;align-items:center;justify-content:center;position:relative;z-index:1;margin-bottom:12px}
+.pstep h4{font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.3;color:var(--cream);font-weight:700;margin-bottom:7px}
+.pstep p{font-size:13px;line-height:1.5;color:rgba(242,238,226,.72)}
+.pstep.client .pnode{border-style:dashed;color:var(--cream)}
+.ptag{display:inline-block;margin-top:8px;font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-lt);border:1px dashed rgba(201,167,94,.5);border-radius:2px;padding:3px 8px}
+.proc-pillars{display:flex;gap:10px;margin-top:22px;border-top:1px solid rgba(242,238,226,.14);padding-top:16px}
+.proc-pillars span{font-family:'DM Mono',monospace;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(242,238,226,.75);border:1px solid rgba(201,167,94,.4);border-radius:2px;padding:5px 12px}
+@media (max-width:920px){.proc-row{grid-template-columns:repeat(2,1fr)}.proc-row::before{display:none}}
+
+/* demo */
+.demo-wrap{display:grid;grid-template-columns:1.5fr 1fr;gap:22px;align-items:start}
+.video-frame{
+  position:relative;background:var(--forest);border:1px solid var(--gold);border-radius:4px;
+  aspect-ratio:16/9;overflow:hidden;display:flex;align-items:center;justify-content:center;
+}
+.video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.video-hint{color:var(--gold-lt);font-family:'DM Mono',monospace;font-size:12px;text-align:center;padding:20px;letter-spacing:.06em}
+
+/* pilot */
+.tier{position:relative}
+.tier .flag{position:absolute;top:-11px;right:14px;background:var(--gold);color:var(--forest);font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;padding:3px 10px;border-radius:2px;text-transform:uppercase;font-weight:500}
+.tier p{margin-bottom:14px}
+.tier .scope{font-family:'DM Mono',monospace;font-size:11.5px;color:var(--green);margin-bottom:8px;letter-spacing:.03em}
+.tier .btn{margin-top:auto;width:100%;text-align:center}
+
+/* faq */
+details{border-bottom:1px solid var(--line);padding:12px 4px}
+details summary{cursor:pointer;font-weight:700;font-size:15px;list-style:none;display:flex;justify-content:space-between;align-items:center}
+details summary::after{content:"+";font-family:'DM Mono',monospace;color:var(--gold);font-size:18px}
+details[open] summary::after{content:"–"}
+details p{margin-top:8px;font-size:14.5px;line-height:1.6;color:rgba(20,33,27,.85);max-width:800px}
+
+/* footer */
+footer{
+  flex:0 0 auto;background:var(--forest);color:rgba(242,240,234,.6);
+  font-size:11.5px;padding:9px 28px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
+}
+footer a:hover{color:var(--gold-lt)}
+.foot-links{display:flex;gap:18px}
+
+/* responsive */
+@media (max-width:920px){
+  body{overflow:auto}
+  .hero{grid-template-columns:1fr}
+  .dossier{justify-self:start;max-width:100%}
+  .grid2,.grid3,.stats,.demo-wrap{grid-template-columns:1fr}
+  .stage{overflow:visible}
+  .panel{height:auto}
+  .report-frame{height:75vh}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important}
+}
+
+/* ===== DARK THEME — per FaujX color reference (cream logo on black) ===== */
+:root{--black:#0A0A08;--surface:#12160E;--card-d:#181D12;--txt:rgba(242,238,226,.85)}
+body{background:var(--black)}
+header{background:var(--black);color:var(--cream);border-bottom:2px solid var(--gold)}
+header .btn-ghost{border-color:rgba(242,238,226,.4);color:var(--cream)}
+header .btn-ghost:hover{border-color:var(--gold-lt);color:var(--gold-lt)}
+.brand .tag{color:var(--gold-lt);border-left:1px solid rgba(201,167,94,.5)}
+.hero{background:var(--black)}
+body.landing .stage{display:none}
+body.landing .hero{flex:1 1 auto;align-content:center;padding:40px 48px}
+body.landing .hero h1{font-size:clamp(26px,3vw,42px)}
+.stage{background:var(--black)}
+.panel{background:var(--surface);border-color:rgba(201,167,94,.6)}
+.panel h2{color:var(--cream)}
+.panel h2 em{color:var(--gold-lt)}
+.lede{color:var(--txt)}
+.card{background:var(--card-d);border-color:rgba(242,238,226,.14)}
+.card h3{color:var(--cream)}
+.card p,.card li{color:var(--txt)}
+.card li::before{color:var(--gold-lt)}
+.card.no li::before{color:#C96A5A}
+.fixline{border-top-color:rgba(242,238,226,.16)}
+.fixline b{color:#8FC79B}
+.tier .scope{color:#8FC79B}
+.tier p{color:var(--txt)}
+.stat{background:var(--card-d);border:1px solid rgba(201,167,94,.4)}
+.btn-outline{border-color:var(--gold-lt);color:var(--gold-lt)}
+.btn-outline:hover{background:var(--gold-lt);color:var(--black)}
+details{border-bottom-color:rgba(242,238,226,.16)}
+details summary{color:var(--cream)}
+details p{color:var(--txt)}
+#queries a[href^="mailto"]{color:var(--gold-lt)!important}
+#report .report-home p, #demo p{color:var(--txt)}
+.panel p[style*="rgba(20,33,27"]{color:var(--txt)!important}
+.viewer-bar .vtitle{color:var(--cream)}
+.viewer-bar .back,.viewer-bar .newtab{color:var(--gold-lt)}
+.report-frame{background:#fff}
+.tabbar{background:var(--black)}
+.tab{background:var(--surface);color:rgba(242,238,226,.88);border-color:rgba(201,167,94,.35)}
+.tab:hover{background:#1C2415;color:#fff}
+.tab.active{background:var(--gold);color:var(--black);border-color:var(--gold)}
+.tab.active::after{display:none}
+footer{background:var(--black);border-top:1px solid rgba(201,167,94,.3)}
+.console{border-color:rgba(201,167,94,.6)}
+.dossier .stamp{gap:12px}
+</style>
+</head>
+<body class="landing">
+
+<header>
+  <div class="brand">
+    <span class="logo-plate"><img src="data:image/png;base64,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" alt="FaujX"></span>
+    <div class="tag">The Un-Interview</div>
+  </div>
+  <div class="head-cta">
+    <a class="btn btn-ghost" href="#" data-jump="demo">Book a 20-min demo</a>
+    <a class="btn btn-gold" href="https://evaluate.faujx.com" target="_blank" rel="noopener">Get a Capability Snapshot →</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div>
+    <h1>Most companies hire by guessing.<br>We replaced the guessing with <em>infrastructure</em>.</h1>
+    <p>FHOS is the capability-validation layer above your ATS — role-calibrated evidence of what a candidate can actually do, before any interview time is committed. Every function, every level. Humans decide, every time.</p>
+    <div class="cta-row">
+      <a class="btn btn-gold" href="https://evaluate.faujx.com" target="_blank" rel="noopener">Try it — upload a role &amp; resume</a>
+      <a class="btn btn-ghost" href="#" data-jump="report">See sample reports</a>
+    </div>
+  </div>
+  <aside class="dossier" aria-label="Sample capability dossiers, rotating">
+    <div class="stamp"><span>Intelligence Dossier</span><span>Sample · Synthetic</span></div>
+    <div class="dossier-body" id="dossierBody">
+      <div class="row"><span>Candidate</span><b id="dName">Priya Sharma</b></div>
+      <div class="row"><span>Role</span><b id="dRole">VP of Sales · Enterprise SaaS</b></div>
+      <div class="row"><span>Capabilities verified</span><b id="dCaps">18 / 19</b></div>
+      <div class="row"><span>Resume &amp; history</span><span class="bar"><i id="b1" style="width:95%"></i></span></div>
+      <div class="row"><span>Scenario assessment</span><span class="bar"><i id="b2" style="width:92%"></i></span></div>
+      <div class="row"><span>Capability assessment</span><span class="bar"><i id="b3" style="width:94%"></i></span></div>
+      <div class="verdict"><span style="font-size:12px">Expert-reviewed recommendation</span><span class="pill" id="dPill">STRONG HIRE</span></div>
+    </div>
+    <div class="dossier-dots" id="dossierDots" aria-hidden="true"></div>
+  </aside>
+</section>
+
+<div class="eval-strip">
+  <span class="k">New · Self-Service</span>
+  <span><b>evaluate.faujx.com</b> — upload a role &amp; resume, get a Capability Snapshot. No demo required.</span>
+  <a class="go" href="https://evaluate.faujx.com" target="_blank" rel="noopener">Start free →</a>
+</div>
+
+
+<main class="stage">
+
+  <!-- WHAT IS FAUJX -->
+  <section class="panel" id="what" role="tabpanel">
+    <div class="eyebrow">01 · What FaujX FHOS Is</div>
+    <h2>A hiring operating system — not <em>another tool</em> to add to the pile.</h2>
+    <p class="lede">Resumes describe. Interviews approximate. FHOS measures — every candidate scored against the same role-calibrated benchmark, the same way, every time, with a full audit trail. AI provides scale and consistency; human experts provide judgment. The system informs — humans decide.</p>
+    <div class="grid2">
+      <div class="card">
+        <h3>What FHOS is</h3>
+        <ul>
+          <li>A capability-validation layer above your existing ATS — Workday, Greenhouse, Lever</li>
+          <li>Role-calibrated benchmarks — no keyword matching anywhere in the pipeline</li>
+          <li>Human-in-the-loop by design: zero automated rejections</li>
+          <li>Every function, every level — campus fresher to CXO</li>
+        </ul>
+      </div>
+      <div class="card no">
+        <h3>What FHOS is not</h3>
+        <ul>
+          <li>An ATS replacement — it integrates with your stack</li>
+          <li>An automated rejection engine — humans decide</li>
+          <li>A talent marketplace or staffing agency</li>
+          <li>Generic AI screening — every benchmark is yours</li>
+        </ul>
+      </div>
+    </div>
+    <p style="margin-top:16px;font-size:14.5px"><a href="#" data-jump="process" style="color:var(--gold-lt);font-weight:700">See the six-stage pipeline → The FaujX Process</a></p>
+  </section>
+
+
+  <!-- THE FAUJX PROCESS -->
+  <section class="panel" id="process" role="tabpanel">
+    <div class="eyebrow">02 · The FaujX Process</div>
+    <h2>The Capability Intelligence <em>Pipeline</em>.</h2>
+    <p class="lede">Six stages. One pipeline. Every stage optional, every benchmark calibrated to your role — and a full evidence trail from raw resume to final recommendation.</p>
+    <div class="proc" aria-label="The FaujX six-stage process">
+      <div class="proc-row">
+        <div class="pstep">
+          <div class="pnode">01</div>
+          <h4>Ingestion &amp; Normalization</h4>
+          <p>Raw ATS data transformed into clean, structured candidate profiles.</p>
+        </div>
+        <div class="pstep">
+          <div class="pnode">02</div>
+          <h4>Capability Intelligence</h4>
+          <p>Match scoring and gap analysis against the role benchmark.</p>
+        </div>
+        <div class="pstep">
+          <div class="pnode">03</div>
+          <h4>Adaptive Screening</h4>
+          <p>Dynamic MCQs and containerized code execution, calibrated in real time.</p>
+        </div>
+        <div class="pstep">
+          <div class="pnode">04</div>
+          <h4>Structured Capability Assessment</h4>
+          <p>Asynchronous, role-aligned reasoning extraction with full transcript.</p>
+        </div>
+        <div class="pstep">
+          <div class="pnode">05</div>
+          <h4>Decision-Ready Report</h4>
+          <p>A single consolidated evidence dossier for your hiring manager.</p>
+        </div>
+        <div class="pstep client">
+          <div class="pnode">06</div>
+          <h4>Hiring Team Interview</h4>
+          <p>Your team interviews the decision-ready shortlist — the human interview stays yours.</p>
+          <span class="ptag">Post-handover · Yours</span>
+        </div>
+      </div>
+      <div class="proc-pillars">
+        <span>Calibrated</span><span>Auditable</span><span>Defensible</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- GLOBAL PAINPOINTS -->
+  <section class="panel" id="pain" role="tabpanel">
+    <div class="eyebrow">03 · Why We Built It</div>
+    <h2>Hiring isn't broken because the tools are bad. It's broken because the system has <em>no signal</em>.</h2>
+    <p class="lede">Your ATS tracks applicants. Your recruiters match keywords. Your team runs interview loops. None of it measures whether the candidate can actually do the job. That gap — visible in every geography, every function, every level — is where mis-hires get born.</p>
+    <div class="stats">
+      <div class="stat"><div class="n">30%+</div><div class="l">of annual salary — the minimum cost of one wrong hire (US Dept of Labor)</div></div>
+      <div class="stat"><div class="n">10+ hrs</div><div class="l">per week hiring teams spend on interviews alone</div></div>
+      <div class="stat"><div class="n">60–90 days</div><div class="l">average time-to-fill for key open roles</div></div>
+      <div class="stat"><div class="n">~10 : 1</div><div class="l">interviews-per-hire ratio at most mid-market companies</div></div>
+    </div>
+    <div class="grid3">
+      <div class="card">
+        <h3>A · Time destruction</h3>
+        <p>Internal hours burned on candidates who never had a realistic shot. Shortlists keyword-matched, not capability-matched. Interview coordination eating 30–40% of hiring-team calendars.</p>
+        <p class="fixline"><b>FHOS fix:</b> eliminate unqualified candidates before any internal time is invested.</p>
+      </div>
+      <div class="card">
+        <h3>B · No signal</h3>
+        <p>What "ready to hire" means depends on who's interviewing that week. No structured framework, no pre-interview signal, no post-hire data. That isn't a bar — that's variance.</p>
+        <p class="fixline"><b>FHOS fix:</b> structured, comparable, multi-dimensional capability signal.</p>
+      </div>
+      <div class="card">
+        <h3>C · Cost of getting it wrong</h3>
+        <p>Mis-hires surface 4–6 months in, after the cost is burned. No audit trail means legal exposure on every hire. Recruiter fees of 20–25% arrive with no validation included.</p>
+        <p class="fixline"><b>FHOS fix:</b> pre-interview validation that dramatically reduces the probability of a wrong hire.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SAMPLE REPORT -->
+  <section class="panel" id="report" role="tabpanel">
+    <div class="report-home">
+      <div class="eyebrow">04 · The Output</div>
+      <h2>Hiring managers don't need another demo. They need the <em>dossier</em>.</h2>
+      <p class="lede">Every candidate exits the pipeline as a single decision-ready report: capability scores against your bar, stage-by-stage evidence trace, full transcript, and an expert-reviewed recommendation. All sample reports below use clearly labeled synthetic candidates against real role specs.</p>
+      <div class="grid2">
+        <div class="card">
+          <h3>Inside every report</h3>
+          <ul>
+            <li>Capability scores against the role benchmark — not against the rest of the slate</li>
+            <li>Stage trace: what was tested, how it was scored, who reviewed it</li>
+            <li>The stage-reversal view — where resume-layer rankings invert under capability evaluation</li>
+            <li>Tamper-evident audit trail your CHRO and your lawyers will both love</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>View a sample report</h3>
+          <p style="margin-bottom:12px">Pick a role family. Each opens right here on the page.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <!-- Relative links: keep these four report files in the same directory as this page. -->
+            <a class="btn btn-outline report-link" href="FaujX_Sample_Report_Full_Stack_Engineer.html" data-title="Full-Stack Engineer — Maya Okonkwo">Full-Stack Engineer — Maya Okonkwo</a>
+            <a class="btn btn-outline report-link" href="FaujX_Sample_Report_AI_ML_Engineer.html" data-title="AI/ML Engineer — Dev Raman">AI/ML Engineer — Dev Raman</a>
+            <a class="btn btn-outline report-link" href="FaujX_Sample_Report_Data_Engineer.html" data-title="Data Engineer — Lena Fischer">Data Engineer — Lena Fischer</a>
+            <a class="btn btn-outline report-link" href="FaujX_Sample_Report_Product_Manager.html" data-title="Product Manager — Carlos Mendes">Product Manager — Carlos Mendes</a>
+          </div>
+          <p style="margin-top:10px;font-size:11.5px;color:rgba(20,33,27,.55)" class="mono">All reports use clearly labeled synthetic candidates.</p>
+          <p style="margin-top:14px;font-size:12.5px;color:rgba(20,33,27,.65)">Want one built against <b>your</b> role spec? <a href="mailto:varun@faujx.com" style="color:var(--green);font-weight:700">Request a bespoke report →</a></p>
+        </div>
+      </div>
+    </div>
+    <div class="report-viewer">
+      <div class="viewer-bar">
+        <button class="back" id="viewerBack" type="button">← All sample reports</button>
+        <span class="vtitle" id="viewerTitle"></span>
+        <a class="newtab" id="viewerNewTab" href="#" target="_blank" rel="noopener">Open in new tab ↗</a>
+      </div>
+      <div class="report-frame"><iframe id="viewerFrame" title="Sample capability report"></iframe></div>
+    </div>
+  </section>
+
+  <!-- DEMO -->
+  <section class="panel" id="demo" role="tabpanel">
+    <div class="eyebrow">05 · Walkthrough</div>
+    <h2>A short walkthrough of <em>FaujX</em> — see the pipeline run.</h2>
+    <div class="demo-wrap">
+      <div>
+        <div class="video-frame">
+          <iframe src="FaujX_Walkthrough_What_is_FaujX-3.html" title="FaujX Walkthrough — What is FaujX" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <p style="margin-top:10px;font-size:13px;color:rgba(242,238,226,.7)">A short walkthrough of what FaujX is and how the pipeline runs, end to end.</p>
+      </div>
+      <div class="card">
+        <h3>Prefer it live — on your role?</h3>
+        <p>A 20-minute session configured around your actual role spec, your benchmark, your candidate profile. Not a generic demo. If the output would change how your team decides, we talk about a pilot. If it wouldn't, you walk away with data.</p>
+        <a class="btn btn-forest" style="margin-top:14px;display:inline-block" href="mailto:varun@faujx.com?subject=FHOS%2020-min%20demo">Book a 20-min demo →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PILOT -->
+  <section class="panel" id="pilot" role="tabpanel">
+    <div class="eyebrow">06 · Run a Pilot</div>
+    <h2>Start with a single role. Prove it in <em>your</em> pipeline.</h2>
+    <p class="lede">We calibrate the benchmark with your team, run your candidates through the full pipeline, and deliver decision-ready dossiers. Every pilot is paid; pilot credit applies toward an enterprise contract. Pricing scales with scope and sits under VP-discretionary budget.</p>
+    <div class="grid3">
+      <div class="card tier">
+        <h3>Micro Pilot</h3>
+        <div class="scope">1 role · 3 candidates · full reports</div>
+        <p>Smallest commitment. Three decision-ready dossiers on real candidates, so you can compare FHOS output to your current process side by side.</p>
+        <a class="btn btn-outline" href="mailto:varun@faujx.com?subject=Micro%20Pilot%20pricing">Get pilot pricing →</a>
+      </div>
+      <div class="card tier">
+        <span class="flag">Most common</span>
+        <h3>Standard Pilot</h3>
+        <div class="scope">2 roles · 30 candidates · pipeline + analytics</div>
+        <p>Calibrate FHOS to your actual roles, run meaningful volume, and see the stage-reversal pattern in your own pipeline.</p>
+        <a class="btn btn-forest" href="mailto:varun@faujx.com?subject=Standard%20Pilot%20pricing">Get pilot pricing →</a>
+      </div>
+      <div class="card tier">
+        <h3>Enterprise Pilot</h3>
+        <div class="scope">3 roles · 50 candidates · full analytics report</div>
+        <p>Pre-deployment proof. Multiple roles, hiring-intelligence dashboard, and structured benchmarking designed to bridge into an enterprise license.</p>
+        <a class="btn btn-outline" href="mailto:varun@faujx.com?subject=Enterprise%20Pilot%20pricing">Get pilot pricing →</a>
+      </div>
+    </div>
+    <p style="margin-top:16px;font-size:13px"><b>A pilot costs less than half a recruiter fee</b> — and pays for itself with one prevented mis-hire.</p>
+  </section>
+
+  <!-- QUERIES -->
+  <section class="panel" id="queries" role="tabpanel">
+    <div class="eyebrow">07 · Queries</div>
+    <h2>The questions every hiring leader asks <em>first</em>.</h2>
+    <details open>
+      <summary>Does FHOS replace my ATS?</summary>
+      <p>No. FHOS sits above or alongside Workday, Greenhouse, Lever, or a custom HRMS via REST APIs, webhooks, and batch sync. Your workflows stay intact — FHOS adds the capability signal they're missing.</p>
+    </details>
+    <details>
+      <summary>Who makes the final decision — AI or humans?</summary>
+      <p>Humans, always. Zero automated rejections. Every shortlist passes through a domain-expert reviewer with full override authority and an audit trail. The system informs; your team decides.</p>
+    </details>
+    <details>
+      <summary>Which roles and levels does it cover?</summary>
+      <p>Engineering, Sales &amp; GTM, Product, Operations, and People — from campus and fresher hiring through Director, VP, and CXO. The architecture is the same; the benchmark is calibrated to each role and level. Our deepest case-study proof to date is in engineering.</p>
+    </details>
+    <details>
+      <summary>How is our data handled?</summary>
+      <p>Three deployment models: white-label SaaS with encrypted tenant separation (live in days), dedicated cloud instance with configurable data residency (1–2 weeks), or fully sovereign enterprise VPC where data never leaves your infrastructure (2–4 weeks). EEO, GDPR, and ADA compliance included; SOC 2 configurable.</p>
+    </details>
+    <details>
+      <summary>What does a pilot cost?</summary>
+      <p>Pilot pricing scales with scope — role count and candidate volume — and is structured to sit under VP-discretionary spend, no procurement committee required. Every pilot is paid; pilot credit applies toward an enterprise contract. Email us for the breakdown in your market currency.</p>
+    </details>
+    <details>
+      <summary>Can I try it before talking to anyone?</summary>
+      <p>Yes. Upload a job role and a resume at <a href="https://evaluate.faujx.com" style="color:var(--green);font-weight:700">evaluate.faujx.com</a> and get a capability snapshot — no demo, no call required.</p>
+    </details>
+    <p style="margin-top:16px;font-size:14.5px">Anything else? <a href="mailto:support@faujx.com" style="color:var(--gold-lt);font-weight:700">support@faujx.com</a></p>
+  </section>
+
+</main>
+
+<nav class="tabbar" role="tablist" aria-label="Site sections">
+  <button class="tab" role="tab" data-panel="what" aria-selected="false">What is FaujX</button>
+  <button class="tab" role="tab" data-panel="process" aria-selected="false">The FaujX Process</button>
+  <button class="tab" role="tab" data-panel="pain" aria-selected="false">Global Painpoints</button>
+  <button class="tab" role="tab" data-panel="report" aria-selected="false">Sample Report</button>
+  <button class="tab" role="tab" data-panel="demo" aria-selected="false">Walkthrough</button>
+  <button class="tab" role="tab" data-panel="pilot" aria-selected="false">Pilot</button>
+  <button class="tab" role="tab" data-panel="queries" aria-selected="false">Queries</button>
+</nav>
+
+<footer>
+  <span>© 2026 FaujX, part of Arber Inc, US (Trademark Serial No. 99599382). All rights reserved.</span>
+  <span class="foot-links">
+    <a href="#">Terms of Service</a>
+    <a href="#">Privacy Policy</a>
+    <a href="#" data-jump="what">Product</a>
+    <a href="#" data-jump="queries">Contact</a>
+  </span>
+</footer>
+
+<script>
+const tabs=document.querySelectorAll('.tab');
+const panels=document.querySelectorAll('.panel');
+function activate(id){
+  tabs.forEach(t=>{const on=t.dataset.panel===id;t.classList.toggle('active',on);t.setAttribute('aria-selected',on)});
+  panels.forEach(p=>{p.classList.toggle('active',p.id===id);p.scrollTop=0;});
+  /* opening any tab leaves the landing view and gives the panel the full page */
+  document.body.classList.remove('landing');
+  document.body.classList.add('compact');
+  window.scrollTo(0,0);
+}
+function goLanding(){
+  document.body.classList.add('landing');
+  document.body.classList.remove('compact');
+  tabs.forEach(t=>{t.classList.remove('active');t.setAttribute('aria-selected','false')});
+  panels.forEach(p=>p.classList.remove('active'));
+  window.scrollTo(0,0);
+}
+tabs.forEach(t=>t.addEventListener('click',()=>activate(t.dataset.panel)));
+document.querySelectorAll('[data-jump]').forEach(el=>{
+  el.addEventListener('click',e=>{e.preventDefault();activate(el.dataset.jump);});
+});
+/* clicking the brand restores the landing view */
+document.querySelector('.brand').style.cursor='pointer';
+document.querySelector('.brand').addEventListener('click',goLanding);
+
+/* ===== Embedded sample-report viewer ===== */
+const reportPanel=document.getElementById('report');
+const viewerFrame=document.getElementById('viewerFrame');
+const viewerTitle=document.getElementById('viewerTitle');
+const viewerNewTab=document.getElementById('viewerNewTab');
+document.querySelectorAll('.report-link').forEach(a=>{
+  a.addEventListener('click',e=>{
+    e.preventDefault();
+    viewerFrame.src=a.getAttribute('href');
+    viewerTitle.textContent=a.dataset.title;
+    viewerNewTab.href=a.getAttribute('href');
+    reportPanel.classList.add('viewing');
+  });
+});
+document.getElementById('viewerBack').addEventListener('click',()=>{
+  reportPanel.classList.remove('viewing');
+  viewerFrame.src='';
+});
+
+/* ===== Rotating synthetic dossiers — every function, every level ===== */
+const candidates=[
+  {name:"Priya Sharma",role:"VP of Sales · Enterprise SaaS",caps:"18 / 19",b:[95,92,94],pill:"STRONG HIRE"},
+  {name:"Marcus Whitfield",role:"Staff Engineer · Fintech",caps:"20 / 21",b:[88,96,93],pill:"STRONG HIRE"},
+  {name:"Elena Volkova",role:"Senior ML Engineer · AI/ML",caps:"19 / 21",b:[82,91,89],pill:"HIRE"},
+  {name:"Oliver Hartley",role:"Director of Product · HealthTech",caps:"17 / 18",b:[93,88,92],pill:"STRONG HIRE"}
+];
+const body=document.getElementById('dossierBody');
+const dotsWrap=document.getElementById('dossierDots');
+const el={name:dName,role:dRole,caps:dCaps,pill:dPill,bars:[b1,b2,b3]};
+let idx=0,timer=null;
+const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+candidates.forEach((_,i)=>{
+  const d=document.createElement('button');
+  d.type='button';
+  if(i===0)d.classList.add('on');
+  d.addEventListener('click',()=>{show(i);restart();});
+  dotsWrap.appendChild(d);
+});
+const dots=dotsWrap.querySelectorAll('button');
+
+function render(c){
+  el.name.textContent=c.name;
+  el.role.textContent=c.role;
+  el.caps.textContent=c.caps;
+  el.pill.textContent=c.pill;
+  el.bars.forEach((bar,i)=>{bar.style.width='0%';requestAnimationFrame(()=>requestAnimationFrame(()=>bar.style.width=c.b[i]+'%'));});
+}
+function show(i){
+  idx=i;
+  dots.forEach((d,k)=>d.classList.toggle('on',k===i));
+  if(reduced){render(candidates[i]);return;}
+  body.classList.add('fading');
+  setTimeout(()=>{render(candidates[i]);body.classList.remove('fading');},350);
+}
+function restart(){
+  if(reduced)return;
+  clearInterval(timer);
+  timer=setInterval(()=>show((idx+1)%candidates.length),4500);
+}
+restart();
+
+</script>
+</body>
+</html>
