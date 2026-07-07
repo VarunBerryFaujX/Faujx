@@ -1,0 +1,248 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FaujX Capability Report — Staff Data Engineer, Analytics Data Engineering</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#16211B; --muted:#5C6B62; --line:#E3E9E4; --bg:#F2F0EA;
+  --forest:#1B5E3C; --forest-d:#0E2018; --green:#2E7D57; --gold:#B89346; --gold-l:#C9A75E;
+  --card:#FFFFFF;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);
+  font-family:'DM Sans',-apple-system,sans-serif;line-height:1.5;
+  -webkit-font-smoothing:antialiased;padding:32px 16px;}
+.page{max-width:920px;margin:0 auto;}
+.report{background:var(--card);border-radius:24px;overflow:hidden;
+  box-shadow:0 12px 40px rgba(14,32,24,.10);border:1px solid var(--line);}
+/* header */
+.hd{background:linear-gradient(135deg,#0E2018 0%,#134029 45%,#1B5E3C 100%);
+  color:#fff;padding:38px 44px 34px;position:relative;}
+.hd .brandline{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--gold-l);margin-bottom:18px;}
+.hd h1{font-family:'Playfair Display',serif;font-size:30px;font-weight:600;letter-spacing:-.01em;max-width:640px;}
+.hd .role{opacity:.9;font-size:14px;margin-top:8px;font-family:'DM Mono',monospace;letter-spacing:.02em;}
+.hd .ctx{opacity:.82;font-size:13.5px;margin-top:14px;max-width:600px;line-height:1.55;}
+.sample-tag{position:absolute;top:16px;right:18px;font-family:'DM Mono',monospace;
+  font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;background:rgba(184,147,70,.28);
+  border:1px solid rgba(201,167,94,.5);padding:5px 10px;border-radius:6px;}
+/* body */
+.body{padding:34px 44px 12px;}
+.sec{margin-bottom:36px;}
+.sec h2{font-family:'Playfair Display',serif;font-size:23px;font-weight:600;letter-spacing:-.01em;}
+.sec .sub{color:var(--muted);font-size:13.5px;margin-top:3px;margin-bottom:20px;max-width:660px;}
+/* the staff bar */
+.barnote{background:#F4FAF6;border:1px solid #DCEFE3;border-left:3px solid var(--forest);
+  border-radius:12px;padding:16px 20px;font-size:13.5px;color:#274A38;line-height:1.6;}
+.caps{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:18px;}
+.capchip{background:#FAF9F5;border:1px solid var(--line);border-radius:11px;padding:11px 14px;
+  font-size:13px;font-weight:500;display:flex;align-items:flex-start;gap:9px;}
+.capchip .dot{width:7px;height:7px;border-radius:50%;background:var(--gold);flex:none;margin-top:6px;}
+.capchip.diff .dot{background:var(--forest);}
+.capchip small{display:block;color:var(--muted);font-weight:400;font-size:11.5px;margin-top:2px;}
+/* candidate compare */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.cc{border:1px solid var(--line);border-radius:18px;overflow:hidden;}
+.cc .cchd{padding:20px 22px 18px;color:#fff;}
+.cc.ready .cchd{background:linear-gradient(125deg,#16523A,#1B5E3C 72%,#2E7D57);}
+.cc.below .cchd{background:linear-gradient(125deg,#7A5310,#A9740F 72%,#C28A1E);}
+.cc .who{display:flex;align-items:center;gap:12px;}
+.cc .av{width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.18);
+  border:1.5px solid rgba(255,255,255,.5);display:flex;align-items:center;justify-content:center;
+  font-family:'Playfair Display',serif;font-size:19px;font-weight:600;flex:none;}
+.cc .who .nm{font-family:'Playfair Display',serif;font-size:19px;font-weight:600;line-height:1.1;}
+.cc .who .syn{font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;opacity:.82;margin-top:3px;}
+.cc .ov{display:flex;align-items:baseline;gap:10px;margin-top:16px;}
+.cc .ov .n{font-family:'Playfair Display',serif;font-size:38px;font-weight:700;line-height:1;}
+.cc .ov .vl{font-size:11px;letter-spacing:.12em;text-transform:uppercase;opacity:.85;}
+.cc .verd{padding:14px 22px;font-size:13.5px;font-weight:600;border-bottom:1px solid var(--line);}
+.cc.ready .verd{background:#E8F7EE;color:#15803D;}
+.cc.below .verd{background:#FEF5E1;color:#B45309;}
+.cc .ccbody{padding:16px 22px 20px;}
+.cc .line{display:flex;justify-content:space-between;align-items:baseline;font-size:12.5px;padding:5px 0;border-bottom:1px dashed var(--line);}
+.cc .line:last-child{border-bottom:none;}
+.cc .line .k{color:var(--muted);}
+.cc .line .v{font-family:'DM Mono',monospace;font-weight:600;}
+.cc .v.hi{color:var(--forest);}.cc .v.mid{color:#B45309;}.cc .v.lo{color:#B91C1C;}
+/* capability bars */
+.capblock{margin-top:8px;}
+.capblock .cbname{font-family:'Playfair Display',serif;font-size:16px;font-weight:600;margin:20px 0 4px;}
+.capblock .cbsyn{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
+.cap{margin-bottom:12px;}
+.cap .top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:5px;}
+.cap .cname{font-size:13.5px;font-weight:500;}
+.cap .cname .tag{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--forest);background:#EAF5EE;border-radius:4px;padding:2px 6px;margin-left:8px;vertical-align:middle;}
+.cap .cscore{font-family:'DM Mono',monospace;font-size:13px;font-weight:600;}
+.track{height:9px;background:#EDF1EC;border-radius:6px;overflow:hidden;}
+.fill{height:100%;border-radius:6px;}
+.avgband{display:inline-flex;align-items:baseline;gap:8px;background:#F4FAF6;
+  border:1px solid #DCEFE3;border-radius:12px;padding:9px 16px;margin-bottom:16px;}
+.avgband .b{font-family:'Playfair Display',serif;font-size:23px;font-weight:700;color:var(--forest);}
+.avgband .l{font-size:12px;color:var(--muted);letter-spacing:.03em;}
+/* interview structure */
+.istep{display:flex;gap:16px;border:1px solid var(--line);border-radius:14px;
+  padding:15px 18px;margin-bottom:11px;align-items:flex-start;}
+.istep .time{flex:none;width:60px;font-weight:700;font-size:14px;color:var(--forest);border-right:1px solid var(--line);padding-right:14px;}
+.istep .it h4{font-size:14px;font-weight:600;margin-bottom:3px;}
+.istep .it p{font-size:12.5px;color:var(--muted);}
+/* recommendation */
+.rec{border-radius:18px;padding:22px 28px;color:#fff;margin-top:8px;}
+.rec.strong{background:linear-gradient(120deg,#16523A,#1B5E3C 70%,#2E7D57);}
+.rec .verdict{font-family:'Playfair Display',serif;font-size:20px;font-weight:600;margin-bottom:8px;}
+.rec p{font-size:13.5px;opacity:.95;line-height:1.6;}
+.rec .split{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:6px;}
+.rec .split h5{font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-l);margin-bottom:7px;}
+.rec .split p{font-size:12.5px;}
+/* disclaimer strip */
+.disc{background:#FAF9F5;border:1px solid var(--line);border-radius:12px;padding:14px 18px;
+  font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:8px;}
+.disc b{color:var(--ink);font-weight:600;}
+/* footer */
+.foot{padding:20px 44px 30px;display:flex;justify-content:space-between;align-items:center;
+  border-top:1px solid var(--line);margin-top:6px;flex-wrap:wrap;gap:8px;}
+.foot .fl{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.04em;}
+.foot .fr{font-size:11px;color:#A7B0A9;}
+@media print{body{background:#fff;padding:0;}.report{box-shadow:none;border:none;border-radius:0;}}
+@media(max-width:720px){.caps,.compare,.rec .split{grid-template-columns:1fr}}
+</style></head><body><div class="page"><div class="report">
+
+<div class="hd">
+  <div class="sample-tag">Illustrative · synthetic candidates</div>
+  <div class="brandline">FaujX · Capability Validation Report</div>
+  <h1>Staff Data Engineer, Analytics Data Engineering</h1>
+  <div class="role">Capability read against the role's posted Staff-level responsibilities</div>
+  <div class="ctx">Two candidates, measured against the same bar. The point of this report is the distinction between them — one is Staff-ready; one is a strong Senior IC who would likely present well in a hands-on first round but sits below the Staff bar on the capabilities this role is actually defined by.</div>
+</div>
+
+<div class="body">
+
+<div class="sec">
+  <h2>The Staff bar for this role</h2>
+  <div class="sub">Derived from the posted responsibilities, not a generic data-engineer template. Gold markers are execution capabilities a strong Senior IC will usually clear. Green markers are the Staff-defining capabilities — architecture, standardization, and cross-team influence — where the loop is most often spent, and most often wasted.</div>
+  <div class="barnote">At Staff level for an Analytics Data Engineering role, "can they build reliable pipelines" is table stakes. The role is defined by whether they can architect a shared semantic layer as a single source of truth, drive modeling and CI/CD standards <b>across</b> teams, design shift-left governance (data contracts, SLOs, code-enforced quality gates), and translate ambiguous metric definitions into certified pipelines that executives trust. That is what separates a Staff hire from an excellent Senior one — and it is exactly what a coding-heavy first round tends not to surface.</div>
+  <div class="caps">
+    <div class="capchip diff"><span class="dot"></span><div>Dimensional modeling &amp; semantic / metrics layer<small>Fact tables, conformed dimensions, single source of truth</small></div></div>
+    <div class="capchip diff"><span class="dot"></span><div>Cross-team modeling &amp; CI/CD standardization<small>Pipeline patterns, naming, standards across ADE + functional teams</small></div></div>
+    <div class="capchip diff"><span class="dot"></span><div>Shift-left data governance<small>Data contracts, SLOs, code-enforced quality gates</small></div></div>
+    <div class="capchip diff"><span class="dot"></span><div>Metric certification &amp; stakeholder translation<small>Certified pipelines for exec dashboards, WBR, growth measurement</small></div></div>
+    <div class="capchip diff"><span class="dot"></span><div>Cross-team technical influence<small>Driving adoption of standards beyond one's own team</small></div></div>
+    <div class="capchip"><span class="dot"></span><div>Orchestration &amp; pipeline architecture<small>Decomposition, modernization, secure dev/test environments</small></div></div>
+    <div class="capchip"><span class="dot"></span><div>Observability, reliability &amp; on-call design<small>Granularity, failure recovery, runbooks, sustainable alerting</small></div></div>
+    <div class="capchip"><span class="dot"></span><div>AI-native tooling integration<small>Conversational exploration with guardrails, AI-assisted pipeline dev</small></div></div>
+  </div>
+</div>
+
+<div class="sec">
+  <h2>Two candidates, one bar</h2>
+  <div class="sub">Same role, same rubric. The overall scores are close enough that a resume screen would advance both — and far enough apart on the Staff-defining capabilities that only one is worth a full loop right now.</div>
+  <div class="compare">
+
+    <div class="cc ready">
+      <div class="cchd">
+        <div class="who">
+          <div class="av">PR</div>
+          <div><div class="nm">Priya Raghavan</div><div class="syn">Synthetic candidate A</div></div>
+        </div>
+        <div class="ov"><span class="n">8.7</span><span class="vl">Staff capability index</span></div>
+      </div>
+      <div class="verd">Staff-ready — advance to final loop</div>
+      <div class="ccbody">
+        <div class="line"><span class="k">Semantic layer architecture</span><span class="v hi">9 / 10</span></div>
+        <div class="line"><span class="k">Cross-team standardization</span><span class="v hi">9 / 10</span></div>
+        <div class="line"><span class="k">Shift-left governance design</span><span class="v hi">9 / 10</span></div>
+        <div class="line"><span class="k">Metric certification judgment</span><span class="v hi">8 / 10</span></div>
+        <div class="line"><span class="k">Cross-team influence</span><span class="v hi">9 / 10</span></div>
+        <div class="line"><span class="k">Hands-on orchestration</span><span class="v hi">8 / 10</span></div>
+      </div>
+    </div>
+
+    <div class="cc below">
+      <div class="cchd">
+        <div class="who">
+          <div class="av">MF</div>
+          <div><div class="nm">Marcus Feld</div><div class="syn">Synthetic candidate B</div></div>
+        </div>
+        <div class="ov"><span class="n">6.4</span><span class="vl">Staff capability index</span></div>
+      </div>
+      <div class="verd">Below Staff bar — strong Senior IC, not yet Staff</div>
+      <div class="ccbody">
+        <div class="line"><span class="k">Semantic layer architecture</span><span class="v mid">6 / 10</span></div>
+        <div class="line"><span class="k">Cross-team standardization</span><span class="v lo">5 / 10</span></div>
+        <div class="line"><span class="k">Shift-left governance design</span><span class="v lo">5 / 10</span></div>
+        <div class="line"><span class="k">Metric certification judgment</span><span class="v lo">5 / 10</span></div>
+        <div class="line"><span class="k">Cross-team influence</span><span class="v lo">4 / 10</span></div>
+        <div class="line"><span class="k">Hands-on orchestration</span><span class="v hi">9 / 10</span></div>
+      </div>
+    </div>
+
+  </div>
+  <div class="barnote" style="margin-top:16px">The trap is Marcus. On a coding-heavy screen he outscores Priya on hands-on orchestration (9 vs 8) and would likely present as the stronger engineer in the room. But this role is not defined by orchestration — it is defined by the five green capabilities above, and on those he is a full tier below. Advancing him to a full Staff loop is where the interview time gets spent and the offer doesn't get made. This is the read that arrives <b>before</b> the loop, not after it.</div>
+</div>
+
+<div class="sec">
+  <h2>Validated capability profile — Candidate A</h2>
+  <div class="sub">Evidence-backed across screening, a modeling / SQL sandbox, and a structured capability assessment, reviewed by a human expert. Scores are illustrative outputs for a synthetic candidate.</div>
+  <div class="avgband"><span class="b">8.7 / 10</span><span class="l">average validated Staff capability</span></div>
+
+  <div class="capblock">
+    <div class="cap"><div class="top"><span class="cname">Dimensional Modeling &amp; Semantic Layer <span class="tag">Staff-defining</span></span><span class="cscore">9/10</span></div><div class="track"><div class="fill" style="width:90%;background:#1B5E3C"></div></div></div>
+    <div class="cap"><div class="top"><span class="cname">Cross-Team Modeling &amp; CI/CD Standardization <span class="tag">Staff-defining</span></span><span class="cscore">9/10</span></div><div class="track"><div class="fill" style="width:90%;background:#1B5E3C"></div></div></div>
+    <div class="cap"><div class="top"><span class="cname">Shift-Left Governance (Contracts, SLOs, Quality Gates) <span class="tag">Staff-defining</span></span><span class="cscore">9/10</span></div><div class="track"><div class="fill" style="width:90%;background:#1B5E3C"></div></div></div>
+    <div class="cap"><div class="top"><span class="cname">Cross-Team Technical Influence <span class="tag">Staff-defining</span></span><span class="cscore">9/10</span></div><div class="track"><div class="fill" style="width:90%;background:#1B5E3C"></div></div></div>
+    <div class="cap"><div class="top"><span class="cname">Metric Certification &amp; Stakeholder Translation <span class="tag">Staff-defining</span></span><span class="cscore">8/10</span></div><div class="track"><div class="fill" style="width:80%;background:#2E7D57"></div></div></div>
+    <div class="cap"><div class="top"><span class="cname">Orchestration &amp; Pipeline Architecture</span><span class="cscore">8/10</span></div><div class="track"><div class="fill" style="width:80%;background:#2E7D57"></div></div></div>
+    <div class="cap"><div class="top"><span class="cname">Observability, Reliability &amp; On-Call Design</span><span class="cscore">8/10</span></div><div class="track"><div class="fill" style="width:80%;background:#2E7D57"></div></div></div>
+    <div class="cap"><div class="top"><span class="cname">CI/CD &amp; Engineering-Practice Leadership</span><span class="cscore">9/10</span></div><div class="track"><div class="fill" style="width:90%;background:#1B5E3C"></div></div></div>
+    <div class="cap"><div class="top"><span class="cname">AI-Native Tooling Integration</span><span class="cscore">7/10</span></div><div class="track"><div class="fill" style="width:70%;background:#84A63C"></div></div></div>
+    <div class="cap"><div class="top"><span class="cname">Communication &amp; Documentation</span><span class="cscore">9/10</span></div><div class="track"><div class="fill" style="width:90%;background:#1B5E3C"></div></div></div>
+  </div>
+</div>
+
+<div class="sec">
+  <h2>Validated capability profile — Candidate B</h2>
+  <div class="sub">The same rubric, showing where a strong Senior IC diverges from the Staff bar. Execution is genuinely high; the Staff-defining capabilities are a tier below. Scores are illustrative outputs for a synthetic candidate.</div>
+  <div class="avgband"><span class="b">6.4 / 10</span><span class="l">average validated Staff capability</span></div>
+
+  <div class="capblock">
+    <div class="cap"><div class="top"><span class="cname">Orchestration &amp; Pipeline Architecture</span><span class="cscore">9/10</span></div><div class="track"><div class="fill" style="width:90%;background:#1B5E3C"></div></div></div>
+    <div class="cap"><div class="top"><span class="cname">Observability, Reliability &amp; On-Call Design</span><span class="cscore">8/10</span></div><div class="track"><div class="fill" style="width:80%;background:#2E7D57"></div></div></div>
+    <div class="cap"><div class="top"><span class="cname">Dimensional Modeling &amp; Semantic Layer <span class="tag">Staff-defining</span></span><span class="cscore">6/10</span></div><div class="track"><div class="fill" style="width:60%;background:#C28A1E"></div></div></div>
+    <div class="cap"><div class="top"><span class="cname">CI/CD &amp; Engineering-Practice Leadership</span><span class="cscore">6/10</span></div><div class="track"><div class="fill" style="width:60%;background:#C28A1E"></div></div></div>
+    <div class="cap"><div class="top"><span class="cname">AI-Native Tooling Integration</span><span class="cscore">7/10</span></div><div class="track"><div class="fill" style="width:70%;background:#84A63C"></div></div></div>
+    <div class="cap"><div class="top"><span class="cname">Communication &amp; Documentation</span><span class="cscore">7/10</span></div><div class="track"><div class="fill" style="width:70%;background:#84A63C"></div></div></div>
+    <div class="cap"><div class="top"><span class="cname">Cross-Team Modeling &amp; CI/CD Standardization <span class="tag">Staff-defining</span></span><span class="cscore">5/10</span></div><div class="track"><div class="fill" style="width:50%;background:#C28A1E"></div></div></div>
+    <div class="cap"><div class="top"><span class="cname">Shift-Left Governance (Contracts, SLOs, Quality Gates) <span class="tag">Staff-defining</span></span><span class="cscore">5/10</span></div><div class="track"><div class="fill" style="width:50%;background:#C28A1E"></div></div></div>
+    <div class="cap"><div class="top"><span class="cname">Metric Certification &amp; Stakeholder Translation <span class="tag">Staff-defining</span></span><span class="cscore">5/10</span></div><div class="track"><div class="fill" style="width:50%;background:#C28A1E"></div></div></div>
+    <div class="cap"><div class="top"><span class="cname">Cross-Team Technical Influence <span class="tag">Staff-defining</span></span><span class="cscore">4/10</span></div><div class="track"><div class="fill" style="width:40%;background:#B91C1C"></div></div></div>
+  </div>
+</div>
+
+<div class="sec">
+  <h2>Interview structure — calibrated to the Staff bar</h2>
+  <div class="sub">Where the loop actually goes for a Staff Analytics DE role. Structured and rubric-scored, so the panel spends its time on the capabilities that separate Staff from Senior — not re-confirming the pipeline skills a first round already established.</div>
+  <div class="istep"><div class="time">30 min</div><div class="it"><h4>Semantic Layer &amp; Modeling Architecture</h4><p>Designing conformed dimensions and a metrics layer as a single source of truth across analytics functions; tradeoffs when definitions conflict between teams.</p></div></div>
+  <div class="istep"><div class="time">25 min</div><div class="it"><h4>Shift-Left Governance Design</h4><p>Architecting data contracts, SLOs, and code-enforced quality gates with upstream producers — how they catch issues before production without stalling delivery.</p></div></div>
+  <div class="istep"><div class="time">20 min</div><div class="it"><h4>Metric Certification &amp; Cross-Team Influence</h4><p>Translating an ambiguous metric definition into a certified pipeline for executive / WBR reporting, and driving adoption of a standard a peer team resists.</p></div></div>
+</div>
+
+<div class="rec strong">
+  <div class="verdict">Recommended action</div>
+  <div class="split">
+    <div><h5>Candidate A — Priya Raghavan</h5><p>Advance to the final Staff loop. Clears every Staff-defining capability with real evidence of cross-team standardization and governance architecture, not just execution. AI-native tooling is the one development item — below the top tier, not below the bar.</p></div>
+    <div><h5>Candidate B — Marcus Feld</h5><p>Do not spend a full Staff loop yet. Genuinely strong Senior IC — orchestration and reliability are excellent — but cross-team influence, governance design, and metric certification sit a tier below Staff. Reconsider against a Senior req, or revisit after demonstrated cross-team ownership.</p></div>
+  </div>
+</div>
+
+<div style="height:30px"></div>
+<div class="disc"><b>How to read this report.</b> Both candidates are synthetic and fictional, created to demonstrate how FaujX scores against this specific role's posted responsibilities. Scores are illustrative outputs, not measurements of any real person. FaujX is a capability-validation layer over your existing pipeline — your ATS, your interviews, and every hiring decision remain yours. FaujX hands over at the decision-ready report; it does not source, supply, or interview candidates. Aggregate consistency analytics are not a bias audit and do not by themselves satisfy NYC Local Law 144 or equivalent requirements.</div>
+
+</div>
+
+<div class="foot">
+  <div class="fl">Generated by FaujX Capability Intelligence · Prepared for Dropbox — Analytics Data Engineering</div>
+  <div class="fr">Illustrative · synthetic candidates · for demonstration only</div>
+</div>
+
+</div></div></body></html>
