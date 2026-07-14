@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FaujX Capability Report — Dev Raman · Staff Software Engineer (EliseAI benchmark)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink:        #0e0d0b;
+  --ink-2:      #2a2825;
+  --ink-3:      #6b6860;
+  --cream:      #f5f2ec;
+  --cream-2:    #ede9e0;
+  --cream-3:    #e2ddd3;
+  --gold:       #b8860b;
+  --gold-lt:    #d4a017;
+  --gold-pale:  #f7f0dc;
+  --green:      #2d4d1a;
+  --green-mid:  #3a6122;
+  --green-lt:   #4e7a2e;
+  --green-pale: #eef5e8;
+  --green-border: #c8ddb8;
+  --amber-pale: #fbf3df;
+  --amber-border: #e8d28a;
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans:  'DM Sans', -apple-system, sans-serif;
+  --mono:  'DM Mono', monospace;
+}
+
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 15.5px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  padding: 36px 16px 56px;
+}
+.page { max-width: 900px; margin: 0 auto; }
+
+/* context strip */
+.context-strip {
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--ink-3); padding: 0 4px 14px;
+}
+.context-strip .right { color: var(--gold); }
+
+.report {
+  background: #fffdf9;
+  border: 1px solid var(--cream-3);
+  box-shadow: 0 16px 48px rgba(14,13,11,.07);
+}
+
+/* header */
+.hd {
+  background: var(--ink);
+  color: var(--cream);
+  padding: 44px 52px 40px;
+  position: relative;
+}
+.sample-tag {
+  position: absolute; top: 18px; right: 20px;
+  font-family: var(--mono); font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--cream-2); background: rgba(245,242,236,.08);
+  border: 1px solid rgba(245,242,236,.22);
+  padding: 5px 11px; border-radius: 2px;
+}
+.brandline {
+  font-family: var(--mono); font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--gold-lt); margin-bottom: 26px;
+  display: flex; align-items: center; gap: 12px;
+}
+.brandline::after { content: ''; flex: 1; height: 1px; background: rgba(212,160,23,.3); }
+.hd-grid { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: end; }
+.hd h1 {
+  font-family: var(--serif); font-size: 40px; font-weight: 500;
+  letter-spacing: -.5px; line-height: 1.1; margin-bottom: 8px;
+}
+.hd .role { font-size: 15px; font-weight: 300; color: var(--cream-2); }
+.hd .role strong { font-weight: 500; color: #fff; }
+.benchline {
+  margin-top: 18px; font-family: var(--mono); font-size: 11px; letter-spacing: .06em;
+  color: rgba(245,242,236,.65);
+}
+.scoreblock { text-align: right; }
+.scoreblock .num {
+  font-family: var(--serif); font-size: 72px; font-weight: 600; line-height: .95;
+  color: var(--gold-lt);
+}
+.scoreblock .of { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: rgba(245,242,236,.6); margin-top: 6px; }
+.verdict-pill {
+  display: inline-block; margin-top: 14px;
+  font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+  background: var(--green); color: var(--cream);
+  padding: 7px 16px; border-radius: 2px;
+}
+
+/* body */
+.body { padding: 44px 52px 20px; }
+.sec { margin-bottom: 46px; }
+.sec-eyebrow {
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 8px;
+  display: flex; align-items: center; gap: 10px;
+}
+.sec-eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--gold); }
+.sec h2 { font-family: var(--serif); font-size: 26px; font-weight: 500; letter-spacing: -.3px; }
+.sec .sub { color: var(--ink-3); font-size: 13.5px; font-weight: 300; margin-top: 4px; margin-bottom: 22px; max-width: 640px; }
+
+/* benchmark chips */
+.bench-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+.bchip {
+  background: var(--green-pale); border: 1px solid var(--green-border); border-radius: 2px;
+  padding: 11px 14px; font-size: 13px; font-weight: 500; color: var(--green);
+  display: flex; align-items: center; gap: 10px;
+}
+.bchip .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green-lt); flex: none; }
+.bench-note {
+  margin-top: 14px; font-family: var(--mono); font-size: 11px; color: var(--ink-3); letter-spacing: .04em;
+  display: flex; align-items: center; gap: 8px;
+}
+.bench-note .gold-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); flex: none; }
+
+/* stage trace — the signature */
+details.stage {
+  border: 1px solid var(--cream-3); border-left: 3px solid var(--green-lt);
+  background: #fffdf9; margin-bottom: 10px;
+}
+details.stage[open] { background: var(--cream); border-left-color: var(--gold); }
+details.stage summary {
+  list-style: none; cursor: pointer;
+  display: flex; align-items: center; gap: 16px;
+  padding: 15px 20px;
+}
+details.stage summary::-webkit-details-marker { display: none; }
+.stage-no {
+  font-family: var(--mono); font-size: 11px; font-weight: 500; color: var(--gold);
+  letter-spacing: .08em; flex: none; width: 26px;
+}
+.stage-name { font-family: var(--serif); font-size: 17px; font-weight: 500; flex: 1; }
+.stage-result {
+  font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--green-mid); background: var(--green-pale); border: 1px solid var(--green-border);
+  padding: 4px 10px; border-radius: 2px; flex: none;
+}
+.stage-result.probe { color: #8a6508; background: var(--amber-pale); border-color: var(--amber-border); }
+.stage-caret {
+  flex: none; width: 9px; height: 9px;
+  border-right: 1.5px solid var(--ink-3); border-bottom: 1.5px solid var(--ink-3);
+  transform: rotate(45deg); transition: transform .2s; margin-top: -4px;
+}
+details.stage[open] .stage-caret { transform: rotate(-135deg); margin-top: 4px; }
+.stage-body { padding: 4px 20px 20px 62px; }
+.stage-body p { font-size: 13.5px; font-weight: 300; color: var(--ink-2); margin-bottom: 10px; max-width: 660px; }
+.stage-body ul { list-style: none; margin-bottom: 6px; }
+.stage-body li {
+  font-size: 13px; color: var(--ink-2); padding: 5px 0 5px 18px; position: relative;
+}
+.stage-body li::before {
+  content: ''; position: absolute; left: 0; top: 12px;
+  width: 7px; height: 7px; border-radius: 50%; background: var(--green-lt);
+}
+.stage-body li.flag::before { background: var(--gold); }
+.probe-tag {
+  display: inline-block; font-family: var(--mono); font-size: 10px; letter-spacing: .1em;
+  text-transform: uppercase; color: #8a6508; background: var(--amber-pale);
+  border: 1px solid var(--amber-border); padding: 2px 8px; border-radius: 2px; margin-left: 6px;
+}
+
+/* capability bars */
+.avgband {
+  display: inline-flex; align-items: baseline; gap: 10px;
+  background: var(--green-pale); border: 1px solid var(--green-border); border-radius: 2px;
+  padding: 11px 20px; margin-bottom: 24px;
+}
+.avgband .b { font-family: var(--serif); font-size: 27px; font-weight: 600; color: var(--green); }
+.avgband .l { font-size: 12px; color: var(--ink-3); letter-spacing: .04em; }
+.cap { margin-bottom: 15px; }
+.cap .top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; }
+.cap .cname { font-size: 13.5px; font-weight: 500; }
+.cap .cscore { font-family: var(--mono); font-size: 12.5px; font-weight: 500; color: var(--green-mid); }
+.track { height: 7px; background: var(--cream-2); border-radius: 1px; overflow: hidden; }
+.fill { height: 100%; }
+.f9 { background: var(--green); } .f8 { background: var(--green-mid); }
+.f7 { background: var(--green-lt); } .f6 { background: var(--gold-lt); }
+
+/* probes carried forward */
+.probe-card {
+  background: var(--amber-pale); border: 1px solid var(--amber-border); border-radius: 2px;
+  padding: 18px 22px; margin-bottom: 12px;
+}
+.probe-card h4 { font-family: var(--serif); font-size: 16px; font-weight: 600; color: #6e5106; margin-bottom: 5px; }
+.probe-card p { font-size: 13px; font-weight: 300; color: var(--ink-2); max-width: 680px; }
+.nd-note {
+  font-size: 12.5px; font-weight: 300; font-style: italic; color: var(--ink-3);
+  margin-top: 14px; max-width: 640px;
+}
+
+/* recommendation */
+.rec {
+  background: var(--green); color: var(--cream);
+  padding: 30px 34px; margin-top: 8px;
+}
+.rec .verdict { font-family: var(--serif); font-size: 24px; font-weight: 500; margin-bottom: 10px; color: #fff; }
+.rec .verdict em { font-style: italic; color: var(--gold-lt); }
+.rec p { font-size: 13.5px; font-weight: 300; opacity: .95; max-width: 700px; }
+.rec .meta {
+  margin-top: 18px; padding-top: 16px; border-top: 1px solid rgba(245,242,236,.18);
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase;
+  color: rgba(245,242,236,.7); display: flex; gap: 28px; flex-wrap: wrap;
+}
+
+/* footer */
+.foot {
+  padding: 22px 52px 30px; border-top: 1px solid var(--cream-3);
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;
+}
+.foot .fl { font-family: var(--mono); font-size: 10.5px; color: var(--ink-3); letter-spacing: .06em; }
+.foot .fr { font-size: 10.5px; color: var(--ink-3); opacity: .7; }
+
+@media print { body { background: #fff; padding: 0; } .report { box-shadow: none; border: none; } details.stage { break-inside: avoid; } }
+@media (max-width: 700px) {
+  .hd, .body, .foot { padding-left: 24px; padding-right: 24px; }
+  .hd-grid { grid-template-columns: 1fr; gap: 18px; }
+  .scoreblock { text-align: left; }
+  .bench-grid { grid-template-columns: 1fr; }
+  .stage-body { padding-left: 20px; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="context-strip">
+  <span>Prepared for EliseAI · benchmarked against a live EliseAI opening</span>
+  <span class="right">Benchmark built in under 5 minutes</span>
+</div>
+
+<div class="report">
+
+<div class="hd">
+  <div class="sample-tag">Illustrative sample · fictional candidate</div>
+  <div class="brandline">FaujX · Decision-Ready Capability Report</div>
+  <div class="hd-grid">
+    <div>
+      <h1>Dev Raman</h1>
+      <div class="role">Evaluated for <strong>Staff Software Engineer</strong> · EliseAI, New York</div>
+      <div class="benchline">Benchmark derived from EliseAI's posted role requirements · 12 role-critical capabilities</div>
+    </div>
+    <div class="scoreblock">
+      <div class="num">87</div>
+      <div class="of">Overall · out of 100</div>
+      <div class="verdict-pill">Strong Hire — advance</div>
+    </div>
+  </div>
+</div>
+
+<div class="body">
+
+<div class="sec">
+  <div class="sec-eyebrow">Role Benchmark</div>
+  <h2>What this role actually requires</h2>
+  <div class="sub">Capabilities extracted from EliseAI's live Staff Software Engineer posting — platform ownership, architecture leadership, and operational rigor for conversational AI at scale. The candidate is measured against these, not against a keyword list.</div>
+  <div class="bench-grid">
+    <div class="bchip"><span class="dot"></span>Backend engineering — Python / Go</div>
+    <div class="bchip"><span class="dot"></span>Distributed systems &amp; microservices</div>
+    <div class="bchip"><span class="dot"></span>Production ownership, end to end</div>
+    <div class="bchip"><span class="dot"></span>Architecture proposals &amp; design patterns</div>
+    <div class="bchip"><span class="dot"></span>AWS cloud infrastructure</div>
+    <div class="bchip"><span class="dot"></span>CI/CD &amp; automated testing discipline</div>
+    <div class="bchip"><span class="dot"></span>High-throughput messaging workloads</div>
+    <div class="bchip"><span class="dot"></span>API design &amp; service contracts</div>
+    <div class="bchip"><span class="dot"></span>LLM / ML system integration</div>
+    <div class="bchip"><span class="dot"></span>Quality-vs-urgency judgment</div>
+    <div class="bchip"><span class="dot"></span>Cross-functional communication</div>
+    <div class="bchip"><span class="dot"></span>Technical mentorship &amp; standards</div>
+  </div>
+  <div class="bench-note"><span class="gold-dot"></span>Benchmark match at intake: 10 met fully · 2 carried forward as probes — not as rejections</div>
+</div>
+
+<div class="sec">
+  <div class="sec-eyebrow">Stage Trace</div>
+  <h2>How every score was earned</h2>
+  <div class="sub">Each panel opens to show the evidence captured at that stage. No phone calls, no scheduling, no Zoom — the candidate completed every stage inside FaujX. Expand any stage.</div>
+
+  <details class="stage" open>
+    <summary>
+      <span class="stage-no">01</span>
+      <span class="stage-name">Ingestion &amp; Normalization</span>
+      <span class="stage-result">Complete</span>
+      <span class="stage-caret"></span>
+    </summary>
+    <div class="stage-body">
+      <p>Resume, portfolio, and public code signals normalized into a structured capability record — application #214 of 530 for this role, evaluated identically to application #1.</p>
+      <ul>
+        <li>9 years backend experience; 4 years owning production services at two Series C–E startups</li>
+        <li>Open-source contributions to a message-queue client library verified against claimed work</li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="stage">
+    <summary>
+      <span class="stage-no">02</span>
+      <span class="stage-name">Capability Intelligence</span>
+      <span class="stage-result probe">2 probes raised</span>
+      <span class="stage-caret"></span>
+    </summary>
+    <div class="stage-body">
+      <p>Evidence mapped against the 12-capability benchmark. Gaps are not rejection signals — they become targeted probes for later stages.</p>
+      <ul>
+        <li>Strong direct evidence: distributed systems, AWS, production ownership, API design</li>
+        <li class="flag">No direct LLM-serving experience on record <span class="probe-tag">carried to Stage 05</span></li>
+        <li class="flag">Mentorship claims unverified at intake <span class="probe-tag">carried to Stage 05</span></li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="stage">
+    <summary>
+      <span class="stage-no">03</span>
+      <span class="stage-name">Adaptive Screening</span>
+      <span class="stage-result">91%</span>
+      <span class="stage-caret"></span>
+    </summary>
+    <div class="stage-body">
+      <p>Screening adapted to the candidate's profile — deeper on distributed-systems trade-offs, lighter on fundamentals already evidenced.</p>
+      <ul>
+        <li>Consistency, partitioning, and queue-backpressure scenarios: 14 of 15 correct</li>
+        <li>Reasoned correctly about failure modes in a multi-tenant messaging architecture</li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="stage">
+    <summary>
+      <span class="stage-no">04</span>
+      <span class="stage-name">Coding Challenge</span>
+      <span class="stage-result">88%</span>
+      <span class="stage-caret"></span>
+    </summary>
+    <div class="stage-body">
+      <p>A scoped build exercise modeled on EliseAI's domain: a rate-limited webhook processor with retry semantics and idempotency guarantees.</p>
+      <ul>
+        <li>Working solution with clean idempotency-key design and exponential backoff</li>
+        <li>Wrote integration tests unprompted; documented two deliberate scope cuts with rationale</li>
+        <li class="flag">Observability instrumentation thinner than staff-level expectation — noted for expert review</li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="stage">
+    <summary>
+      <span class="stage-no">05</span>
+      <span class="stage-name">Structured Capability Assessment</span>
+      <span class="stage-result">Probes resolved</span>
+      <span class="stage-caret"></span>
+    </summary>
+    <div class="stage-body">
+      <p>Rubric-scored interview conducted inside FaujX — no scheduling, no interviewer drift. The two probes from Stage 02 were addressed directly.</p>
+      <ul>
+        <li>LLM probe: no direct serving experience, but demonstrated transferable reasoning on token-streaming backpressure and cost-aware inference batching — validated at 7/10, not assumed at zero</li>
+        <li>Mentorship probe: walked through two specific instances of growing mid-level engineers into service owners — validated at 8/10</li>
+        <li>Architecture narrative consistent with resume claims across three cross-checks</li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="stage">
+    <summary>
+      <span class="stage-no">06</span>
+      <span class="stage-name">Expert Human Review</span>
+      <span class="stage-result">Confirmed</span>
+      <span class="stage-caret"></span>
+    </summary>
+    <div class="stage-body">
+      <p>A senior engineering expert reviewed the full evidence trail against the rubric — humans as the governance layer, not the bottleneck.</p>
+      <ul>
+        <li>Confirmed staff-level system design judgment; flagged observability depth as a final-loop question, not a blocker</li>
+        <li>Score calibration checked against benchmark cohort for this role</li>
+      </ul>
+    </div>
+  </details>
+</div>
+
+<div class="sec">
+  <div class="sec-eyebrow">Validated Profile</div>
+  <h2>Capability scores — evidence-backed</h2>
+  <div class="sub">Every score below traces to specific evidence in the stages above. Nothing is inferred from the resume alone.</div>
+  <div class="avgband"><span class="b">8.3/10</span><span class="l">average validated capability</span></div>
+
+  <div class="cap"><div class="top"><span class="cname">Distributed Systems &amp; Microservices</span><span class="cscore">9/10</span></div><div class="track"><div class="fill f9" style="width:90%"></div></div></div>
+  <div class="cap"><div class="top"><span class="cname">Backend Engineering — Python / Go</span><span class="cscore">9/10</span></div><div class="track"><div class="fill f9" style="width:90%"></div></div></div>
+  <div class="cap"><div class="top"><span class="cname">Production Ownership &amp; Reliability</span><span class="cscore">9/10</span></div><div class="track"><div class="fill f9" style="width:90%"></div></div></div>
+  <div class="cap"><div class="top"><span class="cname">AWS Cloud Infrastructure</span><span class="cscore">8/10</span></div><div class="track"><div class="fill f8" style="width:80%"></div></div></div>
+  <div class="cap"><div class="top"><span class="cname">API Design &amp; Service Contracts</span><span class="cscore">9/10</span></div><div class="track"><div class="fill f9" style="width:90%"></div></div></div>
+  <div class="cap"><div class="top"><span class="cname">CI/CD &amp; Automated Testing</span><span class="cscore">8/10</span></div><div class="track"><div class="fill f8" style="width:80%"></div></div></div>
+  <div class="cap"><div class="top"><span class="cname">High-Throughput Messaging Workloads</span><span class="cscore">8/10</span></div><div class="track"><div class="fill f8" style="width:80%"></div></div></div>
+  <div class="cap"><div class="top"><span class="cname">Architecture Leadership &amp; Standards</span><span class="cscore">8/10</span></div><div class="track"><div class="fill f8" style="width:80%"></div></div></div>
+  <div class="cap"><div class="top"><span class="cname">Quality-vs-Urgency Judgment</span><span class="cscore">8/10</span></div><div class="track"><div class="fill f8" style="width:80%"></div></div></div>
+  <div class="cap"><div class="top"><span class="cname">Technical Mentorship</span><span class="cscore">8/10</span></div><div class="track"><div class="fill f8" style="width:80%"></div></div></div>
+  <div class="cap"><div class="top"><span class="cname">LLM / ML System Integration</span><span class="cscore">7/10</span></div><div class="track"><div class="fill f7" style="width:70%"></div></div></div>
+  <div class="cap"><div class="top"><span class="cname">Observability &amp; Instrumentation</span><span class="cscore">7/10</span></div><div class="track"><div class="fill f7" style="width:70%"></div></div></div>
+</div>
+
+<div class="sec">
+  <div class="sec-eyebrow">Carried Forward</div>
+  <h2>What the final loop should probe</h2>
+  <div class="sub">FHOS never silently discards a gap — it hands your interviewers a precise agenda instead of a blank hour.</div>
+  <div class="probe-card">
+    <h4>Observability depth at staff level</h4>
+    <p>Instrumentation in the coding challenge was functional but thin. Ask how they would design SLOs and alerting for a conversational pipeline serving 1-in-6 US apartments — the answer pattern in Stage 05 suggests this is an experience gap, not a judgment gap.</p>
+  </div>
+  <div class="probe-card">
+    <h4>LLM serving at production scale</h4>
+    <p>Transferable reasoning is strong; direct experience is absent. Probe cost-control instincts on inference workloads. Validated at 7/10 — a ramp item, not a disqualifier.</p>
+  </div>
+  <div class="nd-note">Under a keyword screen, this candidate is likely filtered out at intake on "LLM experience" — before any of the evidence above exists.</div>
+</div>
+
+<div class="rec">
+  <div class="verdict">Strong Hire — <em>advance to final loop</em></div>
+  <p>Staff-level capability validated across distributed systems, production ownership, and architecture judgment, with mentorship confirmed under direct probing. Two precise items remain for your interviewers — observability depth and LLM serving experience — both development items with strong transfer signals. Roughly 80% of this hire/no-hire decision is already made; your team's interview hours go to the 20% that genuinely needs human judgment.</p>
+  <div class="meta">
+    <span>Stages: 6 of 6</span>
+    <span>Calls scheduled: 0</span>
+    <span>Interviewer hours consumed: 0</span>
+    <span>Expert review: complete</span>
+  </div>
+</div>
+
+</div>
+
+<div class="foot">
+  <div class="fl">Generated by FaujX Capability Intelligence · faujx.com</div>
+  <div class="fr">Illustrative sample · fictional candidate · synthetic data · for demonstration only</div>
+</div>
+
+</div>
+</div>
+</body>
+</html>
