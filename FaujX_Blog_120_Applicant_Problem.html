@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The #120 Applicant Problem — FaujX</title>
+<meta name="description" content="Your strongest candidate is often buried deep in the applicant queue — and reviewer fatigue plus ATS keyword filters guarantee you never see them. Here's why burial happens, and what a non-discarding pipeline changes." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0E2018;
+    --ink-2:#152C20;
+    --ink-3:#1C3A2A;
+    --cream:#F3EFE5;
+    --cream-2:#EAE4D5;
+    --paper:#FBF9F3;
+    --gold:#B89346;
+    --gold-2:#C9A75E;
+    --gold-soft:#D9C48E;
+    --muted:#5C6B60;
+    --muted-cream:#A9B6A8;
+    --line:#26402F;
+    --line-cream:#DAD2BF;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"DM Sans",system-ui,sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 28px}
+  .wrap-wide{max-width:1020px;margin:0 auto;padding:0 28px}
+  .eyebrow{
+    font-family:"DM Mono",monospace;
+    font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--gold);
+  }
+  h1,h2,h3{font-family:"Playfair Display",Georgia,serif;font-weight:600;line-height:1.12}
+  h1{font-size:clamp(2.5rem,5.6vw,4.1rem);letter-spacing:-.01em}
+  h2{font-size:clamp(1.7rem,3.4vw,2.4rem);letter-spacing:-.01em;margin:0 0 18px}
+  em{font-style:italic}
+  a{color:inherit}
+  .mono{font-family:"DM Mono",monospace}
+
+  /* ---- top nav ---- */
+  header.nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(14,32,24,.92);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav .wrap-wide{display:flex;align-items:center;justify-content:space-between;height:60px}
+  .brand{font-family:"Playfair Display",serif;font-size:1.25rem;color:var(--cream);font-weight:600;text-decoration:none}
+  .brand span{color:var(--gold)}
+  .nav nav{display:flex;gap:26px}
+  .nav nav a{
+    font-family:"DM Mono",monospace;font-size:12px;letter-spacing:.06em;
+    color:var(--muted-cream);text-decoration:none;text-transform:uppercase;
+  }
+  .nav nav a:hover{color:var(--gold-2)}
+  @media(max-width:720px){.nav nav{display:none}}
+
+  /* ---- hero ---- */
+  .hero{background:var(--ink);color:var(--cream);padding:84px 0 0;position:relative;overflow:hidden}
+  .hero:after{
+    content:"";position:absolute;right:-180px;top:-140px;width:480px;height:480px;
+    background:radial-gradient(circle, rgba(184,147,70,.14), transparent 62%);
+    pointer-events:none;
+  }
+  .hero .wrap{position:relative;z-index:1}
+  .hero .eyebrow{margin-bottom:18px;display:block}
+  .hero h1 em{color:var(--gold-2)}
+  .hero .dek{
+    margin:24px 0 0;max-width:56ch;
+    font-size:1.13rem;color:var(--muted-cream);line-height:1.65;
+  }
+  .hero .meta{
+    margin:30px 0 0;padding:16px 0 0;border-top:1px solid var(--line);
+    font-family:"DM Mono",monospace;font-size:12px;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--muted-cream);
+    display:flex;gap:26px;flex-wrap:wrap;
+  }
+
+  /* ---- signature: the queue ---- */
+  .queue-band{background:var(--ink);padding:56px 0 72px;position:relative}
+  .queue-frame{
+    max-width:1020px;margin:0 auto;padding:0 28px;
+  }
+  .queue-label{
+    font-family:"DM Mono",monospace;font-size:12px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--muted-cream);
+    display:flex;justify-content:space-between;margin-bottom:16px;
+  }
+  .queue-label .r{color:var(--gold-2)}
+  .queue{
+    display:grid;
+    grid-template-columns:repeat(30,1fr);
+    gap:7px;
+  }
+  .dot{
+    aspect-ratio:1/1;border-radius:50%;
+    background:var(--cream);
+    position:relative;
+    transition:transform .18s ease;
+  }
+  .dot:hover{transform:scale(1.35)}
+  /* attention decay bands */
+  .queue .dot:nth-child(-n+30){opacity:.95}
+  .queue .dot:nth-child(n+31):nth-child(-n+60){opacity:.62}
+  .queue .dot:nth-child(n+61):nth-child(-n+90){opacity:.36}
+  .queue .dot:nth-child(n+91):nth-child(-n+150){opacity:.16}
+  .queue .dot:nth-child(n+151){opacity:.07}
+  .dot.star{
+    background:var(--gold-2);opacity:1 !important;
+    box-shadow:0 0 0 4px rgba(201,167,94,.22), 0 0 26px rgba(201,167,94,.55);
+    animation:pulse 2.6s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%,100%{box-shadow:0 0 0 4px rgba(201,167,94,.22), 0 0 22px rgba(201,167,94,.45)}
+    50%{box-shadow:0 0 0 6px rgba(201,167,94,.30), 0 0 34px rgba(201,167,94,.70)}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .dot.star{animation:none}
+    html{scroll-behavior:auto}
+  }
+  .queue-caption{
+    margin-top:22px;
+    display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;
+  }
+  .queue-caption p{
+    font-size:.95rem;color:var(--muted-cream);max-width:52ch;
+  }
+  .queue-caption .tag{
+    font-family:"DM Mono",monospace;font-size:12px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--gold-2);
+    border:1px solid rgba(201,167,94,.4);border-radius:999px;
+    padding:7px 14px;white-space:nowrap;
+  }
+  @media(max-width:720px){
+    .queue{grid-template-columns:repeat(20,1fr);gap:5px}
+  }
+
+  /* ---- article ---- */
+  article{padding:72px 0 40px}
+  article p{margin:0 0 22px;font-size:1.06rem}
+  article p.lead{font-size:1.22rem;line-height:1.6;color:var(--ink)}
+  article section{margin:0 0 56px}
+  .kicker{
+    font-family:"DM Mono",monospace;font-size:12px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--gold);display:block;margin-bottom:10px;
+  }
+  .pull{
+    border-left:3px solid var(--gold);
+    padding:6px 0 6px 24px;margin:34px 0;
+  }
+  .pull p{
+    font-family:"Playfair Display",serif;font-style:italic;
+    font-size:1.34rem;line-height:1.45;color:var(--ink);margin:0;
+  }
+  .note{
+    background:var(--cream);border:1px solid var(--line-cream);border-radius:10px;
+    padding:20px 24px;margin:30px 0;
+  }
+  .note p{margin:0;font-size:.98rem;color:var(--muted)}
+  .note strong{color:var(--ink)}
+
+  /* decay math strip */
+  .decay{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+    background:var(--line-cream);border:1px solid var(--line-cream);
+    border-radius:12px;overflow:hidden;margin:36px 0;
+  }
+  .decay .cell{background:var(--paper);padding:22px 20px}
+  .decay .n{
+    font-family:"DM Mono",monospace;font-size:12px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--gold);margin-bottom:8px;
+  }
+  .decay .v{
+    font-family:"Playfair Display",serif;font-size:1.35rem;font-weight:600;line-height:1.2;margin-bottom:6px;
+  }
+  .decay .d{font-size:.9rem;color:var(--muted)}
+  @media(max-width:720px){.decay{grid-template-columns:1fr 1fr}}
+
+  /* comparison */
+  .compare{
+    display:grid;grid-template-columns:1fr 1fr;gap:22px;margin:36px 0;
+  }
+  .compare .col{
+    border:1px solid var(--line-cream);border-radius:12px;padding:26px 26px 22px;background:var(--paper);
+  }
+  .compare .col.dark{
+    background:var(--ink);color:var(--cream);border-color:var(--line);
+  }
+  .compare h3{
+    font-size:1.14rem;margin-bottom:14px;
+  }
+  .compare .col.dark h3{color:var(--gold-2)}
+  .compare ul{list-style:none}
+  .compare li{
+    padding:10px 0;font-size:.98rem;border-top:1px solid var(--line-cream);
+  }
+  .compare .col.dark li{border-top:1px solid var(--line);color:var(--muted-cream)}
+  .compare li:first-child{border-top:none}
+  @media(max-width:720px){.compare{grid-template-columns:1fr}}
+
+  /* ---- CTA ---- */
+  .cta{background:var(--ink);color:var(--cream);padding:70px 0;margin-top:30px}
+  .cta .wrap{text-align:left}
+  .cta h2{color:var(--cream)}
+  .cta h2 em{color:var(--gold-2)}
+  .cta p{color:var(--muted-cream);max-width:58ch;margin:16px 0 30px;font-size:1.05rem}
+  .btn{
+    display:inline-block;text-decoration:none;
+    font-family:"DM Mono",monospace;font-size:13px;letter-spacing:.1em;text-transform:uppercase;
+    padding:15px 28px;border-radius:8px;
+  }
+  .btn.gold{background:var(--gold);color:var(--ink)}
+  .btn.gold:hover{background:var(--gold-2)}
+  .btn.ghost{border:1px solid var(--line);color:var(--cream);margin-left:12px}
+  .btn.ghost:hover{border-color:var(--gold-2);color:var(--gold-2)}
+  @media(max-width:560px){.btn.ghost{margin-left:0;margin-top:12px}}
+
+  footer{
+    background:#0A0A08;color:var(--muted-cream);
+    padding:34px 0;font-size:.88rem;
+  }
+  footer .wrap-wide{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  footer a{color:var(--gold-2);text-decoration:none}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap-wide">
+    <a class="brand" href="https://faujx.com">Fauj<span>X</span></a>
+    <nav>
+      <a href="https://faujx.com">Home</a>
+      <a href="https://evaluate.faujx.com">Capability Snapshot</a>
+      <a href="mailto:support@faujx.com">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <span class="eyebrow">FaujX &middot; The Un-Interview &middot; Essay</span>
+    <h1>The #120 Applicant<br><em>Problem</em></h1>
+    <p class="dek">Your strongest candidate is often buried deep in the queue. Reviewer fatigue and keyword filters guarantee you never meet them — and no amount of extra recruiters fixes it. Only the pipeline can.</p>
+    <div class="meta">
+      <span>FaujX Editorial</span>
+      <span>Hiring Infrastructure</span>
+      <span>7 min read</span>
+    </div>
+  </div>
+</section>
+
+<section class="queue-band" aria-label="Visualization of reviewer attention fading across an applicant queue">
+  <div class="queue-frame">
+    <div class="queue-label">
+      <span>Applicant #1</span>
+      <span class="r">Reviewer attention &rarr; fading</span>
+      <span>Applicant #300</span>
+    </div>
+    <div class="queue" id="queue"></div>
+    <div class="queue-caption">
+      <p>Illustrative view of a 300-applicant queue. Each dot is a candidate. Brightness is the attention they actually receive. The gold dot is the candidate you needed — sitting at position #120, where attention has already collapsed.</p>
+      <span class="tag">Position decides. Capability doesn't.</span>
+    </div>
+  </div>
+</section>
+
+<article>
+  <div class="wrap">
+
+    <section>
+      <p class="lead">Your strongest candidate might be applicant #120. You will never know, because nobody looked past #40.</p>
+      <p>This is not a story about lazy recruiters or bad tools. Everyone in the pipeline is doing exactly what the pipeline was built to make them do. That is the problem. Burial isn't a failure of the system. It <em>is</em> the system.</p>
+    </section>
+
+    <section>
+      <span class="kicker">Part one</span>
+      <h2>How burial happens</h2>
+      <p>A role opens. Applications flood in — for a visible engineering role at a known company, hundreds within days. Now watch what happens to human attention.</p>
+
+      <div class="decay" role="list" aria-label="How reviewer attention decays across batches">
+        <div class="cell" role="listitem">
+          <div class="n">Batch 1</div>
+          <div class="v">Careful review</div>
+          <div class="d">The recruiter reads. Full profiles, real consideration.</div>
+        </div>
+        <div class="cell" role="listitem">
+          <div class="n">Batch 2</div>
+          <div class="v">Skimming</div>
+          <div class="d">Titles, companies, dates. The reading has stopped.</div>
+        </div>
+        <div class="cell" role="listitem">
+          <div class="n">Batch 3</div>
+          <div class="v">Keyword scanning</div>
+          <div class="d">Eyes hunt for trigger words. Nothing else registers.</div>
+        </div>
+        <div class="cell" role="listitem">
+          <div class="n">Batch 4+</div>
+          <div class="v">Never opened</div>
+          <div class="d">The pipeline moved on. These candidates were never seen.</div>
+        </div>
+      </div>
+
+      <p>This is not a character flaw. It is arithmetic. Human attention is a fixed budget, and applicant volume is not. Attention runs out long before applicants do — every time, in every pipeline, at every company. Reviewer fatigue is as predictable as gravity.</p>
+      <p>And the moment attention runs out, the deciding factor in a candidate's outcome stops being capability and becomes <em>position in the queue</em>.</p>
+
+      <div class="pull">
+        <p>Position in the queue should never decide a candidate's outcome. In most pipelines, it is the single biggest factor.</p>
+      </div>
+    </section>
+
+    <section>
+      <span class="kicker">Part two</span>
+      <h2>The filter doesn't rescue you</h2>
+      <p>The standard defense: "That's what the ATS filter is for." The filter exists precisely so humans don't have to read all 300.</p>
+      <p>But look at what the filter actually does. It matches words. Not ability — words.</p>
+      <p>The candidate who wrote "built distributed systems" advances. The candidate who actually built one, but described it as "designed the event pipeline that handled our order flow across regions," gets cut. Same capability. Different vocabulary. Opposite outcomes — decided by a machine that never understood either sentence.</p>
+      <p>So the keyword filter doesn't remove the burial problem. It automates it. It rewards candidates who are good at writing resumes and buries candidates who are good at the job. The two populations overlap far less than anyone wants to admit.</p>
+      <p>Worse: the filter teaches the market. Candidates learn to stuff resumes with the words the machine wants. Which means the resumes that survive filtering are, increasingly, the ones optimized for filtering. Your top of funnel is selecting for exactly the wrong skill.</p>
+    </section>
+
+    <section>
+      <span class="kicker">Part three</span>
+      <h2>Why the usual fixes fail</h2>
+      <p><strong>More recruiters?</strong> You've bought more attention, not a different selection mechanism. The decay curve starts later; it doesn't disappear. And the cost scales linearly with volume, forever.</p>
+      <p><strong>Stricter filters?</strong> Now you've buried more people, faster, with more confidence. A tighter keyword net catches fewer fish and more debris.</p>
+      <p><strong>Cap the applications?</strong> Some teams quietly close roles after the first wave. That converts burial into an explicit policy: the job goes to whoever applied fastest. Speed of application is not a capability signal.</p>
+      <p>Every conventional fix shares one assumption — that some applicants must be discarded unread, and the only question is which ones. Challenge that assumption and the entire problem changes shape.</p>
+    </section>
+
+    <section>
+      <span class="kicker">Part four</span>
+      <h2>The non-discarding pipeline</h2>
+      <p>There is exactly one real fix: evaluate every applicant against the same bar, at the same depth, whether they arrived third or three-hundredth.</p>
+      <p>Not skim everyone. Not filter everyone. <em>Evaluate</em> everyone — structure what each candidate has actually done, measure it against the specific demands of the specific role, and rank the entire pool on validated capability instead of arrival order and keyword luck.</p>
+      <p>That is what a capability-validation layer does, sitting above the ATS you already run. The ATS keeps doing what it was built for: tracking applicants. The layer above it does the one job no ATS was ever built to do: telling you what those applicants can actually do — before anyone books an interview.</p>
+
+      <div class="compare">
+        <div class="col">
+          <h3>The discarding pipeline</h3>
+          <ul>
+            <li>First batches read, later batches skimmed or never opened</li>
+            <li>Keyword filters decide who a human ever sees</li>
+            <li>Ranking reflects arrival order and resume-writing skill</li>
+            <li>Rejected candidates get silence — nobody evaluated them</li>
+            <li>No record of why anyone advanced or didn't</li>
+          </ul>
+        </div>
+        <div class="col dark">
+          <h3>The non-discarding pipeline</h3>
+          <ul>
+            <li>Every applicant evaluated at full depth, same bar</li>
+            <li>Capability measured against the actual role benchmark</li>
+            <li>Ranking reflects validated capability, not queue position</li>
+            <li>Every candidate gets a real outcome from a real evaluation</li>
+            <li>Every decision produces a record you can stand behind</li>
+          </ul>
+        </div>
+      </div>
+
+      <p>Notice what this does to the #120 problem. It doesn't shrink it. It deletes it. When the whole pool is evaluated at the same depth, there is no #120. There is only the candidate pool, ordered by what people can do. The gold dot in the queue stops being a lottery ticket and becomes the first name on the shortlist.</p>
+      <p>Human judgment stays exactly where it belongs — at the top. Your team still runs every interview and makes every decision. The difference is what reaches them: a decision-ready view of the strongest candidates from the <em>entire</em> pool, not the survivors of a fatigue curve.</p>
+    </section>
+
+    <section>
+      <span class="kicker">Part five</span>
+      <h2>What this means for candidates</h2>
+      <p>The burial problem is usually framed as the employer's loss — the great hire you never met. It is equally a dignity problem for the person at #120.</p>
+      <p>They spent an evening tailoring an application. It was never opened. The rejection, if it came at all, was generated by a system that never evaluated them. Multiply that by every buried applicant in every pipeline, and you get the defining candidate experience of this era: applying into a void.</p>
+      <p>You cannot fix that with warmer rejection emails. Dignity for candidates comes from one thing — actually being evaluated, against the same bar as everyone else, with a real outcome at the end. That is an architecture decision, not a communications decision.</p>
+      <div class="pull">
+        <p>The strongest candidate in your pipeline right now may be someone your process has already decided not to meet.</p>
+      </div>
+    </section>
+
+  </div>
+</article>
+
+<section class="cta">
+  <div class="wrap">
+    <span class="eyebrow">See your own queue</span>
+    <h2>Find out who's buried in <em>your</em> pipeline</h2>
+    <p>Run a Capability Snapshot on a live role. Every applicant, same bar, same depth — and a ranked view of the pool ordered by what people can actually do, not where they landed in the queue.</p>
+    <a class="btn gold" href="https://evaluate.faujx.com">Run a Capability Snapshot</a>
+    <a class="btn ghost" href="mailto:support@faujx.com">Talk to us</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap-wide">
+    <span>&copy; 2026 Arber, Inc. &middot; FaujX — The Un-Interview</span>
+    <span><a href="https://faujx.com">faujx.com</a> &middot; <a href="https://evaluate.faujx.com">evaluate.faujx.com</a></span>
+  </div>
+</footer>
+
+<script>
+  // Build the 300-dot queue; dot 120 is the buried star candidate.
+  (function(){
+    var q = document.getElementById('queue');
+    var frag = document.createDocumentFragment();
+    for (var i = 1; i <= 300; i++){
+      var d = document.createElement('div');
+      d.className = 'dot' + (i === 120 ? ' star' : '');
+      d.title = i === 120 ? 'Applicant #120 — the one you needed' : 'Applicant #' + i;
+      frag.appendChild(d);
+    }
+    q.appendChild(frag);
+  })();
+</script>
+
+</body>
+</html>
