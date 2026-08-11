@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Candidate Capability Match Report — Production Network Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --teal:#1F514C;
+    --brass:#C9A96E;
+    --cream:#FAF7F2;
+    --ink:#14201E;
+    --muted:#6B7B78;
+    --line:#E4DED4;
+    --red:#A3202F;
+    --red-soft:#FBF1F2;
+    --green:#2E7D5B;
+    --amber:#B07A16;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:"Manrope",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    font-size:15px;
+    line-height:1.55;
+  }
+  .page{max-width:1000px;margin:0 auto;padding:48px 28px 80px}
+
+  /* ---------- Masthead ---------- */
+  .eyebrow{
+    font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+    font-weight:700;color:var(--teal);
+  }
+  .masthead{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;flex-wrap:wrap}
+  h1{
+    font-family:"Fraunces",Georgia,serif;
+    font-size:44px;line-height:1.05;margin:10px 0 4px;font-weight:700;letter-spacing:-.01em;
+  }
+  .vs{font-family:"Fraunces",Georgia,serif;font-size:26px;color:#A9B4B1;margin:0;font-weight:400}
+  .meta{text-align:right;color:var(--muted);font-size:14px;padding-top:4px}
+  .meta strong{display:block;color:var(--ink);font-weight:600}
+  .rule{height:3px;background:var(--ink);margin:26px 0 30px}
+
+  /* ---------- Section 1: score ---------- */
+  .grid-top{display:grid;grid-template-columns:1fr 1.2fr;gap:22px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:26px}
+  .cand-name{font-weight:700;font-size:19px;margin:0 0 6px}
+  .cand-loc{color:var(--muted);margin:0 0 18px}
+  .cert{border-left:3px solid var(--brass);padding-left:12px;margin:0 0 10px;color:#3C4B48}
+
+  .score-card{background:#12100E;color:#fff;border-radius:10px;padding:26px 28px}
+  .score-label{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#9A948B}
+  .score-big{
+    font-family:"Fraunces",Georgia,serif;
+    font-size:70px;line-height:1;font-weight:600;margin:8px 0 6px;letter-spacing:-.02em;
+  }
+  .score-sub{color:#9A948B;font-size:13px;margin:0 0 22px}
+  .tally{display:flex;gap:34px;border-top:1px solid #2E2A26;padding-top:20px}
+  .tally div{text-align:left}
+  .tally .n{font-family:"Fraunces",Georgia,serif;font-size:34px;font-weight:600;line-height:1}
+  .tally .k{font-size:10px;letter-spacing:.14em;text-transform:uppercase;margin-top:6px}
+  .k-strong{color:#7FCFA6}.k-partial{color:var(--brass)}.k-gap{color:#E2828C}
+
+  /* ---------- Verdict ---------- */
+  .verdict{margin-top:22px;border:1px solid #EBD3D6;border-radius:10px;overflow:hidden;background:var(--red-soft)}
+  .verdict-bar{background:var(--red);color:#fff;font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;padding:9px 22px}
+  .verdict-body{padding:20px 22px;border-left:5px solid var(--red)}
+  .verdict-body h3{color:var(--red);margin:0 0 8px;font-size:17px;font-weight:700}
+  .verdict-body p{margin:0;color:#4A3B3D}
+
+  /* ---------- Section headers ---------- */
+  h2{
+    font-family:"Fraunces",Georgia,serif;
+    font-size:24px;font-weight:600;margin:52px 0 4px;letter-spacing:-.01em;
+  }
+  .sec-note{color:var(--muted);font-size:13px;margin:0 0 18px}
+
+  /* ---------- Table ---------- */
+  .table-wrap{background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  table{width:100%;border-collapse:collapse}
+  th{
+    text-align:left;font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--muted);font-weight:700;padding:14px 16px;background:#FBF9F5;border-bottom:1px solid var(--line);
+  }
+  td{padding:15px 16px;border-bottom:1px solid #F0ECE5;vertical-align:top;font-size:14px}
+  tr:last-child td{border-bottom:none}
+  td.num{color:#A9B4B1;font-size:12px;width:34px}
+  td.cap{font-weight:600;width:210px}
+  td.dom{color:var(--muted);width:110px;font-size:13px}
+  td.verd{width:96px;font-weight:700;font-size:12px;letter-spacing:.06em}
+  td.score{width:64px;font-variant-numeric:tabular-nums;color:#3C4B48}
+  .v-strong{color:var(--green)}.v-partial{color:var(--amber)}.v-gap{color:var(--red)}
+  td.ev{color:#4A5754;font-size:13.5px;line-height:1.5}
+
+  /* ---------- Section 2: strengths / gaps ---------- */
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .panel{background:#fff;border:1px solid var(--line);border-radius:10px;padding:24px 26px}
+  .panel.strengths{border-left:6px solid var(--teal)}
+  .panel.gaps{border-left:6px solid var(--red)}
+  .panel h3{margin:0 0 16px;font-size:17px;font-weight:700}
+  .panel ul{list-style:none;margin:0;padding:0}
+  .panel li{padding:12px 0;border-bottom:1px solid #F0ECE5;color:#3C4B48}
+  .panel li:last-child{border-bottom:none;padding-bottom:0}
+
+  /* ---------- Section 3: questions ---------- */
+  .q-row{display:grid;grid-template-columns:44px 1fr 150px;gap:16px;padding:18px 20px;border-bottom:1px solid #F0ECE5}
+  .q-row:last-child{border-bottom:none}
+  .q-num{color:#A9B4B1;font-size:12px;font-weight:700;letter-spacing:.06em;padding-top:2px}
+  .q-text{font-size:14.5px;line-height:1.55}
+  .q-area{color:var(--muted);font-size:12.5px;line-height:1.4}
+  .q-head{display:grid;grid-template-columns:44px 1fr 150px;gap:16px;padding:14px 20px;background:#FBF9F5;border-bottom:1px solid var(--line);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700}
+
+  footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:12px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+  @media (max-width:820px){
+    .grid-top,.two-col{grid-template-columns:1fr}
+    h1{font-size:34px}
+    .score-big{font-size:56px}
+    .meta{text-align:left}
+    td.cap{width:auto}
+    .q-row,.q-head{grid-template-columns:1fr}
+    .q-head{display:none}
+    .q-area{order:-1;font-weight:700;color:var(--teal);text-transform:uppercase;font-size:11px;letter-spacing:.1em}
+    table,thead,tbody,tr,td{display:block;width:auto!important}
+    thead{display:none}
+    td{border-bottom:none;padding:4px 16px}
+    tr{border-bottom:1px solid #F0ECE5;padding:14px 0}
+  }
+  @media print{
+    body{background:#fff}
+    .page{padding:0}
+    .card,.panel,.table-wrap{break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ============ MASTHEAD ============ -->
+  <div class="masthead">
+    <div>
+      <div class="eyebrow">Candidate Capability Match Report</div>
+      <h1>Marcus Delgado</h1>
+      <p class="vs">vs. Production Network Engineer</p>
+    </div>
+    <div class="meta">
+      August 2026
+      <strong>Production Network Engineer</strong>
+    </div>
+  </div>
+  <div class="rule"></div>
+
+  <!-- ============ 1. OVERALL SCORE ============ -->
+  <div class="grid-top">
+    <div class="card">
+      <p class="cand-name">Marcus Delgado</p>
+      <p class="cand-loc">Southern California</p>
+      <p class="cert">AWS</p>
+      <p class="cert">Cisco Certified Network Associate (CCNA)</p>
+    </div>
+
+    <div class="score-card">
+      <div class="score-label">Overall capability match</div>
+      <div class="score-big">46.85%</div>
+      <p class="score-sub">Against 15 evaluated capabilities</p>
+      <div class="tally">
+        <div><div class="n">4</div><div class="k k-strong">Strong</div></div>
+        <div><div class="n">3</div><div class="k k-partial">Partial</div></div>
+        <div><div class="n">8</div><div class="k k-gap">Gaps</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <div class="verdict-bar">Reject · Medium</div>
+    <div class="verdict-body">
+      <h3>We do not recommend proceeding with Marcus Delgado for this role</h3>
+      <p>While Marcus has strong traditional network engineering experience, there are significant gaps in modern network automation protocols (gNMI, gRPC, NETCONF, SONiC) and Go programming, which are core requirements for this role's focus on building automated repair pipelines and monitoring platforms.</p>
+    </div>
+  </div>
+
+  <!-- ============ CRITERIA BREAKDOWN ============ -->
+  <h2>Capability match — criteria breakdown</h2>
+  <p class="sec-note">Every capability is scored against this role's bar, with the evidence it was scored on.</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th><th>Capability</th><th>Domain</th><th>Verdict</th><th>Score</th><th>Evidence / gap</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="num">1</td>
+          <td class="cap">Production Network On-Call &amp; Incident Response</td>
+          <td class="dom">Technical Skills</td>
+          <td class="verd v-strong">Strong</td>
+          <td class="score">8/10</td>
+          <td class="ev">Senior network engineering roles leading network design and implementation, managing migrations, and deploying authentication — carrying on-call duty and incident response. Matches the role's requirement to walk into an outage, find the fault, fix it or drive the RMA, and write the postmortem unassisted.</td>
+        </tr>
+        <tr>
+          <td class="num">2</td>
+          <td class="cap">Network Fault Diagnosis &amp; Troubleshooting</td>
+          <td class="dom">Technical Skills</td>
+          <td class="verd v-strong">Strong</td>
+          <td class="score">8/10</td>
+          <td class="ev">Profile cites troubleshooting and performance optimization, a firewall platform migration, and SD-WAN infrastructure work. Diagnostic tooling listed includes Wireshark, iPerf, TCP Dump and SNMP.</td>
+        </tr>
+        <tr>
+          <td class="num">3</td>
+          <td class="cap">Python Scripting for Network Automation</td>
+          <td class="dom">Technical Skills</td>
+          <td class="verd v-partial">Partial</td>
+          <td class="score">6/10</td>
+          <td class="ev">Python is listed under technical skills, but no specific examples of network automation (config pushes, fleet-wide command execution) are given. The role asks for scripts that replaced manual work.</td>
+        </tr>
+        <tr>
+          <td class="num">4</td>
+          <td class="cap">Go Programming for Network Tooling</td>
+          <td class="dom">Technical Skills</td>
+          <td class="verd v-gap">Gap</td>
+          <td class="score">0/10</td>
+          <td class="ev">No mention of Go programming in the candidate's profile.</td>
+        </tr>
+        <tr>
+          <td class="num">5</td>
+          <td class="cap">Network Repair Pipeline Automation</td>
+          <td class="dom">Technical Skills</td>
+          <td class="verd v-gap">Gap</td>
+          <td class="score">4/10</td>
+          <td class="ev">Strong network experience and Python skills, but no explicit evidence of automating a full repair pipeline from fault detection through RMA and return to service. This is a significant part of the role.</td>
+        </tr>
+        <tr>
+          <td class="num">6</td>
+          <td class="cap">Network Monitoring &amp; Alerting System Maintenance</td>
+          <td class="dom">Technical Skills</td>
+          <td class="verd v-partial">Partial</td>
+          <td class="score">6/10</td>
+          <td class="ev">SolarWinds is listed under tools, and large-scale network and data center management implies monitoring involvement. No explicit evidence of building or maintaining such a platform for a continuously growing fleet.</td>
+        </tr>
+        <tr>
+          <td class="num">7</td>
+          <td class="cap">gNMI Protocol Implementation</td>
+          <td class="dom">Technical Skills</td>
+          <td class="verd v-gap">Gap</td>
+          <td class="score">0/10</td>
+          <td class="ev">No mention of gNMI in the candidate's profile.</td>
+        </tr>
+        <tr>
+          <td class="num">8</td>
+          <td class="cap">gRPC Protocol Implementation</td>
+          <td class="dom">Technical Skills</td>
+          <td class="verd v-gap">Gap</td>
+          <td class="score">0/10</td>
+          <td class="ev">No mention of gRPC in the candidate's profile.</td>
+        </tr>
+        <tr>
+          <td class="num">9</td>
+          <td class="cap">NETCONF Protocol Implementation</td>
+          <td class="dom">Technical Skills</td>
+          <td class="verd v-gap">Gap</td>
+          <td class="score">0/10</td>
+          <td class="ev">No mention of NETCONF in the candidate's profile.</td>
+        </tr>
+        <tr>
+          <td class="num">10</td>
+          <td class="cap">SONiC Network Operating System Management</td>
+          <td class="dom">Technical Skills</td>
+          <td class="verd v-gap">Gap</td>
+          <td class="score">0/10</td>
+          <td class="ev">No mention of SONiC in the candidate's profile.</td>
+        </tr>
+        <tr>
+          <td class="num">11</td>
+          <td class="cap">CLI-based Switch and Router Configuration</td>
+          <td class="dom">Technical Skills</td>
+          <td class="verd v-strong">Strong</td>
+          <td class="score">9/10</td>
+          <td class="ev">Cisco, Juniper, Palo Alto and Fortinet listed under tools, with CCNA, JNCIA and JNCIS-ENT certifications. Extensive senior-level routing and switching, firewall configuration and data center design work indicates expert comfort on device CLI.</td>
+        </tr>
+        <tr>
+          <td class="num">12</td>
+          <td class="cap">Link Diagnostics &amp; Optics Troubleshooting</td>
+          <td class="dom">Technical Skills</td>
+          <td class="verd v-partial">Partial</td>
+          <td class="score">7/10</td>
+          <td class="ev">Wireshark, iPerf and TCP Dump are listed. High-capacity 10Gb point-to-point network and Tier 1 data center experience implies working with optics, though the role's emphasis on how a transceiver fault appears in the data is not directly evidenced.</td>
+        </tr>
+        <tr>
+          <td class="num">13</td>
+          <td class="cap">BGP Protocol Management</td>
+          <td class="dom">Technical Skills</td>
+          <td class="verd v-strong">Strong</td>
+          <td class="score">9/10</td>
+          <td class="ev">BGP appears repeatedly under technical skills and in project descriptions, including full-mesh BGP/IPSEC backup connectivity and OSPF/BGP/IPSEC for data centers. Clear competency.</td>
+        </tr>
+        <tr>
+          <td class="num">14</td>
+          <td class="cap">ECMP Configuration &amp; Optimization</td>
+          <td class="dom">Technical Skills</td>
+          <td class="verd v-gap">Gap</td>
+          <td class="score">4/10</td>
+          <td class="ev">No explicit mention of ECMP. BGP is listed, but ECMP is a specific configuration area that is not directly evidenced.</td>
+        </tr>
+        <tr>
+          <td class="num">15</td>
+          <td class="cap">Spine-leaf Architecture Understanding</td>
+          <td class="dom">Technical Skills</td>
+          <td class="verd v-gap">Gap</td>
+          <td class="score">4/10</td>
+          <td class="ev">Designed and built two Tier 1 data centers, which implies modern data center architecture knowledge, but spine-leaf is not named. VXLAN/EVPN experience suggests familiarity without stating it.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ============ 2. STRENGTHS AND GAPS ============ -->
+  <h2>Strengths and gaps</h2>
+  <p class="sec-note">What to lean on in the screen, and what to test before advancing.</p>
+
+  <div class="two-col">
+    <div class="panel strengths">
+      <h3>Key strengths to leverage</h3>
+      <ul>
+        <li>Production Network On-Call &amp; Incident Response</li>
+        <li>Network Fault Diagnosis &amp; Troubleshooting</li>
+        <li>CLI-based Switch and Router Configuration</li>
+        <li>BGP Protocol Management</li>
+        <li>Link Diagnostics &amp; Optics Troubleshooting</li>
+      </ul>
+    </div>
+    <div class="panel gaps">
+      <h3>Gaps to probe in screen</h3>
+      <ul>
+        <li>Go Programming for Network Tooling</li>
+        <li>gNMI Protocol Implementation</li>
+        <li>gRPC Protocol Implementation</li>
+        <li>NETCONF Protocol Implementation</li>
+        <li>SONiC Network Operating System Management</li>
+        <li>ECMP Configuration &amp; Optimization</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ============ 3. PROBE QUESTIONS ============ -->
+  <h2>Recommended probe questions</h2>
+  <p class="sec-note">Interview questions written from this candidate's gaps against this role.</p>
+
+  <div class="table-wrap">
+    <div class="q-head"><div>#</div><div>Question</div><div>Area</div></div>
+
+    <div class="q-row">
+      <div class="q-num">Q1</div>
+      <div class="q-text">The job involves building automated repair pipelines from fault detection through RMA initiation and return to service. Can you describe a time you designed or significantly contributed to an automated workflow for network incident response or repair? What was your specific role, what technologies did you use, and what challenges did you overcome?</div>
+      <div class="q-area">Repair Pipeline Automation</div>
+    </div>
+
+    <div class="q-row">
+      <div class="q-num">Q2</div>
+      <div class="q-text">Our team uses Go for building network tooling. While your profile highlights Python, can you share any experience you have with Go, even if it's personal projects or learning efforts? If not, how would you approach quickly gaining proficiency in Go for production-level network automation?</div>
+      <div class="q-area">Go Programming Gap</div>
+    </div>
+
+    <div class="q-row">
+      <div class="q-num">Q3</div>
+      <div class="q-text">We rely heavily on modern network monitoring protocols like gNMI, gRPC, and NETCONF for real-time telemetry and configuration. Can you describe your experience with any of these protocols, or similar programmatic interfaces for network devices? How have you leveraged them in past roles?</div>
+      <div class="q-area">Modern Protocol Gap</div>
+    </div>
+
+    <div class="q-row">
+      <div class="q-num">Q4</div>
+      <div class="q-text">The role requires maintaining a real-time monitoring and alerting platform for a rapidly growing fleet. Can you walk me through your experience in designing, implementing, or significantly improving a network monitoring system for a large-scale environment? What metrics did you prioritize, and how did you ensure its scalability and accuracy?</div>
+      <div class="q-area">Monitoring Scalability</div>
+    </div>
+
+    <div class="q-row">
+      <div class="q-num">Q5</div>
+      <div class="q-text">You have strong experience with BGP. Can you describe a complex BGP routing issue you've troubleshot in a production environment? What was the problem, how did you diagnose it, and what was the resolution? Have you worked with ECMP in conjunction with BGP, and if so, how?</div>
+      <div class="q-area">BGP/ECMP Depth</div>
+    </div>
+
+    <div class="q-row">
+      <div class="q-num">Q6</div>
+      <div class="q-text">Our environment will scale to 10 GW, requiring systematic debugging and automation. Can you give an example of a time you identified a repetitive manual network task and successfully automated it using scripting or other tools? What was the impact of that automation on your team or the organization?</div>
+      <div class="q-area">Toil Automation</div>
+    </div>
+  </div>
+
+  <footer>
+    <div>FaujX — Candidate Capability Match Report · Sample</div>
+    <div>Illustrative sample. Candidate name and details are fictitious.</div>
+  </footer>
+
+</div>
+</body>
+</html>
