@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FaujX — Capability Signal Beyond Engineering | ICU Nurse Test</title>
+<meta name="description" content="A controlled test: one ICU nurse role, two candidates, one resume-strong and one capability-strong. What the capability layer surfaced that a resume screen would have inverted.">
+<meta property="og:title" content="FaujX — Capability Signal Beyond Engineering">
+<meta property="og:description" content="One ICU nurse role. Two candidates. The resume layer and the capability layer disagree completely.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --ink: #0e0d0b; --ink-2: #2a2825; --ink-3: #6b6860;
+  --cream: #f5f2ec; --cream-2: #ede9e0; --cream-3: #e2ddd3;
+  --gold: #b8860b; --gold-lt: #d4a017;
+  --green: #2d4d1a; --green-mid: #3a6122; --green-lt: #4e7a2e;
+  --green-pale: #eef5e8; --green-border: #c8ddb8;
+  --amber-pale: #fbf3df; --amber-border: #e8d28a;
+  --red: #8c2b2b; --red-pale: #fbeeee; --red-border: #e8c4c4;
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans: 'DM Sans', -apple-system, sans-serif;
+  --mono: 'DM Mono', monospace;
+}
+html { scroll-behavior: smooth; }
+body { background: var(--cream); color: var(--ink); font-family: var(--sans); font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+.wrap { max-width: 1020px; margin: 0 auto; padding: 0 28px; }
+.eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+.eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--gold); }
+
+.brandbar { background: var(--cream); border-bottom: 1px solid var(--cream-3); padding: 18px 0; }
+.brandbar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
+.brandbar img { height: 44px; width: auto; display: block; }
+.brandbar .for { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-3); }
+.brandbar .for strong { color: var(--green); font-weight: 500; }
+@media (max-width: 600px){ .brandbar img { height: 34px; } }
+
+.hero { background: var(--ink); color: var(--cream); padding: 84px 0 72px; position: relative; overflow: hidden; }
+.hero::after { content: ''; position: absolute; right: -120px; top: -120px; width: 460px; height: 460px; border-radius: 50%; border: 1px solid rgba(212,160,23,.18); pointer-events: none; }
+.hero::before { content: ''; position: absolute; right: -40px; top: -40px; width: 300px; height: 300px; border-radius: 50%; border: 1px solid rgba(212,160,23,.12); pointer-events: none; }
+.hero .eyebrow { color: var(--gold-lt); }
+.hero h1 { font-family: var(--serif); font-weight: 500; font-size: clamp(36px, 5.4vw, 58px); line-height: 1.07; letter-spacing: -1px; max-width: 17ch; margin-bottom: 26px; position: relative; }
+.hero h1 em { font-style: italic; color: var(--gold-lt); }
+.hero .lede { font-size: 18px; font-weight: 300; color: var(--cream-2); max-width: 62ch; margin-bottom: 14px; position: relative; }
+.hero .lede strong { font-weight: 500; color: #fff; }
+.hero .prepared { margin-top: 34px; font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: rgba(245,242,236,.55); position: relative; }
+
+.sec { padding: 72px 0; }
+.sec.alt { background: #fffdf9; border-top: 1px solid var(--cream-3); border-bottom: 1px solid var(--cream-3); }
+.sec h2 { font-family: var(--serif); font-size: clamp(26px, 3.3vw, 35px); font-weight: 500; letter-spacing: -.4px; line-height: 1.16; margin-bottom: 16px; max-width: 26ch; }
+.sec h2 em { font-style: italic; color: var(--green-mid); }
+.sec .sub { font-size: 16px; font-weight: 300; color: var(--ink-3); max-width: 66ch; margin-bottom: 36px; }
+.sec p.body { font-size: 16px; font-weight: 300; color: var(--ink-2); max-width: 66ch; margin-bottom: 16px; }
+.sec p.body strong { font-weight: 500; color: var(--ink); }
+
+.setup { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 30px; }
+.scard { border: 1px solid var(--cream-3); background: var(--cream); padding: 24px 24px 22px; }
+.scard .tag { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+.scard p { font-size: 14.5px; font-weight: 300; color: var(--ink-2); }
+.scard p strong { font-weight: 500; }
+@media (max-width: 780px){ .setup { grid-template-columns: 1fr; } }
+
+.cands { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.cc { border: 1px solid var(--cream-3); background: #fffdf9; padding: 28px 28px 24px; }
+.cc.b { background: var(--cream); }
+.cc .who { font-family: var(--serif); font-size: 22px; font-weight: 600; margin-bottom: 4px; }
+.cc .role { font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 18px; }
+.cc ul { list-style: none; }
+.cc li { font-size: 14.5px; font-weight: 300; color: var(--ink-2); padding: 7px 0; border-bottom: 1px solid var(--cream-2); display: flex; justify-content: space-between; gap: 14px; }
+.cc li:last-child { border-bottom: none; }
+.cc li span.k { color: var(--ink-3); font-size: 13px; }
+.cc li span.v2 { font-weight: 500; text-align: right; }
+.cc .verdictline { margin-top: 18px; padding-top: 16px; border-top: 2px solid var(--cream-3); font-size: 14.5px; font-weight: 300; color: var(--ink-2); }
+.cc .verdictline strong { font-weight: 500; }
+@media (max-width: 780px){ .cands { grid-template-columns: 1fr; } }
+
+.flip { margin-top: 22px; border-left: 3px solid var(--gold); background: var(--amber-pale); padding: 24px 28px; font-size: 16px; font-weight: 300; color: var(--ink-2); }
+.flip strong { font-weight: 500; }
+
+.signal { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 8px; }
+.sig { border: 1px solid var(--green-border); background: var(--green-pale); padding: 28px; }
+.sig.low { border-color: var(--red-border); background: var(--red-pale); }
+.sig .nm { font-family: var(--serif); font-size: 21px; font-weight: 600; margin-bottom: 18px; }
+.sig .counts { display: flex; gap: 26px; flex-wrap: wrap; }
+.sig .n { font-family: var(--serif); font-size: 40px; font-weight: 600; line-height: 1; color: var(--green); }
+.sig.low .n { color: var(--red); }
+.sig .l { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); margin-top: 7px; }
+@media (max-width: 780px){ .signal { grid-template-columns: 1fr; } }
+
+table.crit { width: 100%; border-collapse: collapse; margin-top: 10px; background: #fffdf9; border: 1px solid var(--cream-3); }
+table.crit thead th { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); text-align: left; padding: 14px 12px; border-bottom: 1px solid var(--cream-3); font-weight: 500; }
+table.crit thead th.c { text-align: center; width: 118px; }
+table.crit td { padding: 14px 12px; border-bottom: 1px solid var(--cream-2); vertical-align: top; }
+table.crit tr:last-child td { border-bottom: none; }
+td.num { font-family: var(--mono); font-size: 11px; color: var(--ink-3); width: 34px; }
+.capname { font-size: 14.5px; font-weight: 500; color: var(--ink); display: block; }
+.ev { font-size: 13px; font-weight: 300; color: var(--ink-3); margin-top: 6px; max-width: 58ch; }
+td.vc { text-align: center; white-space: nowrap; }
+.v { font-family: var(--mono); font-size: 10px; letter-spacing: .08em; padding: 4px 9px; border-radius: 2px; display: inline-block; }
+.vs { background: var(--green-pale); color: var(--green); border: 1px solid var(--green-border); }
+.vp { background: var(--amber-pale); color: #8a6d13; border: 1px solid var(--amber-border); }
+.vg { background: var(--red-pale); color: var(--red); border: 1px solid var(--red-border); }
+.sc { display: block; font-family: var(--mono); font-size: 11px; color: var(--ink-3); margin-top: 6px; }
+.scrollnote { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 8px; display: none; }
+@media (max-width: 720px){
+  .scrollnote { display: block; }
+  .tablewrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  table.crit { min-width: 640px; }
+}
+
+.qlist { counter-reset: q; }
+.qi { border-left: 2px solid var(--cream-3); padding: 0 0 0 22px; margin-bottom: 24px; }
+.qi .area { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+.qi p { font-size: 15px; font-weight: 300; color: var(--ink-2); max-width: 64ch; }
+
+.limits { border: 1px solid var(--cream-3); background: var(--cream); padding: 32px 34px; }
+.limits h3 { font-family: var(--serif); font-size: 21px; font-weight: 600; margin-bottom: 16px; }
+.limits ul { list-style: none; }
+.limits li { font-size: 15px; font-weight: 300; color: var(--ink-2); padding: 11px 0 11px 26px; border-bottom: 1px solid var(--cream-2); position: relative; }
+.limits li:last-child { border-bottom: none; }
+.limits li::before { content: '—'; position: absolute; left: 0; color: var(--gold); }
+.limits li strong { font-weight: 500; color: var(--ink); }
+
+.pipe { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 8px; }
+.st { border: 1px solid var(--cream-3); background: var(--cream); padding: 18px 16px; }
+.st.on { background: var(--green-pale); border-color: var(--green-border); }
+.st .sn { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; color: var(--ink-3); margin-bottom: 8px; }
+.st.on .sn { color: var(--green-mid); }
+.st .stt { font-size: 13.5px; font-weight: 500; line-height: 1.35; }
+@media (max-width: 780px){ .pipe { grid-template-columns: 1fr 1fr; } }
+
+.method { font-size: 14px; font-weight: 300; color: var(--ink-3); max-width: 72ch; }
+.method strong { font-weight: 500; color: var(--ink-2); }
+.synth { border-left: 3px solid var(--red); background: var(--red-pale); padding: 22px 26px; margin-bottom: 26px; font-size: 15px; font-weight: 300; color: var(--ink-2); }
+.synth strong { font-weight: 500; color: var(--red); }
+
+.cta { background: var(--ink); color: var(--cream); padding: 72px 0; }
+.cta h2 { font-family: var(--serif); font-size: clamp(26px, 3.3vw, 35px); font-weight: 500; margin-bottom: 16px; max-width: 24ch; }
+.cta h2 em { font-style: italic; color: var(--gold-lt); }
+.cta p { font-size: 16px; font-weight: 300; color: var(--cream-2); max-width: 62ch; margin-bottom: 28px; }
+.row { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn { font-family: var(--sans); font-size: 14px; font-weight: 500; padding: 14px 26px; text-decoration: none; display: inline-block; transition: all .18s; }
+.btn.gold { background: var(--gold-lt); color: var(--ink); }
+.btn.gold:hover { background: #e0ae23; }
+.btn.ghost { border: 1px solid rgba(245,242,236,.35); color: var(--cream); }
+.btn.ghost:hover { border-color: var(--gold-lt); color: var(--gold-lt); }
+.fine { margin-top: 30px; font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: rgba(245,242,236,.45); }
+
+footer { background: var(--cream); border-top: 1px solid var(--cream-3); padding: 26px 0; }
+footer .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; color: var(--ink-3); }
+footer img.flogo { height: 30px; width: auto; display: block; opacity: .9; }
+</style>
+</head>
+<body>
+
+<div class="brandbar">
+  <div class="wrap">
+    <img src="data:image/png;base64,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" alt="FaujX">
+    <div class="for">Prepared for <strong>Nikhil</strong> · Capability Snapshot · Healthcare</div>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Capability Signal · Beyond Engineering</div>
+    <h1>The role was an <em>ICU nurse.</em> Nothing about the system changed.</h1>
+    <p class="lede">If the assumption was that this only works for software engineers, this is the test that settles it. One critical care nursing requisition. Two candidates. <strong>The resume layer and the capability layer disagree completely.</strong></p>
+    <p class="lede">The role is not the input. The role's derived capabilities are. That is why the domain does not matter.</p>
+    <div class="prepared">Registered Nurse · Intensive Care Unit · 13-week contract · Bethesda, MD</div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="eyebrow">The test</div>
+    <h2>Built as a controlled experiment, not a demo.</h2>
+    <p class="sub">A demo shows you the system agreeing with you. A controlled test tells you something you did not already know. The two candidates were deliberately constructed so that a conventional resume screen and a capability assessment would reach opposite conclusions.</p>
+    <div class="setup">
+      <div class="scard">
+        <div class="tag">The requisition</div>
+        <p>A single ICU role — not a multi-specialty agency posting. 24-bed adult medical/surgical ICU. 1:2 assignment. CRRT on the unit. <strong>Independent practice from week two.</strong></p>
+      </div>
+      <div class="scard">
+        <div class="tag">What was derived</div>
+        <p><strong>14 capabilities</strong> pulled from the requisition's stated responsibilities and minimum qualifications. The same 14 applied identically to both candidates.</p>
+      </div>
+      <div class="scard">
+        <div class="tag">What was withheld</div>
+        <p>No hints, no ranking, no context about which candidate was intended to win. Two resumes and one job description. Nothing else.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec alt">
+  <div class="wrap">
+    <div class="eyebrow">Stage one — the resume layer</div>
+    <h2>On paper, this is not close.</h2>
+    <p class="sub">Every conventional screening heuristic — years of experience, degree level, certification count, leadership titles, tenure stability — points the same direction.</p>
+    <div class="cands">
+      <div class="cc">
+        <div class="who">Renata Kowalczyk-Byrne</div>
+        <div class="role">RN, BSN · Silver Spring, MD</div>
+        <ul>
+          <li><span class="k">Years in practice</span><span class="v2">9</span></li>
+          <li><span class="k">Degree</span><span class="v2">BSN, with honors</span></li>
+          <li><span class="k">Certifications listed</span><span class="v2">7</span></li>
+          <li><span class="k">Leadership</span><span class="v2">Charge nurse, council chair, lead preceptor</span></li>
+          <li><span class="k">Tenure pattern</span><span class="v2">One employer, 8 years</span></li>
+          <li><span class="k">Facility</span><span class="v2">Magnet-designated</span></li>
+        </ul>
+        <div class="verdictline">Every filter a screening workflow applies <strong>advances this candidate.</strong></div>
+      </div>
+      <div class="cc b">
+        <div class="who">Marcus Ovadia</div>
+        <div class="role">RN · Cleveland, OH</div>
+        <ul>
+          <li><span class="k">Years in practice</span><span class="v2">6</span></li>
+          <li><span class="k">Degree</span><span class="v2">ADN, BSN in progress</span></li>
+          <li><span class="k">Certifications listed</span><span class="v2">5</span></li>
+          <li><span class="k">Leadership</span><span class="v2">Resource nurse (one contract)</span></li>
+          <li><span class="k">Tenure pattern</span><span class="v2">8 assignments in 4 years</span></li>
+          <li><span class="k">Facility</span><span class="v2">Various, agency-placed</span></li>
+        </ul>
+        <div class="verdictline">Fewer years, lower degree, fewer certifications, and a tenure pattern that reads as instability. <strong>Screened out in most workflows.</strong></div>
+      </div>
+    </div>
+    <div class="flip">The requisition's stated minimum is <strong>two years of recent, continuous adult ICU experience</strong>, with step-down and progressive care explicitly excluded as substitutes. The candidate every heuristic advances does not meet it. Her ICU exposure is a float-pool rotation of roughly one shift per pay period, beginning January 2025.</div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="eyebrow">Stage two — the capability layer</div>
+    <h2>Same two resumes. <em>Complete inversion.</em></h2>
+    <p class="sub">Each candidate measured against the same 14 capabilities derived from the requisition. Not keyword overlap — evidence located in the resume and mapped to the capability the role actually requires.</p>
+    <div class="signal">
+      <div class="sig">
+        <div class="nm">Marcus Ovadia</div>
+        <div class="counts">
+          <div><div class="n">14</div><div class="l">Strong</div></div>
+          <div><div class="n">0</div><div class="l">Partial</div></div>
+          <div><div class="n">0</div><div class="l">Gaps</div></div>
+        </div>
+      </div>
+      <div class="sig low">
+        <div class="nm">Renata Kowalczyk-Byrne</div>
+        <div class="counts">
+          <div><div class="n">4</div><div class="l">Strong</div></div>
+          <div><div class="n">2</div><div class="l">Partial</div></div>
+          <div><div class="n">8</div><div class="l">Gaps</div></div>
+        </div>
+      </div>
+    </div>
+    <p class="body" style="margin-top:26px">Eight of the fourteen capabilities are open gaps for the candidate the resume layer ranked first. Six of those eight score <strong>zero</strong> — not weak evidence, no evidence. They are also the capabilities a nurse on this unit uses on the first night shift, unsupervised.</p>
+  </div>
+</section>
+
+<section class="sec alt">
+  <div class="wrap">
+    <div class="eyebrow">The breakdown</div>
+    <h2>Fourteen capabilities. Every one traced to evidence.</h2>
+    <p class="sub">The value is not the verdict. It is that a hiring manager can audit every line of it, disagree with any single row, and see exactly what the row was based on.</p>
+    <div class="scrollnote">Scroll table sideways →</div>
+    <div class="tablewrap">
+      <table class="crit">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Capability derived from the requisition</th>
+            <th class="c">Ovadia</th>
+            <th class="c">Kowalczyk-Byrne</th>
+          </tr>
+        </thead>
+        <tbody>
+<tr>
+      <td class="num">1</td>
+      <td class="cap"><span class="capname">Active, unencumbered RN license (MD or compact)</span></td>
+      <td class="vc"><span class="v vs">STRONG</span><span class="sc">10/10</span></td>
+      <td class="vc"><span class="v vs">STRONG</span><span class="sc">8/10</span></td>
+    </tr>
+<tr>
+      <td class="num">2</td>
+      <td class="cap"><span class="capname">BLS certification (AHA)</span></td>
+      <td class="vc"><span class="v vs">STRONG</span><span class="sc">10/10</span></td>
+      <td class="vc"><span class="v vs">STRONG</span><span class="sc">8/10</span></td>
+    </tr>
+<tr>
+      <td class="num">3</td>
+      <td class="cap"><span class="capname">ACLS certification (AHA)</span></td>
+      <td class="vc"><span class="v vs">STRONG</span><span class="sc">10/10</span></td>
+      <td class="vc"><span class="v vs">STRONG</span><span class="sc">8/10</span></td>
+    </tr>
+<tr>
+      <td class="num">4</td>
+      <td class="cap"><span class="capname">Adult ICU experience — 2+ years recent, continuous</span><div class="ev">Cross-trained to the ICU float pool in January 2025; floats roughly one shift per pay period. Limited and recent exposure, not two continuous years.</div></td>
+      <td class="vc"><span class="v vs">STRONG</span><span class="sc">10/10</span></td>
+      <td class="vc"><span class="v vg">GAP</span><span class="sc">3/10</span></td>
+    </tr>
+<tr>
+      <td class="num">5</td>
+      <td class="cap"><span class="capname">Manage mechanically ventilated patients</span><div class="ev">No evidence of independent ventilator management. Progressive care and med-surg settings typically do not involve it.</div></td>
+      <td class="vc"><span class="v vs">STRONG</span><span class="sc">10/10</span></td>
+      <td class="vc"><span class="v vg">GAP</span><span class="sc">0/10</span></td>
+    </tr>
+<tr>
+      <td class="num">6</td>
+      <td class="cap"><span class="capname">Manage vasoactive-dependent patients</span><div class="ev">No evidence. A core ICU skill not typically found in progressive care or med-surg.</div></td>
+      <td class="vc"><span class="v vs">STRONG</span><span class="sc">10/10</span></td>
+      <td class="vc"><span class="v vg">GAP</span><span class="sc">0/10</span></td>
+    </tr>
+<tr>
+      <td class="num">7</td>
+      <td class="cap"><span class="capname">Perform head-to-toe assessments</span><div class="ev">Fundamental to nine years of acute care practice, but not evidenced at ICU acuity.</div></td>
+      <td class="vc"><span class="v vs">STRONG</span><span class="sc">8/10</span></td>
+      <td class="vc"><span class="v vp">PARTIAL</span><span class="sc">7/10</span></td>
+    </tr>
+<tr>
+      <td class="num">8</td>
+      <td class="cap"><span class="capname">Interpret hemodynamic data</span><div class="ev">Telemetry and rhythm interpretation present — basic components, not the arterial line, CVP, and cardiac output interpretation this unit requires.</div></td>
+      <td class="vc"><span class="v vs">STRONG</span><span class="sc">9/10</span></td>
+      <td class="vc"><span class="v vg">GAP</span><span class="sc">2/10</span></td>
+    </tr>
+<tr>
+      <td class="num">9</td>
+      <td class="cap"><span class="capname">Titrate vasoactive, sedative, analgesic infusions</span><div class="ev">No evidence of titrating these infusion classes.</div></td>
+      <td class="vc"><span class="v vs">STRONG</span><span class="sc">9/10</span></td>
+      <td class="vc"><span class="v vg">GAP</span><span class="sc">0/10</span></td>
+    </tr>
+<tr>
+      <td class="num">10</td>
+      <td class="cap"><span class="capname">Recognize and escalate clinical deterioration</span><div class="ev">Managed admissions flow and escalation to the rapid response team — real experience, at a lower acuity than the role.</div></td>
+      <td class="vc"><span class="v vs">STRONG</span><span class="sc">9/10</span></td>
+      <td class="vc"><span class="v vp">PARTIAL</span><span class="sc">7/10</span></td>
+    </tr>
+<tr>
+      <td class="num">11</td>
+      <td class="cap"><span class="capname">Initiate and monitor CRRT</span><div class="ev">No evidence of CRRT experience.</div></td>
+      <td class="vc"><span class="v vs">STRONG</span><span class="sc">10/10</span></td>
+      <td class="vc"><span class="v vg">GAP</span><span class="sc">0/10</span></td>
+    </tr>
+<tr>
+      <td class="num">12</td>
+      <td class="cap"><span class="capname">Execute sepsis bundle elements</span><div class="ev">No evidence of sepsis bundle execution.</div></td>
+      <td class="vc"><span class="v vs">STRONG</span><span class="sc">10/10</span></td>
+      <td class="vc"><span class="v vg">GAP</span><span class="sc">0/10</span></td>
+    </tr>
+<tr>
+      <td class="num">13</td>
+      <td class="cap"><span class="capname">Prioritize competing demands in a 1:2 assignment</span><div class="ev">Carries 4–6 telemetry patients and coordinates 9–12 staff as charge nurse. Real prioritization skill, not at 1:2 ICU acuity.</div></td>
+      <td class="vc"><span class="v vs">STRONG</span><span class="sc">8/10</span></td>
+      <td class="vc"><span class="v vg">GAP</span><span class="sc">5/10</span></td>
+    </tr>
+<tr>
+      <td class="num">14</td>
+      <td class="cap"><span class="capname">Electronic Health Record fluency</span><div class="ev">EHR documentation, order entry, Inpatient Superuser. The one criterion where this candidate scores higher.</div></td>
+      <td class="vc"><span class="v vs">STRONG</span><span class="sc">8/10</span></td>
+      <td class="vc"><span class="v vs">STRONG</span><span class="sc">9/10</span></td>
+    </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="body" style="margin-top:28px">Note criterion 14. The candidate who fails the role is <strong>genuinely stronger</strong> on EHR fluency, and the signal says so. A system that only produces the answer you expect is not measuring anything.</p>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="eyebrow">What the hiring team receives</div>
+    <h2>The gaps become the interview.</h2>
+    <p class="sub">Each candidate's open capabilities are converted into probe questions for the client's own interviewers. The system does not ask them. It tells the humans who will what is worth asking, and why.</p>
+    <div class="qlist">
+      <div class="qi">
+        <div class="area">Ventilator management gap</div>
+        <p>The job requires independent management of ventilated patients. Can you describe your most significant experience managing a patient on a mechanical ventilator, including your role in weaning trials and extubation readiness assessments?</p>
+      </div>
+      <div class="qi">
+        <div class="area">Vasoactive management gap</div>
+        <p>This role involves titrating vasoactive infusions like norepinephrine and vasopressin. Walk me through a time you managed a patient on multiple vasoactive drips — your assessment, your titration decisions, and how you monitored for effectiveness and side effects.</p>
+      </div>
+      <div class="qi">
+        <div class="area">CRRT experience gap</div>
+        <p>Our ICU frequently initiates and monitors CRRT. What is your experience with it, including initiating the circuit, troubleshooting common issues, and managing fluid balance for these patients?</p>
+      </div>
+      <div class="qi">
+        <div class="area">Prioritization &amp; workload</div>
+        <p>As a charge nurse you've managed staffing and patient flow. How do you approach prioritizing competing demands with a 1:2 assignment, especially when one patient is unstable or requires CRRT or post-arrest care?</p>
+      </div>
+    </div>
+    <p class="body" style="margin-top:8px">The questions are different for each candidate, because the gaps are different. A strong candidate gets depth probes on demonstrated strengths. A weaker one gets direct tests of the specific things the evidence did not support.</p>
+  </div>
+</section>
+
+<section class="sec alt">
+  <div class="wrap">
+    <div class="eyebrow">Scope</div>
+    <h2>What this does not do.</h2>
+    <p class="sub">In clinical hiring the limits matter more than the capabilities, and they should come from us rather than from your compliance team three weeks in.</p>
+    <div class="limits">
+      <h3>Stated plainly</h3>
+      <ul>
+        <li><strong>It does not verify credentials.</strong> Licence status, certification currency, and employment history are primary-source checks against the state board and the employer. Self-reported credentials are treated as unverified until your team confirms them.</li>
+        <li><strong>It does not assess hands-on clinical skill.</strong> Whether a nurse can place a line, manage a circuit at the bedside, or run a code is psychomotor competency. No document-based or screen-based assessment reaches it, and none should claim to.</li>
+        <li><strong>It does not decide.</strong> No candidate is advanced, rejected, or ranked into a hiring outcome by this system. It produces a signal and the evidence behind it. The decision, the interview, and the offer stay entirely with your team.</li>
+        <li><strong>It does not replace your recruiters.</strong> It removes the part of their day spent establishing whether a resume is worth reading, and returns the part spent on judgment.</li>
+        <li><strong>It captures no biometric data.</strong> No facial analysis, no voice analysis, no emotion inference — relevant to NYC Local Law 144, the Illinois AI hiring statute, and equivalent frameworks.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="eyebrow">Where this sits</div>
+    <h2>This was stage one of five.</h2>
+    <p class="sub">Everything above came from two resumes and one requisition. No candidate was contacted, no assessment was administered, no interview took place. The remaining stages deepen the signal — they never take over the decision.</p>
+    <div class="pipe">
+      <div class="st on"><div class="sn">01 — shown here</div><div class="stt">Capability Snapshot</div></div>
+      <div class="st"><div class="sn">02</div><div class="stt">Adaptive Screening</div></div>
+      <div class="st"><div class="sn">03</div><div class="stt">Structured Capability Assessment</div></div>
+      <div class="st"><div class="sn">04 — optional</div><div class="stt">Role Challenge</div></div>
+      <div class="st"><div class="sn">05</div><div class="stt">Capability Signal Report</div></div>
+    </div>
+    <p class="body" style="margin-top:30px">The layer sits above your existing ATS rather than replacing it. Candidates never see our branding. Your requisitions, your workflow, your interviewers, your decision.</p>
+  </div>
+</section>
+
+<section class="sec alt">
+  <div class="wrap">
+    <div class="eyebrow">Method</div>
+    <h2>How to read this honestly.</h2>
+    <div class="synth"><strong>Both candidates are synthetic.</strong> Renata Kowalczyk-Byrne and Marcus Ovadia do not exist. The employers, schools, phone numbers, and email addresses are fictional. They were written specifically to construct a case where the resume layer and the capability layer disagree, so that the disagreement could be observed rather than asserted. No real nurse's record was processed, and no real candidate data appears anywhere in this document.</div>
+    <p class="method"><strong>What was measured.</strong> The 14 capabilities were derived from the requisition text — its responsibilities, minimum qualifications, and preferred qualifications — and applied identically to both candidates. The verdicts and evidence shown are the system's own output, unedited. <strong>What was not measured.</strong> Clinical performance, patient outcomes, hands-on competency, and credential authenticity. <strong>What this is not.</strong> A hiring decision, a clinical judgement, or a claim about either candidate's fitness to practise. It is a signal about the distance between a stated requirement and the evidence a document supports.</p>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap">
+    <h2>The interesting question isn't nursing. <em>It's yours.</em></h2>
+    <p>This was run on a domain the system was never tuned for, using a requisition it had never seen. If it holds for critical care nursing, the question worth answering is what it does against a live role in your own pipeline — with your requirements, your applicants, and your team reading the output.</p>
+    <div class="row">
+      <a class="btn gold" href="mailto:varun@faujx.com?subject=FaujX%20%E2%80%94%20capability%20signal">Reply to Varun</a>
+    </div>
+    <div class="fine">FaujX · The Hiring Operating System · capability validation above your existing ATS · faujx.com</div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span style="display:flex;align-items:center;gap:14px"><img class="flogo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAlgAAACdCAMAAABfAvbAAAAAP1BMVEUAAAA6WjL4+fhCYjoeNRpUZlHs8eyvr6+bp5rh6N93eHd3iHShqqHT3NKZoJmv7bAAAAAAAAAAAAAAAAAAAAAe/fQbAAAAEHRSTlMA/hH+/PtbBPWjA/ij4WsHh7J70gAAKBdJREFUeNrtXYliqyoQxUHEJTb//7ePmQFEZVCMyW37yltubxoR8TD7ohQNoP933de7RwfL7fYDFHypaxMrN/N+WrBfwq3U1+ZvXyAuCyfCr/ONdhM9hQv5aaTbF29XXsfBjLlddO82DLdT45lb9bOa+/Ud+k7ZuuUqgKE3k2nePMzUT2oQd9QqMO21mVuVeVOgOj8f/r9tW/4hXBL+pM/NF4jrGmldLX219ZcuEz2E3QY18FV8k/AHzdFOUPmO/Jxmtep0A/oEWH2b/FqbzXiopzA7uCub5QbbW5ihdtHQ9WY7zVsG3sT0IBxXApa+Mq9e9jV5qhHm7JezK5NpAQPLaGEuGVidyd/LfXodWDr7ECbZgKdDdOkdiITH4oqlS+lJx6rFQvdwB0HjwP/vXoLW4Xf8L/8tPBz+qFdf8VPwD/Qpf4s+MQ5cBt+5AKz0wfiaRicbqfk/f6+wuNW+xvHEo6uXuXg5y4OGdXpkdtJBJmA1O2BpfQpYWu9f0cvA2s2ZbgARHhN2J76c+JKaQWDDFh44vXAYWtPZmjVb3P7M4988dPJTm4PBVYqlt/t6aTrdToMo9RCwxIn+DcUqkWywQ7izPkndeQyFx3SUrmqpT8cG20Y3nxwOWo/cs11nhQKwOnP2yRzRuwos9VFgNWeAtZBqnX3ULMNwhE7J24MbBFDDB/NyyNvJ1wMsvB1Yc4U6ouV9KwDr4zKWMON6A6wamtKR6ivXSwRrrlJk8VS3umk+TbPaHIHwwNI3AWtUfc0cSty4F4DV/Btg2US6zLL9/akubxdKWFWiu5tNEAffjawenvBeiqVUxWxu594BrE/JWLsNGIoHNG9zKm2XE17qFjyYT2MqMvp3y1hVs/0UYJ2iWKjpl0nW3uIAapbJi2kLIqhgYG2bfzJ00+9EyHuB5V7sVAGsxtH6n0ux9BZYUIAJaSp2a2qQoajJ/gpVwCoB+828cNq9yFuB5f4+13F4JRH7cWNf+/7AYsZmivbkcbP3Bd6FElYlJ+wucUJdNGKfBcNODbNFtb4eWKrGjqJbJUmnP4AV7oxT7ueyILL2GI4H4n5fu9Ku+XejzwnvdwKris3rVlQLfyawioIAPqw9a/MjG9bLwDJGv2lktuKtrHDoa1CKSjjAL5Gx6LslKWvD21Dcbes8sQfjK+cnfs/Yv8j3AgvqFF731Rl+DytkkmVOGknBFugbyfq1Y2i3c/Tb4TTHzJgfffZzcajNnpB+/1ZWqCplwD0J/dEUS6lHWXdaSBZeWPruoxtrWeHc6u36Tg4FlWNeb7MArLsoFppfKy0pooT6M4FloTMlKvS1Iu9T+av1i924UNqHetcYPgssBdWWFCly5ofKWG4HmnNyk1tKydZQa8Ni++iGYqFz+D0U60VgFfWCLLCqQSpZl38oK7Ruy9szRlIo2RoK8VsVwEKKVeFqrPJ2vwYsfaAaZCzvlfIaYeTbA6upkLGQIRVFSu+KLkSOagqBvBCevzX1tJXhpx8DVjOVx5Zcjxdsv+0vsmNxCG1JynL7Dz63pZtFU7L7uIOPAwvOKwsvA2voimPLCS30tYJaxtHxs4HlXk9RzvSuhudYMo62qruy1BeA5TZOnbebvQos01WxZbengp6jm94UAhx+E7AoUSh7gSaFZ4qXlPRndWml14Fl0YHdd2eR9TqwjpSJrUokAaudhbez96D9eGBBUSrXM+7bOMIZhvkp4Z0Mu+Tvg09RrJo3QWYzQZKaexFYw6+SsY4UQ7QjeFuDPOZLmbWXgeXkQoodwKyI7wgsJSUGEHoKkTM5qfGnWt6zb3izFVCMCTQVPOkWYFnElaF9Vefu/GlgSRGM6Muwgq9HSi78wcCyYzHM6gFQCsTShSC1twCLYzI0ZQWJHrZ/CSzZ7u6AhbHwRvhd9n3/YGCtsubz2krxCxfXmbO8nwCWTWJ9iBta+HbAGiTnFwoWEuiQN4y/ixXaQlqFe3eD44QFe1+rzrzbuyiWXcWQ6eZUtM5ngWVlEatxqtBDFCqyD/KTgUW028jie1dI+nK/Hq5JWJeAZTexiVq0WP9DYKmvVnqlA4jxJEII7g926bBiWJCh5pJLtVXXbA2XgLWPedXNCd3ho8CSTc5411EUVzPBhz9eKyyGebjL5mLM1kUJ6wKwbCaWWlO9p/H7AGssyO49jGI0vM6fkB8NLNn8zlJlITIe3dTqU8DKxujrpj3y7nwWWCCHNswgp1m4fVYZe8PtwGo+yAod+e6KQTEFnVGu7HQ3sKTcj2Orw0eB5SaS9ozmkUX7Nhcs+aNlLDzxcomQUvxHO1+WsGqBZcU4DKJZpViHTwJLKuXn3YEWj0cjGiPGXwYszrA0tcAignUZVwQsfRZYtpCrdmR1+CSw0C9QdlFI99HZOoo/HFiYsNTI6y94El8IzauhWESvTDlODr4JsETz6IPpqpFNpHvy/9OBpS7E/+t6J9pVYNmDIhtlq8NngSXPwzCQhSw97AXWn0+x6qvrXciqv+zS6Q6yE9jq8PwOwBLLBjNBeso10ZzWaOG3USwYochrshLWcCewZIplD3FVtjp81vLeSwvsKTVFfue6yVDdn23H4idQtSSrVxY+ACw4gavADe2/B9Ykm0dJdhe5Oq3q+euAZaGmVphXCe1HKFZ3KkuPdMNx/DSwdjsqTqNI06G8FOlG3xtYF4V3WydlUSXPD7DC8yVwRavD68Cy4tgg6ynRoyVZ3KICLtxo3u3AzwfWoeaViR/6ALDsSXpVinV4a5bOek+t+pJyU4LNrxA2mXEh/HxWiE/8aCsIlgIF7wYW1OCKkGWyNdxfzCvsH/JQKxf4KBoTWrM4ZqWMivid3wUsgAriUF/K9gqwakvB57nhy8Bq5R/XbakOwpJPxNVsF/8LWGE0kp56iW3/cj78xqWTsWPVtxjIWh1eBla+SKDv0ZS+Jlso5ZfeTQxw2PlefwWwavjO6wTr2EBaxwcXyG+tQfadZYxWwHrKIZMLZbPwkJvjbF/RrwAWmt/PSln9C2ENJ4F1DVcZbvg5YFklpxTG72G2RUF6h18nY1E5yJMmIzPYV3F1BKxruMr5Dd8IrDUrlOu0pqG2pRT83wqsk67oK6Vsa4EFF3GVifz7HLAK+7cqnCIXDRlywDI/HVikGB7LyqUWHTcBC+xlXLFHOu3I+TFglSZZKY+FCg4bq/PvoFj8zMfAansY3wssCVfnurFu5KyPAksq3fNMTg0MEg1qt1D5LcCCE67oS7W364Al4up0KGJqdfgYsEYlIib1NxYCHDCb7jcCy8oR2aulDQBvBJbIB91b63drETMsIrv+GLDEWsHrVhhygAMVyrW/UHg/Z2/QTQ/vpFijiKu2V9tWAP0sPPDyjnbBd28DlhjasBIe0PYu2C5a8yuBNSo444d+PWKm6NKR+aCjQv0OWJ1UJS/SrDcCa2XH4jLc+bVsUrtOscxfAyywMJx0nzzeB6ynkDfB3poMsMTKcQFZHwLWvgPGsnS96j47gph7uG2q80ss7yd7U76UWX8ALJBx1XcWMsCSek1p+uUHgSU2vcLuXpvKyqUcMPh1Tmh1si+ozsb938UKJwlXsLcAcYl5sYsZP/LngIXp8zoLrHUPUigEQXxfYF0Om7FwNtLPXC1oew5YWtTy8hRLOhE+R/STwJLo0C70TeYF8NsoVrFdzhukrApgeVwJwHpyWLWWGMvHgCWW8qMKz8mw9tHIkTO/THiHmu7fdxjfzwNLR9EjDyz8xVcGWR8HViFmZjMGOQfslwFLOvWilKVeJVkVFCuKtLAzfjGw8Jf7epd3sUItR/olwCL+lpfd1a4FQdefq7/2XmCJLRHsjcCqS7KXyke/A1jJvSRgqaejnztkfUDGajUkAXytcDTNvrOT6NQxnwMWfIJiWVvVxxhbydnXkyn0GWAlKngWWHFz09eq72OFrSmMaN8vnszDNtUrRyx8BljuWyf7Tr1oIK06seQvHT9Bsbw16ghYyMt1Vmc86ytsrvXSUUfxe1luKh/YtS31fcBCfiyNjDP4GrCw9Fpdj73XYxwkX+H69axpksgKswbK24B15nFGsLq5GEG2OV+fARa5zoQxZxrFXa02U1vGCFdo3wcsnZXlSsByf26QdRuwbGEswTldcwOw9LopwhuBRVnbRhsTehDzT/hHcx+w1FDbFBRNLm8U3nXWEl2WsSBYHfTdFOv4BGFNhuaGsXGXvTE0uZT6ngXWJVZY6JhQsmW9Yn6X+hWmrSe2TsmsHStNGF1J8B8GVn8HJ6Tzaj/ECt8OrEvK9qvRM8fA2ju7RQNpeJAx5YYfBtblIP2tuq3ULwGWnLZ0LA68UXinfipPVQMsxaUYD1nhdHt9LLjQYVwYKnmk98pYYkXju4AFopcL69qL1YpfI1lHwCKH7MZWdsAKN7phJbAaQas7Byy4RcSiN9+lYfTvFd7fLWP1Mnj6uXAS1QsewwNgER/c7dghsBAicxOmkAyk0+2sUNW3rheFrM8Aq5oV1jdpksUD92kHfYlk3d9AwGuFLebY2TPAeu5scnNoln6L5f0kXb5FxPIua/iOFKsWWAAgFsYiza9Asl4pnLwtbbMClmmzZsmiHStFFnG1DwILrkZH5DZ1Piu8K8Fd+z1Y4RPjiMS+68UtMyQGvYEVulc/55ykJ1hhQrPqgaWvA2u4S3ZfMeoisPS3BhZ2f2nFVWDnXjlimTtCw+3AIh5r84LMCWCRnGViGNcnzA0WHs1NY1XY7wcDq1QlAcPOHHBkRXqfJlAxRGAZnHVU14HFvs+2kmK9JryrG4G1eBuKwDLfGliFAu+ooDhcWVEGc3dqB7hdeCd6Ba8Ai7ihaeoo1isy1ljfMqaw64t98OcCq2Qm84UzC208SCAAezOwVFfQ6c8By9OsT7HCZ6FG5AWStbyp24HVnAKWeh1YFlRBghq4krkcDf9CjLIkYxkziHLbeWBhrMPwMWC5W+jPA0sreBPFypXErjM3lJJUYzpcKX8Hv3TNSCoBa+6KVsizwMKP+0+ZG0al5E6i4hB54VJ/rQCspmDHksOBzxhIM+EFT1nQlmSsUlb9wJihDk664I2/Jma1TRZYqtCi54yBNNF3Izl5t/A+CkohztiKo2mkZgNDEC+KwNrkwaYP08uxz8o3VikBa5M2S+G57QkCu2yILdnVE41PXKjUfv14zBKwxhLFas8DiwjyR4BlS6lzYvxvL97RbYU6Q7FQyB7tcz2sVYWEqwUGpUWT+TLNgyy1o8/X1u9KZvUg69ixK7W5v1YuSwSWqmSFz2MB6M0yVslkU4iY70VxOEaRErAKhokZBLelbk4ASww9QH/aaspCTFAOWCSWm4IzNIaTC52OdZh4/IfAsjcBSyhBdApYcDKda2v6OioNUgSW+2LTP9QwpBFcw+Nh2gKRS4GlZJdKgwkVMQuy5AjNAKtUeGed7FyibKlI8FOANd0LLFBDydmq8sHyVk6HjmmwB6xQOwmuoSj18IEx+FFBQT3FCrHInXHMmqSgvp+aVjd1wJLKWBADXwlvfYEWzlekrD2wxjeywjeHzcgy6CzFb8tOWIopCfLmQaUWffKztfjkzQ19KV+t8dmP9IduqoBVokNrd51YH8UzzbGeZA07weJU0NP7gPWCuaFwsejyKhbLmEV9pWjROGPWD1bCw2Idcb7yvHtgQdEPgbllNqVuU0l8uyC8d3q1YlrfkUP7CrBgZwvIFFF91aUj0h5Zsynl9Szv6ilVhLjsLwozV1WBKYf5bHvMFCKtfFxDmv/Sl7STCxVMdml4GOJ+gJILwMpWz1K3skIrZvsWZcAnSOZ6MiQ9g7PoVmAtlc1uA1azOTuo6pWsU2vZAGyxAeuFclndJshcM7JuF95BrURP7du33UexOPzriPRkId8ctqh43pRWthOxDhhWBQ3U2zqYUNb01pQACtZctqXWIovOy4oZsvmkZBSrBRbG/PS6MXJcyg0Uq1gO5EtWmEshlDphL7fFTRAK0ofpD0X9M1NuIqeK25HxFhVtqU37sLWmrAxQ0S6jSuV1KoEFBN9tJnHOV/AisMSuS82XspcAuVC6Umh4PQqSCisW7oh6xepfmwKrQylKe+8OK1scLhQlzWwY1YQsFMWpA5al0JnM3g1wJyu0YgPCvdNt8zhioNviBnSMZbqPZDVngV0x1menyGFxQ3YK2kGfneraM2OXCbUnQQtkv3KxdsPOT9jNps2rGndqhVZqurRpdZIZX01z2B56vDM4NWVENY1PS1Ouo8iJszUFYTzzogZVhmJdhb+8aQw70Q+ijlkBLGKDTa6ghmPbVt0JLCUTnv5aBkZaf829f9OauwjWqkMo3FAWAB00W4LVVDE2PEIlgM+VzTFpw7JV0Y2SnI/ngeUWg+LVXp8nmeBOYJU4SpliFW3fUc+GsaY6bGmY7XLgZcXAbMtrlDIkpDoyRYBTjHKdlGUFO477qO9epFhoAhD6gmVPwAvpXyV70GGlp16kdQ9YK+T6Blxt+2zC2L1GDEmP3772tuB+kvwQJYDrWosDxaPpfDumKZ9OcRZYbmqVdSqjDJejhi9QLPmM7jTxM5pxxk/yvMWUiSDIBqZfR5Ze9YUMAVYiVLHKS5742KHgCl3CtyqQlV8FCVo5K/w5yzt3Gmj1yeChV4GlrBz+ctAMpCRkpRXlULx9kWZRGuI2iLyUVHoKV5tzjWENRQUyH8ZOUpYuuKJrw7J8UakcZWmbIReif9Kl0wm8w7T9IEXzmkbnAVIGFqYDFTSmg2YgBQtYklqJ97jCDfWKD87dCFkB8SKy9KrucPT35w+0LhlfDvrOtaq2tz3GkMmhI7hqqLdjuUORt155Wwaom4Elx8vJMTOJRKJFBW7cWHpbrfU1WHldG/LEojkvZ+nVlLtwKUoIlwHSl5wQjS5FZNRaSSk+NtcGhwWtLbK2hNZkZayvAq6UEoEldaE+BJYc2nBcb1l2BK7eGnY+e5j2EnHB0KpGfHKgiZsqyHK01jTs47BKxtEVEd69gEdbDsyp9etQ9w8hXK1VW4vWIbBAibTdU26Qg4vNupuJ9iT8GFjLlelwHx+Vwqf25Enc0xJYZZoN3yB2aCjoToy80nGaVYxW20wYPS6G7yicOFyx4l5ZTNGUrelzuJobbYRkN3NYXVm+0lzK14mF0va002xMA7AJ0d8Cy71HScwtmcc8xZJOTNEdORZCG6ajZIBRvm3bbFOw3L+d6ika+bz50m2G6b+6csAa2vzM2XkxotRPuRVU0PvU0D8xwy35qZETkb2sJ7TucH+7UJQUvEcvq4+RMzblCBvZcNOFDA9fHlda70C6M32IbU3Kfu7ChfMRsIpXbwUL3FsYBsVXFNhUOsmkhqFTqpxT7CbuhqEvTuvfCLV5mXFK9YS97fCgOwwUXcfXrxUfa6fz6FTcjrvCcrlZC02ratyDkSxjpuTcRtIxiOOguZV84WG9w9LVan9fMm9i2gz9Xj0e3vP2iD9hyHdcdmzJMp443RyXMNBc8vCz5qe00BW7wxStUXAwLsQoe0LTSoJRssGMLJ03uGF9k0ayi02g1Ks9Yb/DqN9he+qSusZI8EO2ErhSmsDTUTYKYEcMhuq3RK/G5DSLaoCTNLsd5d6t4bCrifTmrl5Yvu0oR20AedHH7FiWhGS45qi7rz7tWB74TMVIzO1faAH039G5htU31s9zvYQy+mAmSZtrHrBWpLh6KQruC5ekbF1BvGoGeLnT8N/4oSQ+I2itov/COUErLVaTXBsPuByW1ll72Ln2XX/jlyLLEe5H3u5gVpZNDIhxGGpTfdE7nWV/Fvxt8P+bbAlKnU6VOuR6U6sWp58T0bqHj3nZtf3V86s9hv/Gz8cVcjlJ/p6j2Ei5N6vsVsHp7F1kf+MPWaJDxlBY7ZiPeBHgeBBA/zf+R8h6EjuUbFFR0AI7BusB9lXNiu34keh6/Rv/t2GVlJbmo/8yMVpZ2ypaGR7wh6u/EZEl2h3MLoEHVUlZvFJ/sPobK0FLNqFThjAcg9DHXo1/2/k3Vuxw1mxd11mnXzKkmL5m+iNWfyNjd+jkMIUQ7gAcySWmJv6Nv5Flh3JgFemCisowCeCb4Q9ZfyOHLKrpm015cyL8o6PgIVm86v5w9TeEMVKQvxDu0BeCGbLpPX/je/GjfyzCFyzq3aAl8QrTWy6tnSOONnVacx9a9Uw+GTF2al39MC0Wts4Gib8ZkzkwvmoT1mND9NN+DoyaUirNDlN8/0VbhpI1J8xKy+TK3GO4egwVKpMp1iGAuyJEHDUFxd1IP3iO6foglpKJqxr3OFx9ONrVltQHGMhpmihFCdlaZOq64MRJlm5zW2rffkBhhdzVp2P1fQopORU8o+aeFe8XKn9xNHM1tMh1KKXK5+QvU8rwOhyd+nKjA5WGUXT4merWlX47N2DpHZH+lVVanq/D/zpYa7v4EY7B/WcVxBkSqRB/oPviYggi3WZQxk6nVp8ALyT8XlSKwpeXdfOiyEC4msKTkNV9dtIr71D4etgNSHdjvT3p79MbdhxqCt1upGvwW7pZaS0lwdppKp/Bk2ODmNTTXYq7xzDDh+FA6Bhjz5l8JLWZJLgeq8sYE8t9YNk1TKmJyMPfN0YbQ/mJplklmLiDgt/2iTRUCw8TyAx+DZ4JpY6L4cxFSriZJve/mLTCM+Ft+AMLvea/mKl/DLlzjMWr8FYDAQsz+aghC9B6n8hjHiEtRvUPSk5abuQmxx9UWlIC435ppW4/8OvhWWJeEzU/MTq2NsXpNO6WjXvl92Lqe1pV/GDJ0OmwzajfNr+jVsXspr4fLgRGjaKQnqNil/sIk4rZhhj7gTL6aE/CZ0kD8BGtt00bNthdiolvScV/Su5OQ/ZTsTH5Vdt6doMftjHJjO+7LMbxRXcHTjVsl7JbsLpJ7w00IQ8Pw9XG7AlqyeXKwGq5jjql9DUOWONSg8hNMXnCtqqIkzamAcqBCWmQfYdpGzDj3efQdtfnC0akWUr1i0l7T3q7MV2R+vdsC/Bg7MEqP7DlSvHpSrtLtKSbziDrFecgY8HQmzMU+mWBg+t9lxqjV/HN7vjErG/OhG5WwEIKkG4DpMAynKfMBUFH3y7HZ1Dyl9ALb6LVzh2WYUlx1qF4FpEZvQGW/wQb6phMVSl8TsyxjhRLB2C5FTy5KmWYQnP1/s2Nko53HjQm3pForjt12izVP5gupk2ncPOWXkGYWOUfyrAgE47H8rAOvsPULCmPnAds/KqQkB5nBgvaYd8clofa5OzUkUXgQl16cpymbQxTD6BKT23I4gwlT3x9gjY0WPB9Y9bAwsCfiYdJKs4wsGgTfUrqGFKpff9tPz8CGQctBl+Ojsmk9EMfCEm8CYT6b/xFTalxdg8sXNoCrGYBVuOBxVM0LU2B9Wm4HEO4kZkjXkOJGORjKIdQgTSfF668REKN6hdggWW7d2inE9oHu3l1S+8QQgZv0/h9Qs7N1YOThx05uMq9L7/SKxIQCBFXd+GKE90NleHoZqQeelahmyQKOdiaxDS+fsDo6UfYG+BirjtgTYvsCWoNLDP7gfj171UHXmg9AZspP4Tv29G3+ez7C0cmM0MiUtNtzdx1c+9LcEjAonMjAgunUL1vnuvLGsQbLY8z8m8otxPhwQVXCVgm1BoF6pSjY7mjUc1EZZpY/Q4rHLtHd880+dpwbv1zN8zLwyLJnqgC1fKwDCwzDO46On3DpeIORD3KHaj0iU48Mk0kbka8iAoJO6Ya2m4N4emx9L4KNcJwKVPCCvfASkpHQUp8Vcu7HtN7l/r53GtgpF4wraeOLRca5m/jXqtwIUO0Sx+CEEDSIdFUtUs99kubBnKJbYBlF2DxFL7uEO1DpuuiP45cJnCgoxGA5b6vfDfxLlTYeC7UPi0KzcDi4jCt5tkA/IQPflasd96uC6gGYIUOdu3jkkFIdh1K1UMqgYUl54mc4nZTxQNf14g3HlMevWYAnixHOUIEVkhxtxvh3azf0sjEIenXSDWye7AkbTkMRzXBpAV9+H138SYBWERImbhlGp/i/dsDVogipqJ2LAmwOnhuct25lSKL+JY0TDqOcyyhCgFIEViWZTzfdAYWYIGHpBMp6DT4N/KISgIBq1vOYwAWzuqYrb4ILHIdEpMSK8u94hxkooHkdMSTQ/SegdVyy3fm+4RdoPp9KAL4wrUysCxlOW/ERUXASiFHAJ6ScklUvNHBFqOvO0fs6Vi6/ab3qOgnFSlWTLn2wNIQCnhTN7X9wzYELF9BKQMs5KZ0awJE5kYJsLDaEtEYC7PjU4NvK6RDC3rg3hcRWE/oSHJKUO+BBU4jZVmVmlEHYOGzwgKsZQ0LxaIyqpeBxe9ESyHL6rWMVL9Fqx5R1OY5vpyOa4NYfwbbnqBzAKz8Q2wo1hPbbbvXYKgHw5Oo01KF8alinQRWHpFF2kCxZFYYgLUvz6pCucwSxSLSGYGlSqwwlMyNBk9fOrxFrcRzvgAsv3kKxYHJW8kixfI1gpnzRIplU4qVZYUj1ee9DiyxRJH7QB0WZjiU4WhrscRDh6Ka9Wae/akfgXo0Dw8mzQXhvY+m4j0rTCRuaqPgthn3qQcVhXBaDCTuih2wVCJTA9F0T7FGy6wwXy4BkdPzaERWyPA2KSvcPw5pfGiVcFI1eghs0giNG2GNHRd0W4CF1JnKYwZrCIr9SLEYS6G45h5YhM5l2wKw8MuPlyiWzybce3JKjSzOz0xVSzXWqZu5XPMzyim+wk8oCITnXFOrN284F4Dl7eKrto+BYvkXO6O/psPzi4XODUu0vBhtQtG8RAnbAkvHm3QRWN6U3gaasbW8m3Vp0pXwPi7CO1egp9LlrMSEil9bVQBNfG0z4a4FYDkc4cFAW4p750ZFYD2RKDno084+0BH7JKGLbcidxxsQpd4BK66BZFsGFvF0poqP1zCAFq1t0dZ7YmTI8o62Nl82aQ2s1CdCdMzth+ZmH3lg6QX2O61Qh8p1j1iQu4ehxTa/3lBGMF+oVgFY3vacAGsehkdvWPiBnLlhKSMpAgvLZHlzw3PVj6SdM/4KLkiqvLROwPK6LwFPhdrWNBUF9zJjo5NKCrfBcl99EyyIWYq17Ch+xVMsv9Kr5oaVbwrZobfJUuZgB+PrhWTQbUK+QrJZI5rsDlh8kvBctWzc4fZElcAidsVHD9VAYAmmY/Whj75CrDdLOHd8aYTTwPLHmuhIpux+XFobWojvgdUkNlZqGJf6WLbA4sK4tGuYZGADsDquCdwh0eMPgiBAyjd1qmRjWhcIL4cVeCfX8wyw4nW6afsXIzvJ7mBCW/WWrAz3xZ/RzFTHBl/mihUq5knMCdsv3m02uojAovq20x5YkWL13siIPLCLvNBHN9BicNt88I7ACrkSbgKsJOlkVHkDqemnXk39JAEraQ8CUQDnar3zvi6qmhretYns9DNJQ6zF9aSRNNGohy1u3OZZ2sSZZk9qmevUh5gFFhX97QMr1ImrtHuVa6EPBItl8sG6K1QUUOJFJ85syMRP7WVzFMvjoIOgwiDJybp0WjXsI1i8jKWniUIVyPJJ4iw6nqn1DopyI4WyOeWdnD9ttPifEN6pRHLDlDwjdARg+cCdrYE0ARa+tL5bbJrJjZJdcxdYjA6aWECZ2Y6FROlBjJQ9oLEEMbA/iYr7BzfPqkj+IxyGZ1YrHNbCu16v9Ia4VugG904eA9ye6ExWKo1+uxUrdDfshtkfMKcqq75HJyjZSCVgyeYGpgTepozoaXrVk5k0oeh010fLRmwrAmtnbmj63nAnqlzYjLe8e/ohAcvxF1K21Rg1ZlNuCfRlGi+De2BR7fuJ21gyiKxl2zpt3uS7AnhfoZ6MWXV5eZ4xN2j2FdLDPuEW8nJv9DTlZaiZFV3sfYFbZFfmhh7joLBDeehc2YYGAXBked/601tvoPS6QNryRJOFyV0xK/6Ty9qz3OGB1a9YYbS8J3Ys9Gxid5HRisDipaXA0ivhfZ75PY/PSLEoDjB9HJzALTRY0DfA4sYIJKIHimXVl/ESTOydCF4rnGcy3k0hZDcPrG7Z0SC8zzM5QW7KneHDaO+qsMpqMzk6PP0hXyHRa0P2cSzGjnXXLYlWOrRGQV9qjG5ICo8SWQuW95Rw2MgNnp5g0YE1rKhx+0uK4MEFAAViobE9D6w+MYjbZ7RjeVN+UATGVTXz1CQhUCw2mlOABZe2Czd68p0SCjmzL80dD4vO1hRY1ATMPddDBWD5dpfGBI2U4RDMDUTiogiXN5DGh1WLuYFOJuvXXuT7PsNvt56jx4qd0IbfAQbDG892iJiHCvea3K7HrBD2wFoaiYfAPJqQfKkwsfoc3WcJsPSKYmUt7273O44vUDbawzfAUgfAIkSzdFdihdSxmHnzoBdgsb+mx0dCihqBNSSbh+49JJzB8j7CIyU9py3vT2CSNQDES78PsEhydu97RtGwJ32I9bXQkpPq36BkQls5UcXzPghZnhXGCGymWNHynsq7XnhPNEViMz3XUDd+Z8ndzpcTQ3mkPl+1plgxmiXasTo1dt5k+KQg57k7F4+1olgUoIaOyWegWDvTu1uQ3zXfzJYiygKw3GVukCvad0Hj6C3evMcUHiy6dLhDuI8AFyhWGtIfIis6WmnvhQH1rcrN+rCZ1jgR2pA5ZUA37MAsZQAqENF665+PE/HqPrbiIIq1RGgHGzJHp2OgH8BGeB9CUH3wR3pntCeLXHtCzbwY7/xgErphhQ2HwU8UGx/Y3Khi/Bh1W+9X4fqngGV9KNhi2WZFlm40rqPYjBpmDj3xgX7ew4zdBPBLHlhBKOSLZw4NshFYwAZSbzfIAasxS6DfwgqfXrzr2Lv7vQoZc0wPNclCizfzG/D9Xyn4irX+EPQyUqrYHNS4mXQoFEm9OT1YIbmFzC6CtE0oFsemjKR/0VWzX4wX503UFDMylg5ctKGyA6wVouWEo+s8cJNexTKw9Nalg58F0rPcyN0qhg+ipBsik71FVkEElvUBpGxtJ2CxzOo2z/3bKQqRDjIWhu7R0tpBcEI3yY6aBFjeakhekImW/K1IFtFyTgRpuG8w0THlLbGG7L1PImz+RY9A5BkN6wSs2KjqobwKrTl8JPUF22AH4w1DLy6qNiRhYwqFP7KUp8tCLuKS1bsMxYrOGfaaBWC5r35pDqbrmmYDrBhZIFGsEDZDSjGdpuVGzeI89lJdaJDGPWVsAixko4w0H/WYbB7lQnAUZRLdoJog0ecoVuKJ8skUvPuY2+LlQdQXQoT395Hf3RHgYYJtEajdGp8SjvIg9HmzBCUZNOaBcdPa+NZIDg49v2GfmkWBqbAHlncKekNhDOSLYq5OFjMqAViG2BUBq4/BylTWgqHyQByx83NjIM0AyyCw+JnIOU7zezE8BqGbFFg43Rx2jR+DcNQkZmWgGHYCFvsqOMfNjg//sBFYnrNyuCMCy5GfBVi9zz1QkWr3pOKwSOsTSnExZvhWwKLcCScq9NjYCtKK8vhZT7mnaNoa1Ff49YipmgozxTin9QtlK0Ux4YC+fveXL8yA7ZJOTTihu8a3V0PRulsm9KG69E66bujVNPVzGjGP18Zvc8IqXeHGF122tHrDNSns8tT1JrHUQpzDJ89+hYRVujH2PMHP+J74eDMuFZ+PLqenWbfndLumKFAjfO52bPhKFJZR2Q7zWcHNpb5CBiDw5qEu133RvXlt7o4zp9517odlZ2j/v8LgCH/cbbbZ4BwzGknnyXHX/wDOAQzqbSesmAAAAABJRU5ErkJggg==" alt="FaujX">&copy; 2026 FaujX · faujx.com</span>
+    <span>FaujX&reg; is a registered trademark. Reg. No. 8,377,810.</span>
+  </div>
+</footer>
+
+</body>
+</html>
