@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FaujX — Prepared for Kimberly Weidenbach, MD, MEd</title>
+<meta name="description" content="A Capability Snapshot run against a live ICU Registered Nurse posting, using fictional candidates. Structured evidence in place of a resume stack.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink:        #0e2018;
+  --ink-2:      #263a30;
+  --ink-3:      #6b7a72;
+  --cream:      #f2f0ea;
+  --cream-2:    #eae7de;
+  --cream-3:    #ded9cd;
+  --paper:      #fbfaf6;
+  --gold:       #b89346;
+  --gold-lt:    #c9a75e;
+  --green:      #0e2018;
+  --green-mid:  #1f514c;
+  --green-lt:   #2f6b64;
+  --green-pale: #eaf2ef;
+  --green-border: #c3dbd4;
+  --amber-pale: #faf3e2;
+  --amber-border: #e3cf9a;
+  --red:        #8c3a34;
+  --red-pale:   #fbeeed;
+  --red-border: #e6c4c0;
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans:  'DM Sans', -apple-system, sans-serif;
+  --mono:  'DM Mono', monospace;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: var(--cream); color: var(--ink);
+  font-family: var(--sans); font-size: 16px; line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap { max-width: 1020px; margin: 0 auto; padding: 0 28px; }
+
+.eyebrow {
+  font-family: var(--mono); font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--gold); display: flex; align-items: center; gap: 12px; margin-bottom: 14px;
+}
+.eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--gold); }
+
+/* brand strip */
+.brandbar { background: var(--cream); border-bottom: 1px solid var(--cream-3); padding: 18px 0; }
+.brandbar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+.brandbar img { height: 44px; width: auto; display: block; }
+.brandbar .for {
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--ink-3); text-align: right;
+}
+.brandbar .for strong { color: var(--green-mid); font-weight: 500; }
+@media (max-width: 600px){ .brandbar img { height: 34px; } .brandbar .for { font-size: 9px; } }
+
+/* hero */
+.hero { background: var(--ink); color: var(--cream); padding: 84px 0 72px; position: relative; overflow: hidden; }
+.hero::after {
+  content: ''; position: absolute; right: -120px; top: -120px; width: 460px; height: 460px;
+  border-radius: 50%; border: 1px solid rgba(201,167,94,.18); pointer-events: none;
+}
+.hero::before {
+  content: ''; position: absolute; right: -40px; top: -40px; width: 300px; height: 300px;
+  border-radius: 50%; border: 1px solid rgba(201,167,94,.12); pointer-events: none;
+}
+.hero .eyebrow { color: var(--gold-lt); }
+.hero h1 {
+  font-family: var(--serif); font-weight: 500; font-size: clamp(34px, 5.2vw, 56px);
+  line-height: 1.08; letter-spacing: -1px; max-width: 18ch; margin-bottom: 26px;
+}
+.hero h1 em { font-style: italic; color: var(--gold-lt); }
+.hero .lede { font-size: 18px; font-weight: 300; color: var(--cream-2); max-width: 62ch; margin-bottom: 14px; }
+.hero .lede strong { font-weight: 500; color: #fff; }
+.hero .prepared {
+  margin-top: 34px; font-family: var(--mono); font-size: 11px; letter-spacing: .12em;
+  text-transform: uppercase; color: rgba(242,240,234,.55); line-height: 1.9;
+}
+
+/* generic section */
+.sec { padding: 72px 0; }
+.sec.alt { background: var(--paper); border-top: 1px solid var(--cream-3); border-bottom: 1px solid var(--cream-3); }
+.sec h2 {
+  font-family: var(--serif); font-size: clamp(26px, 3.3vw, 35px); font-weight: 500;
+  letter-spacing: -.4px; line-height: 1.15; margin-bottom: 16px; max-width: 26ch;
+}
+.sec .sub { font-size: 16px; font-weight: 300; color: var(--ink-3); max-width: 66ch; margin-bottom: 34px; }
+.sec h3 { font-family: var(--serif); font-size: 22px; font-weight: 500; margin-bottom: 12px; }
+
+/* two-col mirror */
+.mirror-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.mcard { border: 1px solid var(--cream-3); background: var(--paper); padding: 28px 28px 24px; }
+.mcard.flip { background: var(--green-pale); border-color: var(--green-border); }
+.mcard .tag {
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--ink-3); margin-bottom: 14px;
+}
+.mcard.flip .tag { color: var(--green-mid); }
+.mcard p { font-size: 15px; font-weight: 300; color: var(--ink-2); }
+.mcard p + p { margin-top: 12px; }
+.mcard p strong { font-weight: 500; }
+@media (max-width: 780px){ .mirror-grid { grid-template-columns: 1fr; } }
+
+.bridge {
+  margin-top: 14px; border-left: 3px solid var(--gold); background: var(--amber-pale);
+  padding: 22px 26px; font-size: 15.5px; font-weight: 300; color: var(--ink-2);
+}
+.bridge strong { font-weight: 500; }
+
+/* credential gate */
+.gate { border: 1px solid var(--cream-3); background: var(--paper); }
+.gate table { width: 100%; border-collapse: collapse; }
+.gate th {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--ink-3); text-align: left; padding: 14px 18px; border-bottom: 1px solid var(--cream-3);
+  font-weight: 400;
+}
+.gate td { padding: 15px 18px; font-size: 14.5px; font-weight: 300; color: var(--ink-2); border-bottom: 1px solid var(--cream-2); vertical-align: top; }
+.gate tr:last-child td { border-bottom: none; }
+.gate td.req { font-weight: 500; color: var(--ink); }
+.chip {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .08em; text-transform: uppercase;
+  padding: 4px 9px; border-radius: 3px; white-space: nowrap; display: inline-block;
+}
+.chip.met { background: var(--green-pale); color: var(--green-mid); border: 1px solid var(--green-border); }
+.chip.part { background: var(--amber-pale); color: #8a6a1f; border: 1px solid var(--amber-border); }
+.chip.miss { background: var(--red-pale); color: var(--red); border: 1px solid var(--red-border); }
+@media (max-width: 720px){
+  .gate th:nth-child(4), .gate td:nth-child(4) { display: none; }
+  .gate th, .gate td { padding: 12px 12px; font-size: 13.5px; }
+}
+
+/* candidate switcher */
+.pills { display: flex; flex-wrap: wrap; gap: 9px; margin-bottom: 26px; }
+.pill {
+  font-family: var(--mono); font-size: 12px; letter-spacing: .05em;
+  border: 1px solid var(--cream-3); background: var(--cream); color: var(--ink-2);
+  padding: 10px 18px; border-radius: 999px; cursor: pointer; transition: all .18s;
+}
+.pill:hover { border-color: var(--green-lt); color: var(--green-mid); }
+.pill.active { background: var(--green); border-color: var(--green); color: var(--cream); }
+.pane { display: none; }
+.pane.active { display: block; animation: fade .25s ease; }
+@keyframes fade { from { opacity: 0; transform: translateY(4px);} to { opacity: 1; transform: none;} }
+
+.chead {
+  display: grid; grid-template-columns: 1.35fr 1fr; gap: 14px; margin-bottom: 14px;
+}
+.cbox { border: 1px solid var(--cream-3); background: var(--paper); padding: 26px 28px; }
+.cbox .nm { font-family: var(--serif); font-size: 26px; font-weight: 500; margin-bottom: 4px; }
+.cbox .loc { font-size: 14px; color: var(--ink-3); font-weight: 300; margin-bottom: 16px; }
+.cbox .kv { font-size: 13.5px; font-weight: 300; color: var(--ink-2); border-left: 2px solid var(--cream-3); padding-left: 12px; margin-bottom: 10px; }
+.score { border: 1px solid var(--cream-3); background: var(--paper); padding: 26px 28px; display: flex; flex-direction: column; justify-content: center; }
+.score .lbl { font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 6px; }
+.score .big { font-family: var(--serif); font-size: 52px; font-weight: 600; color: var(--green-mid); line-height: 1; }
+.score .against { font-family: var(--mono); font-size: 11px; color: var(--ink-3); margin-top: 8px; }
+.score .counts { display: flex; gap: 22px; margin-top: 18px; }
+.score .counts div { text-align: left; }
+.score .counts .n { font-family: var(--serif); font-size: 26px; font-weight: 600; line-height: 1; }
+.score .counts .c1 .n { color: var(--green-mid); }
+.score .counts .c2 .n { color: #8a6a1f; }
+.score .counts .c3 .n { color: var(--red); }
+.score .counts .l { font-family: var(--mono); font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); margin-top: 5px; }
+@media (max-width: 780px){ .chead { grid-template-columns: 1fr; } }
+
+.signal { border: 1px solid var(--green-border); background: var(--green-pale); padding: 26px 28px; margin-bottom: 14px; }
+.signal .tag { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--green-mid); margin-bottom: 12px; }
+.signal h4 { font-family: var(--serif); font-size: 21px; font-weight: 500; color: var(--green-mid); margin-bottom: 10px; }
+.signal p { font-size: 15px; font-weight: 300; color: var(--ink-2); }
+
+/* criteria table */
+.crit { border: 1px solid var(--cream-3); background: var(--paper); overflow-x: auto; }
+.crit table { width: 100%; border-collapse: collapse; min-width: 640px; }
+.crit th {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--ink-3); text-align: left; padding: 14px 16px; border-bottom: 1px solid var(--cream-3); font-weight: 400;
+}
+.crit td { padding: 14px 16px; font-size: 14px; font-weight: 300; color: var(--ink-2); border-bottom: 1px solid var(--cream-2); vertical-align: top; }
+.crit tr:last-child td { border-bottom: none; }
+.crit td.cap { font-weight: 500; color: var(--ink); width: 22%; }
+.crit td.sc { font-family: var(--mono); font-size: 13px; white-space: nowrap; }
+.crit td.ev { font-size: 13.5px; color: var(--ink-3); }
+
+.deferred { border-left: 3px solid var(--gold); background: var(--amber-pale); padding: 20px 24px; margin-top: 14px; font-size: 14.5px; font-weight: 300; color: var(--ink-2); }
+.deferred strong { font-weight: 500; }
+
+.probes { margin-top: 14px; border: 1px solid var(--cream-3); background: var(--paper); padding: 26px 28px; }
+.probes .lbl { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+.probes ol { margin-left: 18px; }
+.probes li { font-size: 14.5px; font-weight: 300; color: var(--ink-2); margin-bottom: 12px; padding-left: 4px; }
+.probes li span { display: block; font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); margin-top: 4px; }
+
+/* pipeline */
+.flow { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 18px; }
+.step { border: 1px solid var(--cream-3); background: var(--paper); padding: 18px 16px; position: relative; }
+.step.now { background: var(--green); border-color: var(--green); color: var(--cream); }
+.step .n { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; color: var(--gold); margin-bottom: 8px; }
+.step.now .n { color: var(--gold-lt); }
+.step .t { font-size: 13.5px; font-weight: 500; line-height: 1.35; }
+.step .d { font-size: 12px; font-weight: 300; color: var(--ink-3); margin-top: 7px; line-height: 1.5; }
+.step.now .d { color: rgba(242,240,234,.7); }
+@media (max-width: 860px){ .flow { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 520px){ .flow { grid-template-columns: 1fr; } }
+
+.limits { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.lcard { border: 1px solid var(--cream-3); background: var(--paper); padding: 24px 26px; }
+.lcard.no { border-left: 3px solid var(--red); }
+.lcard.yes { border-left: 3px solid var(--green-lt); }
+.lcard .tag { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 14px; }
+.lcard ul { list-style: none; }
+.lcard li { font-size: 14.5px; font-weight: 300; color: var(--ink-2); padding: 9px 0; border-bottom: 1px solid var(--cream-2); }
+.lcard li:last-child { border-bottom: none; }
+@media (max-width: 780px){ .limits { grid-template-columns: 1fr; } }
+
+/* close */
+.close { background: var(--ink); color: var(--cream); padding: 72px 0; }
+.close h2 { font-family: var(--serif); font-size: clamp(26px, 3.4vw, 36px); font-weight: 500; max-width: 22ch; margin-bottom: 18px; letter-spacing: -.4px; }
+.close h2 em { font-style: italic; color: var(--gold-lt); }
+.close p { font-size: 16.5px; font-weight: 300; color: var(--cream-2); max-width: 62ch; margin-bottom: 14px; }
+.close .sig { margin-top: 32px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .1em; color: rgba(242,240,234,.6); line-height: 2; }
+.close .sig a { color: var(--gold-lt); text-decoration: none; }
+
+footer { background: var(--cream); border-top: 1px solid var(--cream-3); padding: 26px 0 34px; }
+footer .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+footer span { font-family: var(--mono); font-size: 10.5px; letter-spacing: .06em; color: var(--ink-3); display: flex; align-items: center; gap: 12px; }
+footer img.flogo { height: 28px; width: auto; display: block; opacity: .9; }
+.tm { display: block; width: 100%; font-family: var(--mono); font-size: 10px; color: var(--ink-3); margin-top: 10px; }
+</style>
+</head>
+<body>
+
+<div class="brandbar">
+  <div class="wrap">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAlgAAACdCAMAAABfAvbAAAAAP1BMVEUAAAA6WjL4+fhCYjoeNRpUZlHs8eyvr6+bp5rh6N93eHd3iHShqqHT3NKZoJmv7bAAAAAAAAAAAAAAAAAAAAAe/fQbAAAAEHRSTlMA/hH+/PtbBPWjA/ij4WsHh7J70gAAKBdJREFUeNrtXYliqyoQxUHEJTb//7ePmQFEZVCMyW37yltubxoR8TD7ohQNoP933de7RwfL7fYDFHypaxMrN/N+WrBfwq3U1+ZvXyAuCyfCr/ONdhM9hQv5aaTbF29XXsfBjLlddO82DLdT45lb9bOa+/Ud+k7ZuuUqgKE3k2nePMzUT2oQd9QqMO21mVuVeVOgOj8f/r9tW/4hXBL+pM/NF4jrGmldLX219ZcuEz2E3QY18FV8k/AHzdFOUPmO/Jxmtep0A/oEWH2b/FqbzXiopzA7uCub5QbbW5ihdtHQ9WY7zVsG3sT0IBxXApa+Mq9e9jV5qhHm7JezK5NpAQPLaGEuGVidyd/LfXodWDr7ECbZgKdDdOkdiITH4oqlS+lJx6rFQvdwB0HjwP/vXoLW4Xf8L/8tPBz+qFdf8VPwD/Qpf4s+MQ5cBt+5AKz0wfiaRicbqfk/f6+wuNW+xvHEo6uXuXg5y4OGdXpkdtJBJmA1O2BpfQpYWu9f0cvA2s2ZbgARHhN2J76c+JKaQWDDFh44vXAYWtPZmjVb3P7M4988dPJTm4PBVYqlt/t6aTrdToMo9RCwxIn+DcUqkWywQ7izPkndeQyFx3SUrmqpT8cG20Y3nxwOWo/cs11nhQKwOnP2yRzRuwos9VFgNWeAtZBqnX3ULMNwhE7J24MbBFDDB/NyyNvJ1wMsvB1Yc4U6ouV9KwDr4zKWMON6A6wamtKR6ivXSwRrrlJk8VS3umk+TbPaHIHwwNI3AWtUfc0cSty4F4DV/Btg2US6zLL9/akubxdKWFWiu5tNEAffjawenvBeiqVUxWxu594BrE/JWLsNGIoHNG9zKm2XE17qFjyYT2MqMvp3y1hVs/0UYJ2iWKjpl0nW3uIAapbJi2kLIqhgYG2bfzJ00+9EyHuB5V7sVAGsxtH6n0ux9BZYUIAJaSp2a2qQoajJ/gpVwCoB+828cNq9yFuB5f4+13F4JRH7cWNf+/7AYsZmivbkcbP3Bd6FElYlJ+wucUJdNGKfBcNODbNFtb4eWKrGjqJbJUmnP4AV7oxT7ueyILL2GI4H4n5fu9Ku+XejzwnvdwKris3rVlQLfyawioIAPqw9a/MjG9bLwDJGv2lktuKtrHDoa1CKSjjAL5Gx6LslKWvD21Dcbes8sQfjK+cnfs/Yv8j3AgvqFF731Rl+DytkkmVOGknBFugbyfq1Y2i3c/Tb4TTHzJgfffZzcajNnpB+/1ZWqCplwD0J/dEUS6lHWXdaSBZeWPruoxtrWeHc6u36Tg4FlWNeb7MArLsoFppfKy0pooT6M4FloTMlKvS1Iu9T+av1i924UNqHetcYPgssBdWWFCly5ofKWG4HmnNyk1tKydZQa8Ni++iGYqFz+D0U60VgFfWCLLCqQSpZl38oK7Ruy9szRlIo2RoK8VsVwEKKVeFqrPJ2vwYsfaAaZCzvlfIaYeTbA6upkLGQIRVFSu+KLkSOagqBvBCevzX1tJXhpx8DVjOVx5Zcjxdsv+0vsmNxCG1JynL7Dz63pZtFU7L7uIOPAwvOKwsvA2voimPLCS30tYJaxtHxs4HlXk9RzvSuhudYMo62qruy1BeA5TZOnbebvQos01WxZbengp6jm94UAhx+E7AoUSh7gSaFZ4qXlPRndWml14Fl0YHdd2eR9TqwjpSJrUokAaudhbez96D9eGBBUSrXM+7bOMIZhvkp4Z0Mu+Tvg09RrJo3QWYzQZKaexFYw6+SsY4UQ7QjeFuDPOZLmbWXgeXkQoodwKyI7wgsJSUGEHoKkTM5qfGnWt6zb3izFVCMCTQVPOkWYFnElaF9Vefu/GlgSRGM6Muwgq9HSi78wcCyYzHM6gFQCsTShSC1twCLYzI0ZQWJHrZ/CSzZ7u6AhbHwRvhd9n3/YGCtsubz2krxCxfXmbO8nwCWTWJ9iBta+HbAGiTnFwoWEuiQN4y/ixXaQlqFe3eD44QFe1+rzrzbuyiWXcWQ6eZUtM5ngWVlEatxqtBDFCqyD/KTgUW028jie1dI+nK/Hq5JWJeAZTexiVq0WP9DYKmvVnqlA4jxJEII7g926bBiWJCh5pJLtVXXbA2XgLWPedXNCd3ho8CSTc5411EUVzPBhz9eKyyGebjL5mLM1kUJ6wKwbCaWWlO9p/H7AGssyO49jGI0vM6fkB8NLNn8zlJlITIe3dTqU8DKxujrpj3y7nwWWCCHNswgp1m4fVYZe8PtwGo+yAod+e6KQTEFnVGu7HQ3sKTcj2Orw0eB5SaS9ozmkUX7Nhcs+aNlLDzxcomQUvxHO1+WsGqBZcU4DKJZpViHTwJLKuXn3YEWj0cjGiPGXwYszrA0tcAignUZVwQsfRZYtpCrdmR1+CSw0C9QdlFI99HZOoo/HFiYsNTI6y94El8IzauhWESvTDlODr4JsETz6IPpqpFNpHvy/9OBpS7E/+t6J9pVYNmDIhtlq8NngSXPwzCQhSw97AXWn0+x6qvrXciqv+zS6Q6yE9jq8PwOwBLLBjNBeso10ZzWaOG3USwYochrshLWcCewZIplD3FVtjp81vLeSwvsKTVFfue6yVDdn23H4idQtSSrVxY+ACw4gavADe2/B9Ykm0dJdhe5Oq3q+euAZaGmVphXCe1HKFZ3KkuPdMNx/DSwdjsqTqNI06G8FOlG3xtYF4V3WydlUSXPD7DC8yVwRavD68Cy4tgg6ynRoyVZ3KICLtxo3u3AzwfWoeaViR/6ALDsSXpVinV4a5bOek+t+pJyU4LNrxA2mXEh/HxWiE/8aCsIlgIF7wYW1OCKkGWyNdxfzCvsH/JQKxf4KBoTWrM4ZqWMivid3wUsgAriUF/K9gqwakvB57nhy8Bq5R/XbakOwpJPxNVsF/8LWGE0kp56iW3/cj78xqWTsWPVtxjIWh1eBla+SKDv0ZS+Jlso5ZfeTQxw2PlefwWwavjO6wTr2EBaxwcXyG+tQfadZYxWwHrKIZMLZbPwkJvjbF/RrwAWmt/PSln9C2ENJ4F1DVcZbvg5YFklpxTG72G2RUF6h18nY1E5yJMmIzPYV3F1BKxruMr5Dd8IrDUrlOu0pqG2pRT83wqsk67oK6Vsa4EFF3GVifz7HLAK+7cqnCIXDRlywDI/HVikGB7LyqUWHTcBC+xlXLFHOu3I+TFglSZZKY+FCg4bq/PvoFj8zMfAansY3wssCVfnurFu5KyPAksq3fNMTg0MEg1qt1D5LcCCE67oS7W364Al4up0KGJqdfgYsEYlIib1NxYCHDCb7jcCy8oR2aulDQBvBJbIB91b63drETMsIrv+GLDEWsHrVhhygAMVyrW/UHg/Z2/QTQ/vpFijiKu2V9tWAP0sPPDyjnbBd28DlhjasBIe0PYu2C5a8yuBNSo444d+PWKm6NKR+aCjQv0OWJ1UJS/SrDcCa2XH4jLc+bVsUrtOscxfAyywMJx0nzzeB6ynkDfB3poMsMTKcQFZHwLWvgPGsnS96j47gph7uG2q80ss7yd7U76UWX8ALJBx1XcWMsCSek1p+uUHgSU2vcLuXpvKyqUcMPh1Tmh1si+ozsb938UKJwlXsLcAcYl5sYsZP/LngIXp8zoLrHUPUigEQXxfYF0Om7FwNtLPXC1oew5YWtTy8hRLOhE+R/STwJLo0C70TeYF8NsoVrFdzhukrApgeVwJwHpyWLWWGMvHgCWW8qMKz8mw9tHIkTO/THiHmu7fdxjfzwNLR9EjDyz8xVcGWR8HViFmZjMGOQfslwFLOvWilKVeJVkVFCuKtLAzfjGw8Jf7epd3sUItR/olwCL+lpfd1a4FQdefq7/2XmCJLRHsjcCqS7KXyke/A1jJvSRgqaejnztkfUDGajUkAXytcDTNvrOT6NQxnwMWfIJiWVvVxxhbydnXkyn0GWAlKngWWHFz09eq72OFrSmMaN8vnszDNtUrRyx8BljuWyf7Tr1oIK06seQvHT9Bsbw16ghYyMt1Vmc86ytsrvXSUUfxe1luKh/YtS31fcBCfiyNjDP4GrCw9Fpdj73XYxwkX+H69axpksgKswbK24B15nFGsLq5GEG2OV+fARa5zoQxZxrFXa02U1vGCFdo3wcsnZXlSsByf26QdRuwbGEswTldcwOw9LopwhuBRVnbRhsTehDzT/hHcx+w1FDbFBRNLm8U3nXWEl2WsSBYHfTdFOv4BGFNhuaGsXGXvTE0uZT6ngXWJVZY6JhQsmW9Yn6X+hWmrSe2TsmsHStNGF1J8B8GVn8HJ6Tzaj/ECt8OrEvK9qvRM8fA2ju7RQNpeJAx5YYfBtblIP2tuq3ULwGWnLZ0LA68UXinfipPVQMsxaUYD1nhdHt9LLjQYVwYKnmk98pYYkXju4AFopcL69qL1YpfI1lHwCKH7MZWdsAKN7phJbAaQas7Byy4RcSiN9+lYfTvFd7fLWP1Mnj6uXAS1QsewwNgER/c7dghsBAicxOmkAyk0+2sUNW3rheFrM8Aq5oV1jdpksUD92kHfYlk3d9AwGuFLebY2TPAeu5scnNoln6L5f0kXb5FxPIua/iOFKsWWAAgFsYiza9Asl4pnLwtbbMClmmzZsmiHStFFnG1DwILrkZH5DZ1Piu8K8Fd+z1Y4RPjiMS+68UtMyQGvYEVulc/55ykJ1hhQrPqgaWvA2u4S3ZfMeoisPS3BhZ2f2nFVWDnXjlimTtCw+3AIh5r84LMCWCRnGViGNcnzA0WHs1NY1XY7wcDq1QlAcPOHHBkRXqfJlAxRGAZnHVU14HFvs+2kmK9JryrG4G1eBuKwDLfGliFAu+ooDhcWVEGc3dqB7hdeCd6Ba8Ai7ihaeoo1isy1ljfMqaw64t98OcCq2Qm84UzC208SCAAezOwVFfQ6c8By9OsT7HCZ6FG5AWStbyp24HVnAKWeh1YFlRBghq4krkcDf9CjLIkYxkziHLbeWBhrMPwMWC5W+jPA0sreBPFypXErjM3lJJUYzpcKX8Hv3TNSCoBa+6KVsizwMKP+0+ZG0al5E6i4hB54VJ/rQCspmDHksOBzxhIM+EFT1nQlmSsUlb9wJihDk664I2/Jma1TRZYqtCi54yBNNF3Izl5t/A+CkohztiKo2mkZgNDEC+KwNrkwaYP08uxz8o3VikBa5M2S+G57QkCu2yILdnVE41PXKjUfv14zBKwxhLFas8DiwjyR4BlS6lzYvxvL97RbYU6Q7FQyB7tcz2sVYWEqwUGpUWT+TLNgyy1o8/X1u9KZvUg69ixK7W5v1YuSwSWqmSFz2MB6M0yVslkU4iY70VxOEaRErAKhokZBLelbk4ASww9QH/aaspCTFAOWCSWm4IzNIaTC52OdZh4/IfAsjcBSyhBdApYcDKda2v6OioNUgSW+2LTP9QwpBFcw+Nh2gKRS4GlZJdKgwkVMQuy5AjNAKtUeGed7FyibKlI8FOANd0LLFBDydmq8sHyVk6HjmmwB6xQOwmuoSj18IEx+FFBQT3FCrHInXHMmqSgvp+aVjd1wJLKWBADXwlvfYEWzlekrD2wxjeywjeHzcgy6CzFb8tOWIopCfLmQaUWffKztfjkzQ19KV+t8dmP9IduqoBVokNrd51YH8UzzbGeZA07weJU0NP7gPWCuaFwsejyKhbLmEV9pWjROGPWD1bCw2Idcb7yvHtgQdEPgbllNqVuU0l8uyC8d3q1YlrfkUP7CrBgZwvIFFF91aUj0h5Zsynl9Szv6ilVhLjsLwozV1WBKYf5bHvMFCKtfFxDmv/Sl7STCxVMdml4GOJ+gJILwMpWz1K3skIrZvsWZcAnSOZ6MiQ9g7PoVmAtlc1uA1azOTuo6pWsU2vZAGyxAeuFclndJshcM7JuF95BrURP7du33UexOPzriPRkId8ctqh43pRWthOxDhhWBQ3U2zqYUNb01pQACtZctqXWIovOy4oZsvmkZBSrBRbG/PS6MXJcyg0Uq1gO5EtWmEshlDphL7fFTRAK0ofpD0X9M1NuIqeK25HxFhVtqU37sLWmrAxQ0S6jSuV1KoEFBN9tJnHOV/AisMSuS82XspcAuVC6Umh4PQqSCisW7oh6xepfmwKrQylKe+8OK1scLhQlzWwY1YQsFMWpA5al0JnM3g1wJyu0YgPCvdNt8zhioNviBnSMZbqPZDVngV0x1menyGFxQ3YK2kGfneraM2OXCbUnQQtkv3KxdsPOT9jNps2rGndqhVZqurRpdZIZX01z2B56vDM4NWVENY1PS1Ouo8iJszUFYTzzogZVhmJdhb+8aQw70Q+ijlkBLGKDTa6ghmPbVt0JLCUTnv5aBkZaf829f9OauwjWqkMo3FAWAB00W4LVVDE2PEIlgM+VzTFpw7JV0Y2SnI/ngeUWg+LVXp8nmeBOYJU4SpliFW3fUc+GsaY6bGmY7XLgZcXAbMtrlDIkpDoyRYBTjHKdlGUFO477qO9epFhoAhD6gmVPwAvpXyV70GGlp16kdQ9YK+T6Blxt+2zC2L1GDEmP3772tuB+kvwQJYDrWosDxaPpfDumKZ9OcRZYbmqVdSqjDJejhi9QLPmM7jTxM5pxxk/yvMWUiSDIBqZfR5Ze9YUMAVYiVLHKS5742KHgCl3CtyqQlV8FCVo5K/w5yzt3Gmj1yeChV4GlrBz+ctAMpCRkpRXlULx9kWZRGuI2iLyUVHoKV5tzjWENRQUyH8ZOUpYuuKJrw7J8UakcZWmbIReif9Kl0wm8w7T9IEXzmkbnAVIGFqYDFTSmg2YgBQtYklqJ97jCDfWKD87dCFkB8SKy9KrucPT35w+0LhlfDvrOtaq2tz3GkMmhI7hqqLdjuUORt155Wwaom4Elx8vJMTOJRKJFBW7cWHpbrfU1WHldG/LEojkvZ+nVlLtwKUoIlwHSl5wQjS5FZNRaSSk+NtcGhwWtLbK2hNZkZayvAq6UEoEldaE+BJYc2nBcb1l2BK7eGnY+e5j2EnHB0KpGfHKgiZsqyHK01jTs47BKxtEVEd69gEdbDsyp9etQ9w8hXK1VW4vWIbBAibTdU26Qg4vNupuJ9iT8GFjLlelwHx+Vwqf25Enc0xJYZZoN3yB2aCjoToy80nGaVYxW20wYPS6G7yicOFyx4l5ZTNGUrelzuJobbYRkN3NYXVm+0lzK14mF0va002xMA7AJ0d8Cy71HScwtmcc8xZJOTNEdORZCG6ajZIBRvm3bbFOw3L+d6ika+bz50m2G6b+6csAa2vzM2XkxotRPuRVU0PvU0D8xwy35qZETkb2sJ7TucH+7UJQUvEcvq4+RMzblCBvZcNOFDA9fHlda70C6M32IbU3Kfu7ChfMRsIpXbwUL3FsYBsVXFNhUOsmkhqFTqpxT7CbuhqEvTuvfCLV5mXFK9YS97fCgOwwUXcfXrxUfa6fz6FTcjrvCcrlZC02ratyDkSxjpuTcRtIxiOOguZV84WG9w9LVan9fMm9i2gz9Xj0e3vP2iD9hyHdcdmzJMp443RyXMNBc8vCz5qe00BW7wxStUXAwLsQoe0LTSoJRssGMLJ03uGF9k0ayi02g1Ks9Yb/DqN9he+qSusZI8EO2ErhSmsDTUTYKYEcMhuq3RK/G5DSLaoCTNLsd5d6t4bCrifTmrl5Yvu0oR20AedHH7FiWhGS45qi7rz7tWB74TMVIzO1faAH039G5htU31s9zvYQy+mAmSZtrHrBWpLh6KQruC5ekbF1BvGoGeLnT8N/4oSQ+I2itov/COUErLVaTXBsPuByW1ll72Ln2XX/jlyLLEe5H3u5gVpZNDIhxGGpTfdE7nWV/Fvxt8P+bbAlKnU6VOuR6U6sWp58T0bqHj3nZtf3V86s9hv/Gz8cVcjlJ/p6j2Ei5N6vsVsHp7F1kf+MPWaJDxlBY7ZiPeBHgeBBA/zf+R8h6EjuUbFFR0AI7BusB9lXNiu34keh6/Rv/t2GVlJbmo/8yMVpZ2ypaGR7wh6u/EZEl2h3MLoEHVUlZvFJ/sPobK0FLNqFThjAcg9DHXo1/2/k3Vuxw1mxd11mnXzKkmL5m+iNWfyNjd+jkMIUQ7gAcySWmJv6Nv5Flh3JgFemCisowCeCb4Q9ZfyOHLKrpm015cyL8o6PgIVm86v5w9TeEMVKQvxDu0BeCGbLpPX/je/GjfyzCFyzq3aAl8QrTWy6tnSOONnVacx9a9Uw+GTF2al39MC0Wts4Gib8ZkzkwvmoT1mND9NN+DoyaUirNDlN8/0VbhpI1J8xKy+TK3GO4egwVKpMp1iGAuyJEHDUFxd1IP3iO6foglpKJqxr3OFx9ONrVltQHGMhpmihFCdlaZOq64MRJlm5zW2rffkBhhdzVp2P1fQopORU8o+aeFe8XKn9xNHM1tMh1KKXK5+QvU8rwOhyd+nKjA5WGUXT4merWlX47N2DpHZH+lVVanq/D/zpYa7v4EY7B/WcVxBkSqRB/oPviYggi3WZQxk6nVp8ALyT8XlSKwpeXdfOiyEC4msKTkNV9dtIr71D4etgNSHdjvT3p79MbdhxqCt1upGvwW7pZaS0lwdppKp/Bk2ODmNTTXYq7xzDDh+FA6Bhjz5l8JLWZJLgeq8sYE8t9YNk1TKmJyMPfN0YbQ/mJplklmLiDgt/2iTRUCw8TyAx+DZ4JpY6L4cxFSriZJve/mLTCM+Ft+AMLvea/mKl/DLlzjMWr8FYDAQsz+aghC9B6n8hjHiEtRvUPSk5abuQmxx9UWlIC435ppW4/8OvhWWJeEzU/MTq2NsXpNO6WjXvl92Lqe1pV/GDJ0OmwzajfNr+jVsXspr4fLgRGjaKQnqNil/sIk4rZhhj7gTL6aE/CZ0kD8BGtt00bNthdiolvScV/Su5OQ/ZTsTH5Vdt6doMftjHJjO+7LMbxRXcHTjVsl7JbsLpJ7w00IQ8Pw9XG7AlqyeXKwGq5jjql9DUOWONSg8hNMXnCtqqIkzamAcqBCWmQfYdpGzDj3efQdtfnC0akWUr1i0l7T3q7MV2R+vdsC/Bg7MEqP7DlSvHpSrtLtKSbziDrFecgY8HQmzMU+mWBg+t9lxqjV/HN7vjErG/OhG5WwEIKkG4DpMAynKfMBUFH3y7HZ1Dyl9ALb6LVzh2WYUlx1qF4FpEZvQGW/wQb6phMVSl8TsyxjhRLB2C5FTy5KmWYQnP1/s2Nko53HjQm3pForjt12izVP5gupk2ncPOWXkGYWOUfyrAgE47H8rAOvsPULCmPnAds/KqQkB5nBgvaYd8clofa5OzUkUXgQl16cpymbQxTD6BKT23I4gwlT3x9gjY0WPB9Y9bAwsCfiYdJKs4wsGgTfUrqGFKpff9tPz8CGQctBl+Ojsmk9EMfCEm8CYT6b/xFTalxdg8sXNoCrGYBVuOBxVM0LU2B9Wm4HEO4kZkjXkOJGORjKIdQgTSfF668REKN6hdggWW7d2inE9oHu3l1S+8QQgZv0/h9Qs7N1YOThx05uMq9L7/SKxIQCBFXd+GKE90NleHoZqQeelahmyQKOdiaxDS+fsDo6UfYG+BirjtgTYvsCWoNLDP7gfj171UHXmg9AZspP4Tv29G3+ez7C0cmM0MiUtNtzdx1c+9LcEjAonMjAgunUL1vnuvLGsQbLY8z8m8otxPhwQVXCVgm1BoF6pSjY7mjUc1EZZpY/Q4rHLtHd880+dpwbv1zN8zLwyLJnqgC1fKwDCwzDO46On3DpeIORD3KHaj0iU48Mk0kbka8iAoJO6Ya2m4N4emx9L4KNcJwKVPCCvfASkpHQUp8Vcu7HtN7l/r53GtgpF4wraeOLRca5m/jXqtwIUO0Sx+CEEDSIdFUtUs99kubBnKJbYBlF2DxFL7uEO1DpuuiP45cJnCgoxGA5b6vfDfxLlTYeC7UPi0KzcDi4jCt5tkA/IQPflasd96uC6gGYIUOdu3jkkFIdh1K1UMqgYUl54mc4nZTxQNf14g3HlMevWYAnixHOUIEVkhxtxvh3azf0sjEIenXSDWye7AkbTkMRzXBpAV9+H138SYBWERImbhlGp/i/dsDVogipqJ2LAmwOnhuct25lSKL+JY0TDqOcyyhCgFIEViWZTzfdAYWYIGHpBMp6DT4N/KISgIBq1vOYwAWzuqYrb4ILHIdEpMSK8u94hxkooHkdMSTQ/SegdVyy3fm+4RdoPp9KAL4wrUysCxlOW/ERUXASiFHAJ6ScklUvNHBFqOvO0fs6Vi6/ab3qOgnFSlWTLn2wNIQCnhTN7X9wzYELF9BKQMs5KZ0awJE5kYJsLDaEtEYC7PjU4NvK6RDC3rg3hcRWE/oSHJKUO+BBU4jZVmVmlEHYOGzwgKsZQ0LxaIyqpeBxe9ESyHL6rWMVL9Fqx5R1OY5vpyOa4NYfwbbnqBzAKz8Q2wo1hPbbbvXYKgHw5Oo01KF8alinQRWHpFF2kCxZFYYgLUvz6pCucwSxSLSGYGlSqwwlMyNBk9fOrxFrcRzvgAsv3kKxYHJW8kixfI1gpnzRIplU4qVZYUj1ee9DiyxRJH7QB0WZjiU4WhrscRDh6Ka9Wae/akfgXo0Dw8mzQXhvY+m4j0rTCRuaqPgthn3qQcVhXBaDCTuih2wVCJTA9F0T7FGy6wwXy4BkdPzaERWyPA2KSvcPw5pfGiVcFI1eghs0giNG2GNHRd0W4CF1JnKYwZrCIr9SLEYS6G45h5YhM5l2wKw8MuPlyiWzybce3JKjSzOz0xVSzXWqZu5XPMzyim+wk8oCITnXFOrN284F4Dl7eKrto+BYvkXO6O/psPzi4XODUu0vBhtQtG8RAnbAkvHm3QRWN6U3gaasbW8m3Vp0pXwPi7CO1egp9LlrMSEil9bVQBNfG0z4a4FYDkc4cFAW4p750ZFYD2RKDno084+0BH7JKGLbcidxxsQpd4BK66BZFsGFvF0poqP1zCAFq1t0dZ7YmTI8o62Nl82aQ2s1CdCdMzth+ZmH3lg6QX2O61Qh8p1j1iQu4ehxTa/3lBGMF+oVgFY3vacAGsehkdvWPiBnLlhKSMpAgvLZHlzw3PVj6SdM/4KLkiqvLROwPK6LwFPhdrWNBUF9zJjo5NKCrfBcl99EyyIWYq17Ch+xVMsv9Kr5oaVbwrZobfJUuZgB+PrhWTQbUK+QrJZI5rsDlh8kvBctWzc4fZElcAidsVHD9VAYAmmY/Whj75CrDdLOHd8aYTTwPLHmuhIpux+XFobWojvgdUkNlZqGJf6WLbA4sK4tGuYZGADsDquCdwh0eMPgiBAyjd1qmRjWhcIL4cVeCfX8wyw4nW6afsXIzvJ7mBCW/WWrAz3xZ/RzFTHBl/mihUq5knMCdsv3m02uojAovq20x5YkWL13siIPLCLvNBHN9BicNt88I7ACrkSbgKsJOlkVHkDqemnXk39JAEraQ8CUQDnar3zvi6qmhretYns9DNJQ6zF9aSRNNGohy1u3OZZ2sSZZk9qmevUh5gFFhX97QMr1ImrtHuVa6EPBItl8sG6K1QUUOJFJ85syMRP7WVzFMvjoIOgwiDJybp0WjXsI1i8jKWniUIVyPJJ4iw6nqn1DopyI4WyOeWdnD9ttPifEN6pRHLDlDwjdARg+cCdrYE0ARa+tL5bbJrJjZJdcxdYjA6aWECZ2Y6FROlBjJQ9oLEEMbA/iYr7BzfPqkj+IxyGZ1YrHNbCu16v9Ia4VugG904eA9ye6ExWKo1+uxUrdDfshtkfMKcqq75HJyjZSCVgyeYGpgTepozoaXrVk5k0oeh010fLRmwrAmtnbmj63nAnqlzYjLe8e/ohAcvxF1K21Rg1ZlNuCfRlGi+De2BR7fuJ21gyiKxl2zpt3uS7AnhfoZ6MWXV5eZ4xN2j2FdLDPuEW8nJv9DTlZaiZFV3sfYFbZFfmhh7joLBDeehc2YYGAXBked/601tvoPS6QNryRJOFyV0xK/6Ty9qz3OGB1a9YYbS8J3Ys9Gxid5HRisDipaXA0ivhfZ75PY/PSLEoDjB9HJzALTRY0DfA4sYIJKIHimXVl/ESTOydCF4rnGcy3k0hZDcPrG7Z0SC8zzM5QW7KneHDaO+qsMpqMzk6PP0hXyHRa0P2cSzGjnXXLYlWOrRGQV9qjG5ICo8SWQuW95Rw2MgNnp5g0YE1rKhx+0uK4MEFAAViobE9D6w+MYjbZ7RjeVN+UATGVTXz1CQhUCw2mlOABZe2Czd68p0SCjmzL80dD4vO1hRY1ATMPddDBWD5dpfGBI2U4RDMDUTiogiXN5DGh1WLuYFOJuvXXuT7PsNvt56jx4qd0IbfAQbDG892iJiHCvea3K7HrBD2wFoaiYfAPJqQfKkwsfoc3WcJsPSKYmUt7273O44vUDbawzfAUgfAIkSzdFdihdSxmHnzoBdgsb+mx0dCihqBNSSbh+49JJzB8j7CIyU9py3vT2CSNQDES78PsEhydu97RtGwJ32I9bXQkpPq36BkQls5UcXzPghZnhXGCGymWNHynsq7XnhPNEViMz3XUDd+Z8ndzpcTQ3mkPl+1plgxmiXasTo1dt5k+KQg57k7F4+1olgUoIaOyWegWDvTu1uQ3zXfzJYiygKw3GVukCvad0Hj6C3evMcUHiy6dLhDuI8AFyhWGtIfIis6WmnvhQH1rcrN+rCZ1jgR2pA5ZUA37MAsZQAqENF665+PE/HqPrbiIIq1RGgHGzJHp2OgH8BGeB9CUH3wR3pntCeLXHtCzbwY7/xgErphhQ2HwU8UGx/Y3Khi/Bh1W+9X4fqngGV9KNhi2WZFlm40rqPYjBpmDj3xgX7ew4zdBPBLHlhBKOSLZw4NshFYwAZSbzfIAasxS6DfwgqfXrzr2Lv7vQoZc0wPNclCizfzG/D9Xyn4irX+EPQyUqrYHNS4mXQoFEm9OT1YIbmFzC6CtE0oFsemjKR/0VWzX4wX503UFDMylg5ctKGyA6wVouWEo+s8cJNexTKw9Nalg58F0rPcyN0qhg+ipBsik71FVkEElvUBpGxtJ2CxzOo2z/3bKQqRDjIWhu7R0tpBcEI3yY6aBFjeakhekImW/K1IFtFyTgRpuG8w0THlLbGG7L1PImz+RY9A5BkN6wSs2KjqobwKrTl8JPUF22AH4w1DLy6qNiRhYwqFP7KUp8tCLuKS1bsMxYrOGfaaBWC5r35pDqbrmmYDrBhZIFGsEDZDSjGdpuVGzeI89lJdaJDGPWVsAixko4w0H/WYbB7lQnAUZRLdoJog0ecoVuKJ8skUvPuY2+LlQdQXQoT395Hf3RHgYYJtEajdGp8SjvIg9HmzBCUZNOaBcdPa+NZIDg49v2GfmkWBqbAHlncKekNhDOSLYq5OFjMqAViG2BUBq4/BylTWgqHyQByx83NjIM0AyyCw+JnIOU7zezE8BqGbFFg43Rx2jR+DcNQkZmWgGHYCFvsqOMfNjg//sBFYnrNyuCMCy5GfBVi9zz1QkWr3pOKwSOsTSnExZvhWwKLcCScq9NjYCtKK8vhZT7mnaNoa1Ff49YipmgozxTin9QtlK0Ux4YC+fveXL8yA7ZJOTTihu8a3V0PRulsm9KG69E66bujVNPVzGjGP18Zvc8IqXeHGF122tHrDNSns8tT1JrHUQpzDJ89+hYRVujH2PMHP+J74eDMuFZ+PLqenWbfndLumKFAjfO52bPhKFJZR2Q7zWcHNpb5CBiDw5qEu133RvXlt7o4zp9517odlZ2j/v8LgCH/cbbbZ4BwzGknnyXHX/wDOAQzqbSesmAAAAABJRU5ErkJggg==" alt="FaujX">
+    <div class="for">Prepared for <strong>Kimberly Weidenbach, MD, MEd</strong><br>ICU Registered Nurse · August 2026</div>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Capability Snapshot · Worked Example</div>
+    <h1>A resume tells you where a nurse <em>has been</em>. Not what they can <em>run</em>.</h1>
+    <p class="lede">Your ICU posting asks for advanced cardiac, neuro and hemodynamic support, charge responsibilities, and evidence-based care planning. Every applicant resume will claim ICU experience. <strong>Almost none will tell you which of those five things they can actually do.</strong></p>
+    <p class="lede">So somebody reads the stack and infers it. That inference is the most clinically consequential judgement in the whole process, and it is made from the least reliable document in the file.</p>
+    <p class="prepared">
+      Run against your published ICU RN posting · Abrazo Arrowhead Campus<br>
+      Two fictional candidates — constructed for this demonstration, not applicants<br>
+      Public sources only · no candidate or facility data used
+    </p>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="eyebrow">What the posting actually asks for</div>
+    <h2>Twelve requirements, sitting in prose.</h2>
+    <p class="sub">FaujX reads the posting and pulls the requirements out of it — separating the hard gates you cannot waive from the capabilities you weigh. That separation is the part resume screening usually loses.</p>
+
+    <div class="mirror-grid">
+      <div class="mcard">
+        <div class="tag">Hard gates — pass or fail</div>
+        <p><strong>Arizona RN licence.</strong> Not negotiable, not scorable. Either the nurse can practise in Arizona on day one, or the rest of the file is academic.</p>
+        <p><strong>BLS and ACLS.</strong> Current, per department guidelines.</p>
+        <p><strong>Nursing degree, accredited school.</strong> BSN preferred, not required.</p>
+        <p><strong>Minimum one year ICU or acute care.</strong></p>
+      </div>
+      <div class="mcard flip">
+        <div class="tag">Capabilities — weighed, not gated</div>
+        <p>Bedside care for critically ill patients · advanced cardiac support · neuro assessment and support · hemodynamic monitoring · care planning via the nursing process · evidence-based practice · clinical judgement · supervision and delegation · interdisciplinary communication · performance under pressure.</p>
+        <p><strong>Ten of them.</strong> Each one gets its own line, its own evidence, and its own gap.</p>
+      </div>
+    </div>
+
+    <div class="bridge">
+      <strong>Why the split matters.</strong> A single blended percentage lets a licensure problem hide behind a strong device history. Gates are checked first and reported separately. Nothing about a candidate's ECMO experience can raise a score on a licence they do not hold.
+    </div>
+  </div>
+</section>
+
+<section class="sec alt">
+  <div class="wrap">
+    <div class="eyebrow">Gate check</div>
+    <h2>What the resume can prove, and what it cannot.</h2>
+    <p class="sub">This is the part most screening tools quietly skip. A resume is a claim, not a credential. Where the document does not carry the evidence, the report says so rather than inferring it.</p>
+
+    <div class="gate">
+      <table>
+        <thead>
+          <tr><th>Requirement</th><th>Candidate A — Marcus</th><th>Candidate B — Renata</th><th>How it resolves</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="req">Arizona RN licence</td>
+            <td><span class="chip miss">Not stated</span><br>Ohio-based</td>
+            <td><span class="chip miss">Not stated</span><br>Maryland-based</td>
+            <td>Primary-source verification via Nursys or the Arizona Board. Compact eligibility should be confirmed, not assumed.</td>
+          </tr>
+          <tr>
+            <td class="req">BLS</td>
+            <td><span class="chip met">Listed</span></td>
+            <td><span class="chip miss">Not stated</span></td>
+            <td>Certification card. Absence on a resume is not absence of the certificate — it is a question to ask.</td>
+          </tr>
+          <tr>
+            <td class="req">ACLS</td>
+            <td><span class="chip met">Listed</span></td>
+            <td><span class="chip met">Listed</span></td>
+            <td>Certification card.</td>
+          </tr>
+          <tr>
+            <td class="req">Nursing degree, accredited</td>
+            <td><span class="chip met">Met</span><br>RN-to-BSN in progress</td>
+            <td><span class="chip met">Met</span><br>BSN, conferred</td>
+            <td>Transcript at offer stage.</td>
+          </tr>
+          <tr>
+            <td class="req">BSN <em>(preferred)</em></td>
+            <td><span class="chip part">In progress</span></td>
+            <td><span class="chip met">Held</span></td>
+            <td>Preference, not a gate. Flagged, never scored against.</td>
+          </tr>
+          <tr>
+            <td class="req">Specialty cert <em>(preferred)</em></td>
+            <td><span class="chip met">CCRN</span></td>
+            <td><span class="chip part">NIH Stroke Scale</span></td>
+            <td>CCRN is the direct match for this unit.</td>
+          </tr>
+          <tr>
+            <td class="req">Min. 1 yr ICU / acute care</td>
+            <td><span class="chip met">Met</span><br>Multi-year adult ICU</td>
+            <td><span class="chip met">Met</span><br>9 yrs acute care</td>
+            <td>Employment verification.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="bridge">
+      <strong>Neither candidate clears the licence gate on paper.</strong> Both may well hold multistate licences — Arizona, Ohio and Maryland participate in the Nurse Licensure Compact, and that would resolve it in a sentence. But a resume does not establish it, so the report does not claim it. The system's job is to hand you the unanswered question, not to answer it on a guess.
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="eyebrow">Two candidates, ten capabilities</div>
+    <h2>Every judgement carries the line it came from.</h2>
+    <p class="sub">Select a candidate. Each capability shows a signal, a score, and the exact resume evidence behind it — so you can disagree with any single line without discarding the whole report.</p>
+
+    <div class="pills">
+      <button class="pill active" data-k="marcus">Candidate A · Marcus Ovadia</button>
+      <button class="pill" data-k="renata">Candidate B · Renata Kowalczyk-Byrne</button>
+    </div>
+
+    <!-- MARCUS -->
+    <div class="pane active" data-k="marcus">
+      <div class="chead">
+        <div class="cbox">
+          <div class="nm">Marcus Ovadia</div>
+          <div class="loc">Cleveland, OH · fictional candidate</div>
+          <div class="kv">CRRT · ECMO · IABP · Impella · APRV · RASS · CAM-ICU · CPOT</div>
+          <div class="kv">RN-to-BSN in progress · Lakebridge State University (online)</div>
+          <div class="kv">RN · BLS · ACLS · CCRN</div>
+        </div>
+        <div class="score">
+          <div class="lbl">Capability match</div>
+          <div class="big">93%</div>
+          <div class="against">Across 10 weighted capabilities</div>
+          <div class="counts">
+            <div class="c1"><div class="n">10</div><div class="l">Strong</div></div>
+            <div class="c2"><div class="n">0</div><div class="l">Partial</div></div>
+            <div class="c3"><div class="n">0</div><div class="l">Gap</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="signal">
+        <div class="tag">Strong signal · Confidence: medium · Gate: unresolved</div>
+        <h4>Worth your interview time — once the licence question is answered.</h4>
+        <p>Deep device fluency across ECMO, IABP, Impella and CRRT, with neuro ICU and cardiovascular ICU exposure and a CCRN. The BSN is in progress, which is a preference and not a gate. The open item is not clinical — it is whether he can practise in Arizona.</p>
+      </div>
+
+      <div class="crit">
+        <table>
+          <thead><tr><th>Capability</th><th>Signal</th><th>Score</th><th>Evidence from resume</th></tr></thead>
+          <tbody>
+            <tr><td class="cap">Bedside care, critically ill</td><td class="sc">Strong</td><td class="sc">10/10</td><td class="ev">Multi-year adult ICU practice; Level I and Level II trauma centres.</td></tr>
+            <tr><td class="cap">Advanced cardiac support</td><td class="sc">Strong</td><td class="sc">10/10</td><td class="ev">Post-cardiac-surgery, ECMO, IABP and Impella patients. Mechanical circulatory support; vasoactive and sedation titration.</td></tr>
+            <tr><td class="cap">Neuro assessment &amp; support</td><td class="sc">Strong</td><td class="sc">10/10</td><td class="ev">Neurological ICU, Northgate University Hospital: subarachnoid haemorrhage, stroke, external ventricular drain management, hourly neurologic assessment.</td></tr>
+            <tr><td class="cap">Hemodynamic monitoring &amp; support</td><td class="sc">Strong</td><td class="sc">10/10</td><td class="ev">Hemodynamic monitoring; managed ventilated, vasoactive-dependent and CRRT patients independently.</td></tr>
+            <tr><td class="cap">Care planning, nursing process</td><td class="sc">Strong</td><td class="sc">8/10</td><td class="ev">Inferred from sustained independent ICU practice. Not directly evidenced — flagged as an inference, scored below full.</td></tr>
+            <tr><td class="cap">Evidence-based practice</td><td class="sc">Strong</td><td class="sc">8/10</td><td class="ev">Rapid response team; sepsis bundle compliance project.</td></tr>
+            <tr><td class="cap">Clinical judgement</td><td class="sc">Strong</td><td class="sc">10/10</td><td class="ev">CCRN certification; independent management of CRRT, mechanical ventilation and mechanical circulatory support in Level I and II trauma centres.</td></tr>
+            <tr><td class="cap">Supervision &amp; delegation</td><td class="sc">Strong</td><td class="sc">8/10</td><td class="ev">Inferred from staff RN role and rapid response participation. No charge-nurse or preceptor role stated — see probe Q6.</td></tr>
+            <tr><td class="cap">Interdisciplinary communication</td><td class="sc">Strong</td><td class="sc">9/10</td><td class="ev">Rapid response team activities; organ donation coordination.</td></tr>
+            <tr><td class="cap">Performance under pressure</td><td class="sc">Strong</td><td class="sc">10/10</td><td class="ev">Level I and Level II trauma centres; sustained high-acuity assignment.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="deferred">
+        <strong>Not scored: compassionate patient care.</strong> Your posting asks for it, and it matters. It cannot be read off a resume. Scoring it here would be manufacturing a number — so it moves to the assessment stage, where there is something real to observe.
+      </div>
+
+      <div class="probes">
+        <div class="lbl">Questions the report hands you for the screen</div>
+        <ol>
+          <li>Describe a complex case involving ECMO, IABP or Impella where your intervention changed the trajectory or prevented a critical event.<span>Advanced cardiac support</span></li>
+          <li>Tell me about a neurological patient where your assessment caught a subtle change and you escalated. What did you see first?<span>Neuro acuity</span></li>
+          <li>Multiple high-acuity patients at once — how did you prioritise, delegate, and keep everyone safe?<span>Prioritisation under pressure</span></li>
+          <li>Walk me through a care plan you built for a complex patient and adapted as the patient responded.<span>Evidence-based care planning</span></li>
+          <li>You are completing your BSN. What are you expecting it to change about your practice?<span>BSN impact</span></li>
+          <li>Describe delegating a critical task. How did you confirm it was done safely?<span>Delegation — inferred, needs testing</span></li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- RENATA -->
+    <div class="pane" data-k="renata">
+      <div class="chead">
+        <div class="cbox">
+          <div class="nm">Renata Kowalczyk-Byrne</div>
+          <div class="loc">Silver Spring, MD · fictional candidate</div>
+          <div class="kv">Charge nurse · lead preceptor · quality improvement · EHR inpatient superuser</div>
+          <div class="kv">BSN · Chesapeake State University</div>
+          <div class="kv">RN · ACLS · NIH Stroke Scale</div>
+        </div>
+        <div class="score">
+          <div class="lbl">Capability match</div>
+          <div class="big">80%</div>
+          <div class="against">Across 10 weighted capabilities</div>
+          <div class="counts">
+            <div class="c1"><div class="n">9</div><div class="l">Strong</div></div>
+            <div class="c2"><div class="n">1</div><div class="l">Partial</div></div>
+            <div class="c3"><div class="n">0</div><div class="l">Gap</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="signal">
+        <div class="tag">Qualified signal · Confidence: medium · Gate: unresolved</div>
+        <h4>Strongest on the part of the posting that is easiest to overlook.</h4>
+        <p>Nine years acute care, charge nurse on a 28-bed progressive care unit, lead preceptor, Unit Practice Council chair. Direct ICU exposure is recent and thin — float pool since January 2025, roughly one shift per pay period — and advanced hemodynamic monitoring is not evidenced. That single gap is real and it is the whole conversation.</p>
+      </div>
+
+      <div class="crit">
+        <table>
+          <thead><tr><th>Capability</th><th>Signal</th><th>Score</th><th>Evidence from resume</th></tr></thead>
+          <tbody>
+            <tr><td class="cap">Bedside care, critically ill</td><td class="sc">Strong</td><td class="sc">8/10</td><td class="ev">Nine years acute care, medical-surgical and progressive care. ICU float pool since January 2025, approximately one shift per pay period.</td></tr>
+            <tr><td class="cap">Advanced cardiac support</td><td class="sc">Strong</td><td class="sc">8/10</td><td class="ev">4–6 patient telemetry assignment; post-operative cardiac patients; ACLS. No mechanical circulatory support evidenced.</td></tr>
+            <tr><td class="cap">Neuro assessment &amp; support</td><td class="sc">Strong</td><td class="sc">8/10</td><td class="ev">NIH Stroke Scale certification. Neuro ICU exposure not stated.</td></tr>
+            <tr><td class="cap">Hemodynamic monitoring &amp; support</td><td class="sc">Partial</td><td class="sc">6/10</td><td class="ev">Telemetry and basic rhythm interpretation are foundational. No evidence of arterial lines, PA catheters or advanced hemodynamic management.</td></tr>
+            <tr><td class="cap">Care planning, nursing process</td><td class="sc">Strong</td><td class="sc">8/10</td><td class="ev">Charge nurse and preceptor; staff development and quality improvement initiatives.</td></tr>
+            <tr><td class="cap">Evidence-based practice</td><td class="sc">Strong</td><td class="sc">8/10</td><td class="ev">Led a fall-reduction initiative sustained over four consecutive quarters. Chair, Unit Practice Council, since 2023.</td></tr>
+            <tr><td class="cap">Clinical judgement</td><td class="sc">Strong</td><td class="sc">9/10</td><td class="ev">Charge nurse: assignments, staffing, admissions flow, escalation to rapid response. Precepted 14 new graduate nurses to independent practice.</td></tr>
+            <tr><td class="cap">Supervision &amp; delegation</td><td class="sc">Strong</td><td class="sc">9/10</td><td class="ev">Coordinated assignments for nursing staff per shift; lead preceptor for the unit.</td></tr>
+            <tr><td class="cap">Interdisciplinary communication</td><td class="sc">Strong</td><td class="sc">8/10</td><td class="ev">Charge nurse coordination; Unit Practice Council chair; Magnet redesignation documentation committee.</td></tr>
+            <tr><td class="cap">Performance under pressure</td><td class="sc">Strong</td><td class="sc">8/10</td><td class="ev">Charge on a 28-bed progressive care unit and a 34-bed medical-surgical telemetry unit; managed staffing and admissions flow.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="deferred">
+        <strong>Not scored: compassionate patient care.</strong> Her file does carry signal here — consistent patient satisfaction scores, DAISY nominee 2021 — but proxies are not the thing itself. Held for the assessment stage rather than converted into a number.
+      </div>
+
+      <div class="probes">
+        <div class="lbl">Questions the report hands you for the screen</div>
+        <ol>
+          <li>You have floated to ICU since January 2025. Describe a patient on advanced hemodynamic support — arterial line, PA catheter — and what your role actually was.<span>Hemodynamic gap — the decisive question</span></li>
+          <li>As charge, tell me about a decision made under pressure on assignments or resource allocation.<span>Clinical judgement under pressure</span></li>
+          <li>You led fall reduction and chair the Practice Council. Walk me through identifying the need, building the plan, and landing it with the team.<span>Evidence-based practice</span></li>
+          <li>Describe guiding a new graduate through a complex case while keeping the patient safe.<span>Mentorship and delegation</span></li>
+          <li>Moving from progressive care to full-time ICU — what do you expect will have to change in how you work?<span>ICU transition readiness</span></li>
+          <li>Tell me about a difficult conversation with the family of a critically ill patient.<span>Compassionate communication</span></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec alt">
+  <div class="wrap">
+    <div class="eyebrow">The part the headline number hides</div>
+    <h2>93 and 80 are not the same as first and second.</h2>
+    <p class="sub">The percentages point at Marcus. Read the posting again and it is less obvious than that.</p>
+
+    <div class="mirror-grid">
+      <div class="mcard">
+        <div class="tag">What the score rewards</div>
+        <p>Marcus wins decisively on the technical spine of the role — ECMO, IABP, Impella, CRRT, neuro ICU, CCRN. If the unit's constraint is device competence at the bedside, that is the file.</p>
+        <p>He is also the candidate with <strong>no evidenced charge or preceptor experience</strong>, on a posting that explicitly asks for supervision, delegation, and taking charge when needed. That score is an inference, not a finding.</p>
+      </div>
+      <div class="mcard flip">
+        <div class="tag">What the score under-weights</div>
+        <p>Renata is charge nurse, lead preceptor to fourteen new graduates, Practice Council chair. On the leadership line of your posting she is the stronger of the two, and it is not close.</p>
+        <p>Her gap is hemodynamic depth. <strong>That gap is trainable on a unit with a preceptor pipeline. Charge-level judgement across nine years is not.</strong></p>
+      </div>
+    </div>
+
+    <div class="bridge">
+      <strong>This is the argument the report exists to start, not to settle.</strong> Which of those two things your unit is short of right now is a question about your census, your staffing mix and your bench — and it lives with you, not with a system. What the snapshot does is put both candidates in front of you as structured evidence in a few minutes, so the argument happens before the interviews rather than after them.
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="eyebrow">Boundaries</div>
+    <h2>What this does not do.</h2>
+    <p class="sub">Worth stating plainly, because the category has an honesty problem.</p>
+    <div class="limits">
+      <div class="lcard no">
+        <div class="tag">Does not</div>
+        <ul>
+          <li>Reject, rank-order or auto-advance anyone</li>
+          <li>Verify licensure — that is a primary-source check</li>
+          <li>Score compassion, empathy or bedside manner from a document</li>
+          <li>Analyse face or voice. Assessment captures screen and audio only</li>
+          <li>Replace your judgement, your recruiters, or your ATS</li>
+        </ul>
+      </div>
+      <div class="lcard yes">
+        <div class="tag">Does</div>
+        <ul>
+          <li>Derive the requirements from the posting you wrote</li>
+          <li>Evaluate every applicant against the same criteria in the same order</li>
+          <li>Show the evidence line behind every score, and label inferences as inferences</li>
+          <li>Separate hard gates from weighted capabilities</li>
+          <li>Hand you the questions worth asking, per candidate</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec alt">
+  <div class="wrap">
+    <div class="eyebrow">Where the snapshot sits</div>
+    <h2>This page is stage one of five.</h2>
+    <p class="sub">Everything above came from resumes alone. The rest of the pipeline is where claims get tested rather than read.</p>
+    <div class="flow">
+      <div class="step now">
+        <div class="n">01</div>
+        <div class="t">Capability Snapshot</div>
+        <div class="d">Resume against derived requirements. What you have been reading.</div>
+      </div>
+      <div class="step">
+        <div class="n">02</div>
+        <div class="t">Adaptive Screening</div>
+        <div class="d">Difficulty adjusts to responses. The claimed depth gets probed.</div>
+      </div>
+      <div class="step">
+        <div class="n">03</div>
+        <div class="t">Structured Capability Assessment</div>
+        <div class="d">Job-analysis-derived, consistently applied, rubric-scored.</div>
+      </div>
+      <div class="step">
+        <div class="n">04</div>
+        <div class="t">Role Challenge</div>
+        <div class="d">Optional. A scenario built for the unit.</div>
+      </div>
+      <div class="step">
+        <div class="n">05</div>
+        <div class="t">Capability Signal Report</div>
+        <div class="d">Full evidence trail, reviewable and auditable end to end.</div>
+      </div>
+    </div>
+    <div class="bridge">
+      <strong>Every score in the final report is traceable.</strong> You can open any judgement, see the response it came from, and disagree with it. Nothing is a black box, and nothing arrives as a verdict — the report is a signal that informs your decision. The decision, and the interview, stay yours.
+    </div>
+  </div>
+</section>
+
+<section class="close">
+  <div class="wrap">
+    <div class="eyebrow">Why I sent this</div>
+    <h2>I want a clinician to tell me <em>where this is wrong.</em></h2>
+    <p>I built FaujX. I know what it does technically. I do not know what a physician sees when she reads a report about nurses she would be responsible for — which lines are useful, which are noise, and which would make you close the tab.</p>
+    <p>The two candidates here are constructed. The posting is yours, taken from LinkedIn. Nothing about your applicants, your unit or your facility was used, and nothing here is a recommendation about anyone real.</p>
+    <p>If any of it is wrong, that is the part I want to hear.</p>
+    <div class="sig">
+      Varun Berry · Founder, Arber Inc.<br>
+      <a href="mailto:varun@faujx.com">varun@faujx.com</a> · faujx.com
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span><img class="flogo" src="data:image/png;base64,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" alt="FaujX">© 2026 FaujX · faujx.com</span>
+    <span>Prepared for K. Weidenbach, MD, MEd · public sources only · candidates are fictional</span>
+    <span class="tm">FaujX® is a registered trademark. Reg. No. 8,377,810.</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var pills = document.querySelectorAll('.pill');
+  var panes = document.querySelectorAll('.pane');
+  function show(k){
+    panes.forEach(function(p){ p.classList.toggle('active', p.getAttribute('data-k')===k); });
+    pills.forEach(function(b){ b.classList.toggle('active', b.getAttribute('data-k')===k); });
+  }
+  pills.forEach(function(b){ b.addEventListener('click', function(){ show(b.getAttribute('data-k')); }); });
+})();
+</script>
+
+</body>
+</html>
