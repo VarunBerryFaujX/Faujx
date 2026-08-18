@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FaujX Capability Match Report — AI Contract Analytics Specialist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0E2018;
+  --ink-2:#38443C;
+  --ink-3:#6B7770;
+  --line:#DFDDD4;
+  --line-soft:#EDEBE4;
+  --cream:#F2F0EA;
+  --paper:#FFFFFF;
+  --gold:#B89346;
+  --strong:#1B5E3C;
+  --partial:#9A6B12;
+  --gap:#A8123A;
+  --gap-tint:#FBF2F4;
+  --strong-tint:#F1F7F3;
+  --partial-tint:#FCF7EC;
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'DM Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --mono:'DM Mono',ui-monospace,Menlo,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:var(--cream);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:15px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  padding:40px 20px 64px;
+}
+.sheet{
+  max-width:960px;margin:0 auto;background:var(--paper);
+  border:1px solid var(--line);
+  box-shadow:0 20px 60px rgba(14,32,24,.07);
+}
+.pad{padding:0 56px}
+
+/* ─── masthead ─── */
+.masthead{padding:44px 56px 0}
+.eyebrow{
+  font-family:var(--mono);font-size:11px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--ink-3);
+}
+.mast-top{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;flex-wrap:wrap}
+.mast-right{text-align:right;font-family:var(--mono);font-size:12px;color:var(--ink-3);letter-spacing:.04em}
+.mast-right strong{display:block;color:var(--ink);font-family:var(--sans);font-weight:500;font-size:15px;letter-spacing:0;margin-top:4px}
+h1{
+  font-family:var(--serif);font-weight:600;font-size:clamp(34px,5vw,48px);
+  line-height:1.05;letter-spacing:-.015em;margin:14px 0 2px;
+}
+.vs{
+  font-family:var(--serif);font-weight:500;font-size:clamp(20px,3vw,28px);
+  color:#C9CFCA;line-height:1.15;letter-spacing:-.01em;
+}
+.rule{height:5px;background:var(--ink);margin:26px 0 0}
+.masknote{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--gold);margin-top:12px;
+}
+
+/* ─── summary band ─── */
+.summary{
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);
+  gap:36px;align-items:stretch;padding:36px 56px 6px;
+}
+.subject{
+  border:1px solid var(--line);padding:26px 28px;
+}
+.subject h2{font-family:var(--sans);font-size:19px;font-weight:700;margin-bottom:18px}
+.subject ul{list-style:none}
+.subject li{
+  border-left:2px solid var(--line);padding:0 0 0 14px;margin-bottom:14px;
+  color:var(--ink-2);font-size:14.5px;line-height:1.5;
+}
+.subject li:last-child{margin-bottom:0}
+
+.matchblock{display:flex;flex-direction:column;justify-content:center}
+.match-label{
+  font-family:var(--mono);font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink-3);
+}
+.match-figure{
+  font-family:var(--serif);font-weight:600;font-size:clamp(64px,10vw,92px);
+  line-height:.95;letter-spacing:-.03em;color:#9AA39D;margin:6px 0 4px;
+}
+.match-sub{font-size:13px;color:var(--ink-3)}
+.tallies{display:flex;gap:44px;margin-top:26px;flex-wrap:wrap}
+.tally .n{font-family:var(--serif);font-size:40px;font-weight:600;line-height:1}
+.tally .l{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:6px}
+.tally.s .n{color:var(--strong)}
+.tally.p .n{color:var(--partial)}
+.tally.g .n{color:var(--gap)}
+
+/* ─── verdict ─── */
+.verdict{
+  margin:32px 56px 0;border:1px solid #F0D7DE;border-left:5px solid var(--gap);
+  background:var(--gap-tint);padding:26px 30px;
+}
+.verdict .tag{
+  font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink-3);margin-bottom:12px;
+}
+.verdict h3{
+  font-family:var(--sans);font-size:20px;font-weight:700;color:var(--gap);
+  line-height:1.3;margin-bottom:12px;
+}
+.verdict p{color:var(--ink-2);font-size:14.5px;line-height:1.65;max-width:74ch}
+
+/* ─── section headings ─── */
+.sec{margin-top:52px}
+.sec-head{
+  font-family:var(--serif);font-size:27px;font-weight:600;letter-spacing:-.01em;
+  margin-bottom:6px;
+}
+.sec-note{font-size:13.5px;color:var(--ink-3);margin-bottom:22px}
+
+/* ─── criteria table ─── */
+.tablewrap{border:1px solid var(--line)}
+table{width:100%;border-collapse:collapse}
+thead th{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-3);text-align:left;font-weight:400;
+  padding:14px 16px;border-bottom:1px solid var(--line);background:#FAFAF7;
+}
+tbody td{padding:18px 16px;border-bottom:1px solid var(--line-soft);vertical-align:top;font-size:14px}
+tbody tr:last-child td{border-bottom:none}
+.c-num{font-family:var(--mono);font-size:12px;color:#A9B1AB;width:38px}
+.c-cap{font-weight:700;width:20%;line-height:1.4}
+.c-dom{color:var(--ink-3);width:13%;font-size:13px;line-height:1.4}
+.c-ver{width:11%}
+.c-score{font-family:var(--mono);font-size:14px;width:9%;white-space:nowrap}
+.c-ev{color:var(--ink-2);line-height:1.6;font-size:13.5px}
+.c-ev em{font-style:normal;color:var(--ink);background:#F5F4EF;padding:0 3px}
+.pill{
+  display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;
+  text-transform:uppercase;padding:4px 9px;border-radius:2px;white-space:nowrap;
+}
+.pill.strong{background:var(--strong-tint);color:var(--strong)}
+.pill.partial{background:var(--partial-tint);color:var(--partial)}
+.pill.gap{background:var(--gap-tint);color:var(--gap)}
+tr.r-strong{background:rgba(27,94,60,.022)}
+tr.r-gap{background:rgba(168,18,58,.018)}
+
+/* ─── strengths / gaps ─── */
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.panel{border:1px solid var(--line);padding:26px 28px}
+.panel.s{border-top:4px solid var(--strong)}
+.panel.g{border-top:4px solid var(--gap)}
+.panel h4{font-size:17px;font-weight:700;margin-bottom:18px}
+.panel ul{list-style:none}
+.panel li{
+  padding:13px 0;border-bottom:1px solid var(--line-soft);
+  color:var(--ink-2);font-size:14px;line-height:1.5;
+}
+.panel li:last-child{border-bottom:none;padding-bottom:0}
+
+/* ─── probe questions ─── */
+.q{display:grid;grid-template-columns:52px 1fr 168px;gap:20px;padding:22px 0;border-bottom:1px solid var(--line-soft)}
+.q:last-of-type{border-bottom:none}
+.q .qn{font-family:var(--mono);font-size:12px;color:var(--gold);letter-spacing:.06em;padding-top:2px}
+.q .qt{font-size:14.5px;line-height:1.62;color:var(--ink)}
+.q .qa{
+  font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--ink-3);
+  line-height:1.5;padding-top:3px;
+}
+
+/* ─── footer ─── */
+.foot{
+  margin-top:56px;border-top:1px solid var(--line);
+  padding:22px 56px 34px;display:flex;justify-content:space-between;
+  gap:16px;flex-wrap:wrap;
+}
+.foot span{font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.05em}
+.foot .gold{color:var(--gold)}
+
+/* ─── responsive ─── */
+@media (max-width:820px){
+  body{padding:20px 12px 40px}
+  .pad,.masthead,.summary,.foot{padding-left:26px;padding-right:26px}
+  .verdict{margin-left:26px;margin-right:26px}
+  .summary{grid-template-columns:1fr;gap:28px}
+  .twocol{grid-template-columns:1fr}
+  .q{grid-template-columns:1fr;gap:8px}
+  .q .qa{padding-top:0}
+  thead{display:none}
+  tbody td{display:block;border-bottom:none;padding:4px 18px}
+  tbody tr{display:block;border-bottom:1px solid var(--line);padding:18px 0}
+  tbody tr:last-child{border-bottom:none}
+  .c-num,.c-cap,.c-dom,.c-ver,.c-score,.c-ev{width:auto}
+  .c-num{color:var(--gold)}
+  .c-cap{font-size:16px;padding-top:2px}
+  .c-score{display:inline-block;padding-right:0}
+  .c-ver{display:inline-block}
+}
+@media print{
+  body{background:#fff;padding:0}
+  .sheet{box-shadow:none;border:none;max-width:100%}
+  tbody tr{break-inside:avoid}
+  .q{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<main class="sheet">
+
+  <!-- MASTHEAD -->
+  <header class="masthead">
+    <div class="mast-top">
+      <div class="eyebrow">Candidate capability match report</div>
+      <div class="mast-right">
+        July 2026
+        <strong>AI Contract Analytics Specialist</strong>
+      </div>
+    </div>
+    <h1>T. O.</h1>
+    <div class="vs">vs. AI Contract Analytics Specialist</div>
+    <div class="rule"></div>
+    <div class="masknote">Candidate name masked for external sharing</div>
+  </header>
+
+  <!-- SUMMARY -->
+  <section class="summary">
+    <div class="subject">
+      <h2>T. O.</h2>
+      <ul>
+        <li>Azure</li>
+        <li>M.Sc Predictive Analytics (Data Science)</li>
+      </ul>
+    </div>
+
+    <div class="matchblock">
+      <div class="match-label">Overall capability match</div>
+      <div class="match-figure">42.5%</div>
+      <div class="match-sub">Against 12 evaluated capabilities</div>
+      <div class="tallies">
+        <div class="tally s"><div class="n">3</div><div class="l">Strong</div></div>
+        <div class="tally p"><div class="n">2</div><div class="l">Partial</div></div>
+        <div class="tally g"><div class="n">7</div><div class="l">Gaps</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VERDICT -->
+  <section class="verdict">
+    <div class="tag">Reject · High confidence</div>
+    <h3>We do not recommend proceeding with this candidate for this role</h3>
+    <p>While the candidate has strong general AI/ML and data engineering skills, there are critical
+      gaps in the specific LLM (Claude) and prompt engineering experience, CLM database integration,
+      and most importantly, the core legal/contract domain expertise required for this specialist role.</p>
+  </section>
+
+  <!-- CRITERIA BREAKDOWN -->
+  <section class="pad sec">
+    <h2 class="sec-head">Capability match — criteria breakdown</h2>
+    <p class="sec-note">Every verdict traces to specific evidence in the candidate's resume, or to its absence.</p>
+
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th><th>Capability</th><th>Domain</th><th>Verdict</th><th>Score</th><th>Evidence / gap</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="r-gap">
+            <td class="c-num">1</td>
+            <td class="c-cap">Anthropic Claude Prompt Engineering &amp; Optimization</td>
+            <td class="c-dom">Technical Skills</td>
+            <td class="c-ver"><span class="pill gap">Gap</span></td>
+            <td class="c-score">2/10</td>
+            <td class="c-ev">Candidate lists <em>Claude Code</em> under technical skills and in the <em>Plan and Allocate</em> project, but no evidence of prompt engineering or optimization specifically for Anthropic Claude.</td>
+          </tr>
+          <tr>
+            <td class="c-num">2</td>
+            <td class="c-cap">Contract Data Extraction &amp; Metadata Tagging (using LLMs)</td>
+            <td class="c-dom">Technical Skills</td>
+            <td class="c-ver"><span class="pill partial">Partial</span></td>
+            <td class="c-score">7/10</td>
+            <td class="c-ev">Experienced in <em>NLP, Text Analytics</em> and <em>data extraction</em>. Projects involve an ML validation pipeline <em>refactored end-to-end and shipped to production</em> for a chemistry-blending ML product, implying data extraction and processing. While not explicitly contracts, the ability to extract structured data from unstructured text using ML is present.</td>
+          </tr>
+          <tr>
+            <td class="c-num">3</td>
+            <td class="c-cap">Legal &amp; Commercial Contract Analysis (using LLMs)</td>
+            <td class="c-dom">Technical Skills</td>
+            <td class="c-ver"><span class="pill partial">Partial</span></td>
+            <td class="c-score">7/10</td>
+            <td class="c-ev">Strong background in <em>NLP, Text Analytics</em> and <em>Deep Learning</em> for text. Experience <em>diagnosing the business logic failures</em> and <em>refactored the validation layer end-to-end</em> for model outputs, which requires deep analysis of text-based data. The application domain is different, but the analytical skill with text is high.</td>
+          </tr>
+          <tr class="r-strong">
+            <td class="c-num">4</td>
+            <td class="c-cap">AI Workflow Design &amp; Implementation</td>
+            <td class="c-dom">Technical Skills</td>
+            <td class="c-ver"><span class="pill strong">Strong</span></td>
+            <td class="c-score">9/10</td>
+            <td class="c-ev">Extensive experience in <em>ML pipeline infrastructure</em>, <em>validation systems</em>, and <em>full lifecycle diagnosis, architecture, stakeholder alignment, shipping, and monitoring</em>. Led a utility-optimization analytics product from roadmap through delivery. Built <em>Azure pipelines</em>. This demonstrates strong capability in designing and implementing AI workflows.</td>
+          </tr>
+          <tr class="r-strong">
+            <td class="c-num">5</td>
+            <td class="c-cap">AI Output Accuracy &amp; Compliance Testing (Hallucination Mitigation)</td>
+            <td class="c-dom">Technical Skills</td>
+            <td class="c-ver"><span class="pill strong">Strong</span></td>
+            <td class="c-score">9/10</td>
+            <td class="c-ev">Core focus is <em>making sure model outputs are correct and trustworthy</em>. Inherited a failing validation pipeline and <em>refactored the validation layer end-to-end</em>. <em>Stood up post-deployment monitoring across accuracy, drift, and business metrics.</em> This directly addresses accuracy, validation, and compliance.</td>
+          </tr>
+          <tr class="r-gap">
+            <td class="c-num">6</td>
+            <td class="c-cap">Legal Operations &amp; Contract Management Domain Expertise</td>
+            <td class="c-dom">AI and Modern Tools</td>
+            <td class="c-ver"><span class="pill gap">Gap</span></td>
+            <td class="c-score">0/10</td>
+            <td class="c-ev">No evidence of experience in contract analysis, legal operations, paralegal work, or contract management. Background is in data engineering/science for energy and chemistry.</td>
+          </tr>
+          <tr class="r-gap">
+            <td class="c-num">7</td>
+            <td class="c-cap">Technical Communication for Legal/AI Concepts</td>
+            <td class="c-dom">AI and Modern Tools</td>
+            <td class="c-ver"><span class="pill gap">Gap</span></td>
+            <td class="c-score">5/10</td>
+            <td class="c-ev">Managed <em>stakeholders</em>, <em>rebuilt trust between business and IT</em>, and <em>converted facility-manager requirements into concrete technical work</em>. This shows strong communication skills with non-technical stakeholders, but not specifically for legal concepts.</td>
+          </tr>
+          <tr class="r-gap">
+            <td class="c-num">8</td>
+            <td class="c-cap">CLM Database Interaction &amp; Integration</td>
+            <td class="c-dom">Tooling and Workflow</td>
+            <td class="c-ver"><span class="pill gap">Gap</span></td>
+            <td class="c-score">0/10</td>
+            <td class="c-ev">No mention of CLM databases or similar contract management systems. Experience is with general <em>enterprise ETL pipelines on Azure</em> and building-systems data, but not CLM specifically.</td>
+          </tr>
+          <tr class="r-gap">
+            <td class="c-num">9</td>
+            <td class="c-cap">Prompt Design Methodologies (RAG, Few-shot Prompting)</td>
+            <td class="c-dom">Tooling and Workflow</td>
+            <td class="c-ver"><span class="pill gap">Gap</span></td>
+            <td class="c-score">0/10</td>
+            <td class="c-ev">No explicit mention of RAG, few-shot prompting, or other specific prompt design methodologies.</td>
+          </tr>
+          <tr class="r-strong">
+            <td class="c-num">10</td>
+            <td class="c-cap">Data Visualization Fundamentals</td>
+            <td class="c-dom">Tooling and Workflow</td>
+            <td class="c-ver"><span class="pill strong">Strong</span></td>
+            <td class="c-score">8/10</td>
+            <td class="c-ev">Extensive use of <em>Power BI</em> for dashboards and reporting — <em>surfaced through Power BI dashboards that facility managers use to spot and act on consumption-optimization opportunities</em>.</td>
+          </tr>
+          <tr class="r-gap">
+            <td class="c-num">11</td>
+            <td class="c-cap">Multidev Platforms Usage</td>
+            <td class="c-dom">Tooling and Workflow</td>
+            <td class="c-ver"><span class="pill gap">Gap</span></td>
+            <td class="c-score">0/10</td>
+            <td class="c-ev">No mention of Multidev platforms.</td>
+          </tr>
+          <tr class="r-gap">
+            <td class="c-num">12</td>
+            <td class="c-cap">Knowledge Base Management for Prompts &amp; Templates</td>
+            <td class="c-dom">Tooling and Workflow</td>
+            <td class="c-ver"><span class="pill gap">Gap</span></td>
+            <td class="c-score">4/10</td>
+            <td class="c-ev">Experience with <em>validation systems and internal tooling</em> and building Azure pipelines. While not explicitly prompt or template management, it shows an understanding of managing technical assets — but not specific to prompts or version control for them.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- STRENGTHS / GAPS -->
+  <section class="pad sec">
+    <div class="twocol">
+      <div class="panel s">
+        <h4>Key strengths to leverage</h4>
+        <ul>
+          <li>Strong AI workflow design and implementation</li>
+          <li>Expert in AI output accuracy and compliance testing</li>
+          <li>Proficient in text analytics and NLP for data extraction</li>
+          <li>Extensive experience with data visualization (Power BI)</li>
+          <li>Strong general ML pipeline and architecture skills</li>
+        </ul>
+      </div>
+      <div class="panel g">
+        <h4>Gaps to probe in screen</h4>
+        <ul>
+          <li>Lack of specific Anthropic Claude prompt engineering experience</li>
+          <li>No experience with CLM databases or integration</li>
+          <li>Missing knowledge of specific prompt design methodologies (RAG, few-shot)</li>
+          <li>No domain expertise in legal operations or contract management</li>
+          <li>Limited experience in knowledge base management for prompts and templates</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBE QUESTIONS -->
+  <section class="pad sec">
+    <h2 class="sec-head">Recommended probe questions</h2>
+    <p class="sec-note">Generated against the gaps above, for the AI Contract Analytics Specialist role.</p>
+
+    <div class="q">
+      <div class="qn">Q1</div>
+      <div class="qt">Can you describe a specific project where you had to analyze complex, unstructured text data to extract specific information or patterns? How did you approach defining the extraction rules, and what challenges did you face in ensuring accuracy?</div>
+      <div class="qa">Text extraction accuracy</div>
+    </div>
+
+    <div class="q">
+      <div class="qn">Q2</div>
+      <div class="qt">This role requires significant interaction with legal and IT teams, often explaining complex AI concepts or technical limitations. Can you share an example of a time you successfully translated a highly technical AI or data engineering concept for a non-technical audience, particularly in a domain you were less familiar with?</div>
+      <div class="qa">Cross-functional communication</div>
+    </div>
+
+    <div class="q">
+      <div class="qn">Q3</div>
+      <div class="qt">While your experience in ML validation is strong, this role focuses on using large language models like Claude for contract analysis. Can you walk me through your understanding of prompt engineering for LLMs, and how you would approach designing and optimizing prompts to extract specific legal clauses from contracts, ensuring accuracy and mitigating hallucinations?</div>
+      <div class="qa">LLM prompt engineering</div>
+    </div>
+
+    <div class="q">
+      <div class="qn">Q4</div>
+      <div class="qt">Our work involves integrating AI solutions with existing Contract Lifecycle Management (CLM) databases. Although you have experience with enterprise ETL, you haven't worked with CLM systems specifically. How would you approach learning a new database system like a CLM platform to ensure seamless integration and data flow for AI-driven analytics?</div>
+      <div class="qa">CLM integration approach</div>
+    </div>
+
+    <div class="q">
+      <div class="qn">Q5</div>
+      <div class="qt">The role requires deep understanding of contract analysis and legal operations. Can you describe any experiences you've had, even if informal, that have exposed you to the nuances of legal language, contract structures, or compliance requirements? How would you ensure the AI's outputs align with legal interpretations?</div>
+      <div class="qa">Legal domain acumen</div>
+    </div>
+
+    <div class="q">
+      <div class="qn">Q6</div>
+      <div class="qt">You have extensive experience in building and monitoring ML pipelines. How would you adapt your existing knowledge of validation and monitoring to specifically address the unique challenges of LLM outputs, such as detecting subtle biases, ensuring factual consistency, and maintaining compliance in a legal context?</div>
+      <div class="qa">LLM validation &amp; compliance</div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="foot">
+    <span>Generated by FaujX Capability Intelligence</span>
+    <span class="gold">AI-assisted · human-decided</span>
+  </footer>
+
+</main>
+</body>
+</html>
