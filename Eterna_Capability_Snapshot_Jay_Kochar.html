@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Capability Snapshot — Senior Software Engineer — prepared for Eterna</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --forest:#0E2018;
+    --forest-2:#152D22;
+    --cream:#F2F0EA;
+    --cream-dim:rgba(242,240,234,.62);
+    --cream-faint:rgba(242,240,234,.34);
+    --gold:#C9A75E;
+    --line:rgba(242,240,234,.14);
+    --maxw:1080px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+  body{
+    margin:0;background:var(--forest);color:var(--cream);
+    font-family:"DM Sans",system-ui,sans-serif;font-size:17px;line-height:1.62;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px}
+  @media(max-width:720px){.wrap{padding:0 20px}body{font-size:16px}}
+
+  /* ---------- type ---------- */
+  h1,h2,h3{font-family:"Playfair Display",Georgia,serif;font-weight:500;letter-spacing:-.01em;margin:0}
+  h1{font-size:clamp(2.6rem,6vw,4.4rem);line-height:1.04}
+  h2{font-size:clamp(1.8rem,3.6vw,2.7rem);line-height:1.14}
+  h3{font-size:1.28rem;line-height:1.3}
+  .eyebrow{
+    font-family:"DM Mono",ui-monospace,monospace;font-size:.72rem;letter-spacing:.19em;
+    text-transform:uppercase;color:var(--gold);margin:0 0 18px
+  }
+  .lede{font-size:clamp(1.08rem,1.9vw,1.32rem);line-height:1.55;color:var(--cream-dim);max-width:62ch}
+  p{margin:0 0 1.1em}
+  strong{font-weight:700;color:var(--cream)}
+  em{font-style:normal;color:var(--gold)}
+
+  /* ---------- topbar ---------- */
+  .topbar{
+    border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20;
+    background:rgba(14,32,24,.92);backdrop-filter:blur(8px)
+  }
+  .topbar .wrap{display:flex;justify-content:space-between;align-items:center;
+    padding-top:14px;padding-bottom:14px;gap:16px;flex-wrap:wrap}
+  .topbar span{font-family:"DM Mono",monospace;font-size:.7rem;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--cream-faint)}
+  .topbar span b{color:var(--cream);font-weight:500}
+
+  /* ---------- sections ---------- */
+  section{padding:88px 0;border-bottom:1px solid var(--line)}
+  section:last-of-type{border-bottom:0}
+  @media(max-width:720px){section{padding:60px 0}}
+
+  /* ---------- hero ---------- */
+  .hero{padding:104px 0 88px}
+  .hero h1{margin-bottom:26px}
+  .hero h1 .hero-accent{color:var(--gold);display:inline}
+  .rule{height:2px;background:var(--cream);width:96px;margin:34px 0}
+
+  .framing{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:0;
+    border-top:1px solid var(--line);margin-top:52px
+  }
+  .framing div{padding:24px 26px 6px;border-right:1px solid var(--line)}
+  .framing div:last-child{border-right:0}
+  .framing .k{font-family:"Playfair Display",serif;font-size:2.1rem;line-height:1;color:var(--gold);display:block;margin-bottom:10px}
+  .framing .v{font-size:.94rem;color:var(--cream-dim);line-height:1.45}
+  @media(max-width:720px){.framing{grid-template-columns:1fr}
+    .framing div{border-right:0;border-bottom:1px solid var(--line);padding-bottom:20px}}
+
+  /* ---------- ledger (signature) ---------- */
+  .ledger{margin-top:8px}
+  .ledger-row{
+    display:grid;grid-template-columns:200px 1fr 96px;gap:22px;align-items:center;
+    padding:22px 0;border-bottom:1px solid var(--line)
+  }
+  .ledger-row:first-of-type{border-top:1px solid var(--line)}
+  .ledger-name{font-family:"Playfair Display",serif;font-size:1.32rem;line-height:1.2}
+  .ledger-name small{
+    display:block;font-family:"DM Mono",monospace;font-size:.66rem;letter-spacing:.13em;
+    text-transform:uppercase;color:var(--cream-faint);margin-top:7px;line-height:1.5
+  }
+  .cells{display:flex;gap:5px;flex-wrap:wrap}
+  .cell{width:100%;max-width:34px;flex:1 1 18px;height:34px;border:1px solid var(--line);border-radius:2px;position:relative}
+  .cell.strong{background:var(--gold);border-color:var(--gold)}
+  .cell.partial{background:linear-gradient(180deg,var(--gold) 0 50%,transparent 50% 100%);border-color:rgba(201,167,94,.55)}
+  .cell.gap{background:transparent}
+  .ledger-score{font-family:"Playfair Display",serif;font-size:2rem;text-align:right;line-height:1}
+  .ledger-score small{display:block;font-family:"DM Mono",monospace;font-size:.6rem;
+    letter-spacing:.12em;text-transform:uppercase;color:var(--cream-faint);margin-top:8px}
+  @media(max-width:820px){
+    .ledger-row{grid-template-columns:1fr auto;gap:14px}
+    .cells{grid-column:1/-1;order:3}
+    .ledger-score{text-align:right}
+  }
+  .legend{display:flex;gap:26px;flex-wrap:wrap;margin-top:26px;
+    font-family:"DM Mono",monospace;font-size:.68rem;letter-spacing:.13em;
+    text-transform:uppercase;color:var(--cream-faint)}
+  .legend i{display:inline-block;width:13px;height:13px;border:1px solid var(--line);
+    border-radius:2px;margin-right:9px;vertical-align:-2px}
+  .legend i.s{background:var(--gold);border-color:var(--gold)}
+  .legend i.p{background:linear-gradient(180deg,var(--gold) 0 50%,transparent 50% 100%)}
+
+  /* ---------- candidate cards ---------- */
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--line);margin-top:44px}
+  @media(max-width:820px){.cards{grid-template-columns:1fr}}
+  .card{background:var(--forest);padding:34px 30px}
+  .card .status{
+    font-family:"DM Mono",monospace;font-size:.66rem;letter-spacing:.16em;
+    text-transform:uppercase;margin-bottom:16px;display:inline-block;
+    padding:5px 11px;border:1px solid var(--line);border-radius:2px;color:var(--cream-dim)
+  }
+  .card .status.go{border-color:rgba(201,167,94,.6);color:var(--gold)}
+  .card h3{margin-bottom:4px}
+  .card .paper{
+    font-family:"DM Mono",monospace;font-size:.68rem;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--cream-faint);margin:10px 0 18px;line-height:1.7
+  }
+  .card p{font-size:.97rem;color:var(--cream-dim);margin-bottom:0}
+  .card p + p{margin-top:.9em}
+
+  /* ---------- contrast table ---------- */
+  .contrast{width:100%;border-collapse:collapse;margin-top:38px;font-size:.95rem}
+  .contrast th{
+    text-align:left;font-family:"DM Mono",monospace;font-weight:500;font-size:.66rem;
+    letter-spacing:.16em;text-transform:uppercase;color:var(--gold);
+    padding:0 18px 14px 0;border-bottom:1px solid var(--line);vertical-align:bottom
+  }
+  .contrast td{padding:18px 18px 18px 0;border-bottom:1px solid var(--line);
+    color:var(--cream-dim);vertical-align:top;line-height:1.5}
+  .contrast td:first-child{color:var(--cream);font-family:"Playfair Display",serif;
+    font-size:1.06rem;white-space:nowrap}
+  .contrast td.num{font-family:"DM Mono",monospace;color:var(--gold);white-space:nowrap}
+  @media(max-width:720px){
+    .contrast,.contrast tbody,.contrast tr,.contrast td{display:block;width:100%}
+    .contrast thead{display:none}
+    .contrast tr{border-bottom:1px solid var(--line);padding:16px 0}
+    .contrast td{border:0;padding:3px 0}
+    .contrast td:first-child{margin-bottom:6px}
+  }
+
+  /* ---------- questions ---------- */
+  .qgroup{margin-top:40px}
+  .qgroup > .ghead{
+    font-family:"DM Mono",monospace;font-size:.68rem;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--gold);padding-bottom:12px;
+    border-bottom:1px solid var(--line);margin-bottom:8px
+  }
+  .q{display:grid;grid-template-columns:150px 1fr;gap:24px;padding:20px 0;
+    border-bottom:1px solid var(--line)}
+  .q .tag{font-family:"DM Mono",monospace;font-size:.68rem;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--cream-faint);line-height:1.7;padding-top:3px}
+  .q .body{font-size:1rem;color:var(--cream-dim);line-height:1.55}
+  .q .body b{color:var(--cream);font-weight:500}
+  @media(max-width:720px){.q{grid-template-columns:1fr;gap:8px}}
+
+  /* ---------- pipeline ---------- */
+  .pipe{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;background:var(--line);margin-top:40px}
+  .pipe div{background:var(--forest-2);padding:22px 18px;min-height:132px;position:relative}
+  .pipe div.here{background:var(--gold);color:var(--forest)}
+  .pipe .n{font-family:"DM Mono",monospace;font-size:.64rem;letter-spacing:.16em;
+    display:block;margin-bottom:12px;color:var(--cream-faint)}
+  .pipe div.here .n{color:rgba(14,32,24,.6)}
+  .pipe .t{font-family:"Playfair Display",serif;font-size:1.02rem;line-height:1.25}
+  .pipe .note{font-family:"DM Mono",monospace;font-size:.62rem;letter-spacing:.1em;
+    text-transform:uppercase;margin-top:12px;color:rgba(14,32,24,.72)}
+  @media(max-width:820px){.pipe{grid-template-columns:1fr}.pipe div{min-height:0}}
+
+  /* ---------- close ---------- */
+  .close{padding:96px 0}
+  .close blockquote{
+    margin:0;font-family:"Playfair Display",serif;
+    font-size:clamp(1.7rem,3.6vw,2.6rem);line-height:1.24;max-width:20ch
+  }
+  .close blockquote span{color:var(--gold)}
+
+  footer{border-top:1px solid var(--line);padding:40px 0 64px}
+  footer p{font-family:"DM Mono",monospace;font-size:.68rem;letter-spacing:.1em;
+    line-height:2;color:var(--cream-faint);max-width:78ch;text-transform:uppercase}
+  footer p b{color:var(--cream-dim);font-weight:500}
+
+  .callout{
+    border-left:2px solid var(--gold);padding:4px 0 4px 24px;margin:34px 0;
+    font-size:1.05rem;color:var(--cream);max-width:60ch;line-height:1.55
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar"><div class="wrap">
+  <span>Prepared for <b>Jay Kochar</b> &nbsp;·&nbsp; Eterna</span>
+  <span>Stage 1 of 5 &nbsp;·&nbsp; August 2026</span>
+</div></div>
+
+<header class="hero"><div class="wrap">
+  <p class="eyebrow">Capability Snapshot &nbsp;·&nbsp; Senior Software Engineer</p>
+  <h1>You have 140 applicants.<br>The question isn't who's best.<br><span class="hero-accent">It's whose hour is worth taking.</span></h1>
+  <div class="rule"></div>
+  <p class="lede">A résumé screen ranks people by what they claimed. This ranks them by what the résumé actually evidences, against the fourteen capabilities your own job description asks for — before anyone on your team gives up an hour.</p>
+
+  <div class="framing">
+    <div><span class="k">14</span><span class="v">capabilities pulled from your posting, not from a generic engineering template</span></div>
+    <div><span class="k">56</span><span class="v">evidence reads — every candidate against every capability, same order, same standard</span></div>
+    <div><span class="k">0</span><span class="v">hiring decisions made. This is where the signal goes; the call stays with your team</span></div>
+  </div>
+</div></header>
+
+<section><div class="wrap">
+  <p class="eyebrow">The read</p>
+  <h2>Four résumés, fifty-six reads</h2>
+  <p class="lede" style="margin-top:20px">Each square is one capability from your job description, in the same order for every candidate. Filled means the résumé carries direct evidence. Half means it implies rather than shows. Empty means the résumé does not answer the question.</p>
+
+  <div class="ledger">
+    <div class="ledger-row">
+      <div class="ledger-name">Colin Marsh<small>B.S. Information Systems · 45-person insurer</small></div>
+      <div class="cells">
+        <span class="cell strong"></span><span class="cell strong"></span><span class="cell strong"></span><span class="cell strong"></span><span class="cell strong"></span><span class="cell strong"></span><span class="cell strong"></span><span class="cell strong"></span><span class="cell strong"></span><span class="cell strong"></span><span class="cell strong"></span><span class="cell strong"></span><span class="cell strong"></span><span class="cell strong"></span>
+      </div>
+      <div class="ledger-score">90%<small>14 · 0 · 0</small></div>
+    </div>
+
+    <div class="ledger-row">
+      <div class="ledger-name">Nadia Farooqi<small>B.S. CS Carnegie Mellon · 3 certifications</small></div>
+      <div class="cells">
+        <span class="cell strong"></span><span class="cell strong"></span><span class="cell strong"></span><span class="cell strong"></span><span class="cell strong"></span><span class="cell strong"></span><span class="cell partial"></span><span class="cell partial"></span><span class="cell strong"></span><span class="cell strong"></span><span class="cell strong"></span><span class="cell strong"></span><span class="cell strong"></span><span class="cell strong"></span>
+      </div>
+      <div class="ledger-score">89%<small>12 · 2 · 0</small></div>
+    </div>
+
+    <div class="ledger-row">
+      <div class="ledger-name">Marcus Feld<small>B.S. Mechanical Eng. · career changer</small></div>
+      <div class="cells">
+        <span class="cell partial"></span><span class="cell strong"></span><span class="cell gap"></span><span class="cell partial"></span><span class="cell partial"></span><span class="cell partial"></span><span class="cell partial"></span><span class="cell strong"></span><span class="cell partial"></span><span class="cell strong"></span><span class="cell strong"></span><span class="cell strong"></span><span class="cell partial"></span><span class="cell gap"></span>
+      </div>
+      <div class="ledger-score">68%<small>5 · 7 · 2</small></div>
+    </div>
+
+    <div class="ledger-row">
+      <div class="ledger-name">Hana Yoshida<small>M.S. CS UIUC · distributed systems</small></div>
+      <div class="cells">
+        <span class="cell gap"></span><span class="cell gap"></span><span class="cell gap"></span><span class="cell strong"></span><span class="cell strong"></span><span class="cell gap"></span><span class="cell strong"></span><span class="cell gap"></span><span class="cell gap"></span><span class="cell gap"></span><span class="cell gap"></span><span class="cell strong"></span><span class="cell strong"></span><span class="cell gap"></span>
+      </div>
+      <div class="ledger-score">37%<small>5 · 0 · 9</small></div>
+    </div>
+  </div>
+
+  <div class="legend">
+    <span><i class="s"></i>Direct evidence</span>
+    <span><i class="p"></i>Implied, not shown</span>
+    <span><i></i>Résumé doesn't answer</span>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <p class="eyebrow">What the shapes mean</p>
+  <h2>Two of these are worth an hour. Two aren't — yet.</h2>
+
+  <div class="cards">
+    <div class="card">
+      <span class="status go">Evidence supports interview time</span>
+      <h3>Colin Marsh &nbsp;<span style="font-family:'DM Mono',monospace;font-size:.8rem;color:var(--gold)">90%</span></h3>
+      <p class="paper">Reads mid-tier on paper</p>
+      <p>Non-CS degree, no certifications, mid-level title, 45-person employer. On a stack of 140 he is easy to skim past.</p>
+      <p>What the résumé actually carries: latency work with a stated method and a measured before and after, a large zero-downtime schema migration, an on-call rotation and alerting he built from nothing, an authorisation rebuild carried through a security audit, and two engineers he mentors. Four of those years are in policy and claims data.</p>
+    </div>
+
+    <div class="card">
+      <span class="status go">Evidence supports interview time</span>
+      <h3>Nadia Farooqi &nbsp;<span style="font-family:'DM Mono',monospace;font-size:.8rem;color:var(--gold)">89%</span></h3>
+      <p class="paper">Reads strongest on paper</p>
+      <p>Eight years, senior title, Carnegie Mellon, three cloud certifications. Every keyword in your posting appears somewhere on the page.</p>
+      <p>Coverage is genuinely broad, and coverage is what a résumé stage can measure. Ownership is the axis it can't reach — a good deal of the strongest-sounding material is written as participation: <em>contributed to, involved in, supported, exposure to</em>. That isn't a mark against her. It's the question a résumé structurally cannot answer, and it's why all three of her questions below ask what she personally decided.</p>
+    </div>
+
+    <div class="card">
+      <span class="status">Not yet — evidence is thin, not absent</span>
+      <h3>Marcus Feld &nbsp;<span style="font-family:'DM Mono',monospace;font-size:.8rem;color:var(--gold)">68%</span></h3>
+      <p class="paper">Reads interesting, reads risky</p>
+      <p>The widest band of half-filled squares in the set. Real REST and cloud work, real client-facing skill, seven years of engineering discipline before the switch into software.</p>
+      <p>But nine short consulting engagements across six stacks means nothing was owned long enough to show depth, and observability and GraphQL are simply not on the page. This is the profile where a résumé cannot answer the question either way — the shape says <em>assess him</em>, not <em>pass on him</em>.</p>
+    </div>
+
+    <div class="card">
+      <span class="status">Not yet — nine capabilities unevidenced</span>
+      <h3>Hana Yoshida &nbsp;<span style="font-family:'DM Mono',monospace;font-size:.8rem;color:var(--gold)">37%</span></h3>
+      <p class="paper">Reads impressive on paper</p>
+      <p>M.S. Computer Science, benchmark numbers, database internals, Rust. On most screens this résumé advances.</p>
+      <p>Against <em>this</em> posting, nine of fourteen capabilities have no evidence at all: no microservices, no REST, no GraphQL, no cloud provisioning, no secure coding, no authorisation. She is deep and she is narrow, and the narrow part is most of your job description.</p>
+    </div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <p class="eyebrow">The part worth noticing</p>
+  <h2>The two strongest signals came from the two weakest CVs</h2>
+  <p class="lede" style="margin-top:20px">Not because pedigree is wrong. Because pedigree answers a different question than the one you're asking.</p>
+
+  <table class="contrast">
+    <thead><tr>
+      <th>Candidate</th><th>How a résumé screen sorts them</th><th>What the evidence sorts to</th><th></th>
+    </tr></thead>
+    <tbody>
+      <tr><td>Nadia Farooqi</td><td>First. Senior title, elite CS degree, three certifications, every keyword present.</td><td>Broad coverage, thin ownership. Two capabilities carried by inference rather than evidence.</td><td class="num">89%</td></tr>
+      <tr><td>Hana Yoshida</td><td>Second. Master's degree, hard performance numbers, serious technical vocabulary.</td><td>Nine of fourteen capabilities unevidenced. Deep in a band your role barely touches.</td><td class="num">37%</td></tr>
+      <tr><td>Marcus Feld</td><td>Third. Career changer, non-CS degree, agency background.</td><td>Seven half-filled capabilities. Genuinely undetermined — the résumé is the wrong instrument here.</td><td class="num">68%</td></tr>
+      <tr><td>Colin Marsh</td><td>Fourth or skipped. Small employer, no brand, non-CS degree, mid title, shortest CV.</td><td>Fourteen capabilities with direct evidence, most with stated method and measured outcome. Four years in your domain.</td><td class="num">90%</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout">Colin and Nadia land one point apart — so this is not a claim that one is better than the other. It is a claim that a résumé screen would have put four names in an order the evidence does not support, and that ordering is what your team's hours get spent against.</div>
+</div></section>
+
+<section><div class="wrap">
+  <p class="eyebrow">What your team walks in with</p>
+  <h2>Questions built from this stack, not from a question bank</h2>
+  <p class="lede" style="margin-top:20px">Every question below is anchored to something specific in a specific résumé. Half of them press on what's missing. Half press on what's claimed — because a strength that can't be explained under questioning was never a strength.</p>
+
+  <div class="qgroup">
+    <div class="ghead">Pressing on the gaps and the half-filled squares</div>
+    <div class="q"><div class="tag">Marcus Feld<br>Observability</div><div class="body">The role owns monitoring, logging, tracing and an on-call rotation. Walk me through a time you set up or materially improved an observability stack for a production system. What did you use, and what changed as a result?</div></div>
+    <div class="q"><div class="tag">Marcus Feld<br>Security</div><div class="body">Describe a complex authentication or authorisation flow you implemented, or a security vulnerability you had to address. What was your approach, and what did you learn from it?</div></div>
+    <div class="q"><div class="tag">Hana Yoshida<br>Microservices &amp; API</div><div class="body">Describe a project where you owned the end-to-end design of a new service, including its API contracts and versioning strategy.</div></div>
+    <div class="q"><div class="tag">Hana Yoshida<br>Cross-functional</div><div class="body">This role sits close to product, sales and the executive team. Describe a time you had to translate a complex technical position for people who don't build software, in order to reach a decision.</div></div>
+  </div>
+
+  <div class="qgroup">
+    <div class="ghead">Pressing on the strengths — verifying the claim, not admiring it</div>
+    <div class="q"><div class="tag">Colin Marsh<br>Database migration</div><div class="body">Take me through the 400-million-row zero-downtime migration, planning through execution. What specifically protected data integrity, and what would you do differently?</div></div>
+    <div class="q"><div class="tag">Colin Marsh<br>Observability</div><div class="body">You built an on-call rotation from scratch and pages dropped sharply. What's your philosophy on alerting, and how do you keep coverage complete without creating alert fatigue?</div></div>
+    <div class="q"><div class="tag">Nadia Farooqi<br>On-call reliability</div><div class="body">Describe a production incident you personally handled on-call. What was the failure, what did you do, and what changed afterwards to prevent it?</div></div>
+    <div class="q"><div class="tag">Nadia Farooqi<br>API evolution</div><div class="body">Walk me through an API you designed or significantly changed, for both internal and external consumers. What were the key decisions, and how did you manage rollout and adoption?</div></div>
+    <div class="q"><div class="tag">Nadia Farooqi<br>Domain adaptation</div><div class="body">You'd be moving into insurance. Describe a time you had to learn an unfamiliar business domain fast enough to make good technical decisions in it.</div></div>
+  </div>
+
+  <div class="callout">Notice the shape of the Nadia questions. Every one of them asks for something she personally did. That's not scepticism — it's the specific thing her résumé leaves open, and it's exactly what an hour of your team's time is good at closing.</div>
+</div></section>
+
+<section><div class="wrap">
+  <p class="eyebrow">Where this sits</p>
+  <h2>This is the first stage, and it's the cheapest one</h2>
+  <p class="lede" style="margin-top:20px">Everything above came from résumés alone. It is a triage layer: it tells you where the hours are worth spending and what to ask when you spend them. It does not tell you who to hire, and it isn't built to.</p>
+
+  <div class="pipe">
+    <div class="here"><span class="n">STAGE 1</span><span class="t">Capability Snapshot</span><span class="note">You are here</span></div>
+    <div><span class="n">STAGE 2</span><span class="t">Adaptive Screening</span></div>
+    <div><span class="n">STAGE 3</span><span class="t">Structured Capability Assessment</span></div>
+    <div><span class="n">STAGE 4</span><span class="t">Role Challenge <span style="color:var(--cream-faint)">(optional)</span></span></div>
+    <div><span class="n">STAGE 5</span><span class="t">Capability Signal Report</span></div>
+  </div>
+
+  <div class="callout" style="margin-top:44px">The open questions on this page — is Nadia's breadth hers or her team's, can Marcus actually go deep — are the questions stages two through four are built to answer. What comes out at the end is a Capability Signal Report: the full evidence picture on each candidate, assembled before your engineers spend an interview slot rather than after.</div>
+
+  <p style="color:var(--cream-dim);max-width:62ch">Run across 140 applicants rather than four, the shape of the stack arrives before your first interview is scheduled instead of six weeks into it.</p>
+</div></section>
+
+<div class="close"><div class="wrap">
+  <blockquote>We produce the signal.<br><span>Your people make every call.</span></blockquote>
+</div></div>
+
+<footer><div class="wrap">
+  <p>
+    <b>About these four candidates:</b> the résumés used in this run are constructed profiles, built against your posted requirements to show how the read works. No real applicant data was used, and none of your 140 applicants have been processed.<br><br>
+    <b>What FaujX is not:</b> FaujX is not a staffing or recruiting agency. We don't send you candidates. We produce evidence on the ones you already have.<br><br>
+    <b>How it works:</b> capability reads are AI-assisted and human-decided, designed for consistency and neutrality across every candidate in a stack. FaujX assesses; your team interviews and decides.<br><br>
+    FAUJX® &nbsp;·&nbsp; Arber, Inc. &nbsp;·&nbsp; Prepared for Jay Kochar, Eterna &nbsp;·&nbsp; August 2026 &nbsp;·&nbsp; Confidential
+  </p>
+</div></footer>
+
+</body>
+</html>

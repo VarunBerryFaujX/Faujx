@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Capability Snapshot — Nadia Farooqi — prepared for Eterna</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --forest:#0E2018; --forest-2:#152D22;
+    --cream:#F2F0EA; --cream-dim:rgba(242,240,234,.64); --cream-faint:rgba(242,240,234,.34);
+    --gold:#C9A75E; --line:rgba(242,240,234,.14); --maxw:1060px;
+  }
+  *{box-sizing:border-box}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  body{margin:0;background:var(--forest);color:var(--cream);
+    font-family:"DM Sans",system-ui,sans-serif;font-size:16.5px;line-height:1.6;
+    -webkit-font-smoothing:antialiased}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px}
+  @media(max-width:720px){.wrap{padding:0 18px}body{font-size:16px}}
+  h1,h2,h3{font-family:"Playfair Display",Georgia,serif;font-weight:500;letter-spacing:-.01em;margin:0}
+  h1{font-size:clamp(2.4rem,5.4vw,3.7rem);line-height:1.06}
+  h2{font-size:clamp(1.6rem,3.2vw,2.3rem);line-height:1.16}
+  p{margin:0 0 1.05em}
+  em{font-style:normal;color:var(--gold)}
+  .eyebrow{font-family:"DM Mono",monospace;font-size:.71rem;letter-spacing:.19em;
+    text-transform:uppercase;color:var(--gold);margin:0 0 16px}
+  .lede{font-size:clamp(1.04rem,1.8vw,1.22rem);line-height:1.55;color:var(--cream-dim);max-width:64ch}
+
+  .topbar{border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20;
+    background:rgba(14,32,24,.93);backdrop-filter:blur(8px)}
+  .topbar .wrap{display:flex;justify-content:space-between;align-items:center;
+    padding-top:14px;padding-bottom:14px;gap:14px;flex-wrap:wrap}
+  .topbar span{font-family:"DM Mono",monospace;font-size:.69rem;letter-spacing:.15em;
+    text-transform:uppercase;color:var(--cream-faint)}
+  .topbar span b{color:var(--cream);font-weight:500}
+
+  section{padding:78px 0;border-bottom:1px solid var(--line)}
+  section:last-of-type{border-bottom:0}
+  @media(max-width:720px){section{padding:54px 0}}
+
+  header.hero{padding:88px 0 74px;border-bottom:1px solid var(--line)}
+  .rule{height:2px;background:var(--cream);width:88px;margin:30px 0}
+
+  .scoreband{display:grid;grid-template-columns:1.15fr 1fr;gap:0;
+    border-top:1px solid var(--line);margin-top:46px}
+  .scoreband > div{padding:28px 30px 24px;border-right:1px solid var(--line)}
+  .scoreband > div:last-child{border-right:0}
+  .bignum{font-family:"Playfair Display",serif;font-size:3.6rem;line-height:1;color:var(--gold)}
+  .bignum small{display:block;font-family:"DM Mono",monospace;font-size:.65rem;
+    letter-spacing:.15em;text-transform:uppercase;color:var(--cream-faint);margin-top:12px;line-height:1.8}
+  .tally{display:flex;gap:34px;flex-wrap:wrap}
+  .tally div span{font-family:"Playfair Display",serif;font-size:2.1rem;line-height:1;display:block}
+  .tally div small{font-family:"DM Mono",monospace;font-size:.63rem;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--cream-faint);margin-top:9px;display:block}
+  @media(max-width:720px){.scoreband{grid-template-columns:1fr}
+    .scoreband > div{border-right:0;border-bottom:1px solid var(--line)}}
+
+  table{width:100%;border-collapse:collapse;margin-top:34px;font-size:.93rem}
+  th{text-align:left;font-family:"DM Mono",monospace;font-weight:500;font-size:.63rem;
+    letter-spacing:.15em;text-transform:uppercase;color:var(--gold);
+    padding:0 14px 13px 0;border-bottom:1px solid var(--line);vertical-align:bottom}
+  td{padding:17px 14px 17px 0;border-bottom:1px solid var(--line);
+    color:var(--cream-dim);vertical-align:top;line-height:1.5}
+  td.n{font-family:"DM Mono",monospace;color:var(--cream-faint);font-size:.8rem;white-space:nowrap;width:26px}
+  td.cap{color:var(--cream);font-family:"Playfair Display",serif;font-size:1.02rem;
+    line-height:1.28;min-width:150px}
+  td.read{font-family:"DM Mono",monospace;font-size:.68rem;letter-spacing:.11em;
+    text-transform:uppercase;white-space:nowrap}
+  td.read.s{color:var(--gold)}
+  td.read.p{color:var(--cream-dim)}
+  td.read b{display:block;font-family:"Playfair Display",serif;font-size:1.15rem;
+    letter-spacing:0;text-transform:none;margin-top:7px;color:var(--cream);font-weight:400}
+  td.ev q{quotes:'"' '"';color:var(--cream)}
+  td.ev .src{display:block;font-family:"DM Mono",monospace;font-size:.63rem;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--cream-faint);margin-top:9px}
+  td.ev .none{color:var(--gold)}
+  td.reg{font-family:"DM Mono",monospace;font-size:.66rem;letter-spacing:.08em;
+    color:var(--cream-faint);white-space:nowrap}
+  @media(max-width:860px){
+    table,tbody,tr,td{display:block;width:100%}
+    thead{display:none}
+    tr{border-bottom:1px solid var(--line);padding:20px 0}
+    td{border:0;padding:3px 0}
+    td.n{display:inline-block;width:auto;margin-right:10px}
+    td.cap{display:inline-block;margin-bottom:8px}
+    td.read b{display:inline;margin-left:10px}
+  }
+
+  .panel{border-left:2px solid var(--gold);padding:6px 0 6px 26px;margin:34px 0;
+    font-size:1.04rem;color:var(--cream);max-width:62ch;line-height:1.55}
+
+  .verbs{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--line);margin-top:40px}
+  .verbs > div{background:var(--forest);padding:30px 28px}
+  .verbs h3{font-size:1.16rem;margin-bottom:6px}
+  .verbs .sub{font-family:"DM Mono",monospace;font-size:.65rem;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--cream-faint);margin-bottom:20px;display:block}
+  .verbs ul{margin:0;padding:0;list-style:none}
+  .verbs li{padding:8px 0;border-bottom:1px solid var(--line);font-size:.95rem;color:var(--cream-dim)}
+  .verbs li:last-child{border-bottom:0}
+  .verbs li b{color:var(--gold);font-weight:500;font-family:"DM Mono",monospace;font-size:.85rem}
+  @media(max-width:720px){.verbs{grid-template-columns:1fr}}
+
+  .q{display:grid;grid-template-columns:150px 1fr;gap:24px;padding:20px 0;border-bottom:1px solid var(--line)}
+  .q:first-of-type{border-top:1px solid var(--line)}
+  .q .tag{font-family:"DM Mono",monospace;font-size:.67rem;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--gold);line-height:1.7;padding-top:3px}
+  .q .body{font-size:1rem;color:var(--cream-dim);line-height:1.55}
+  @media(max-width:720px){.q{grid-template-columns:1fr;gap:8px}}
+
+  footer{border-top:1px solid var(--line);padding:38px 0 60px}
+  footer p{font-family:"DM Mono",monospace;font-size:.67rem;letter-spacing:.1em;
+    line-height:2;color:var(--cream-faint);max-width:80ch;text-transform:uppercase}
+  footer p b{color:var(--cream-dim);font-weight:500}
+</style>
+</head>
+<body>
+
+<div class="topbar"><div class="wrap">
+  <span>Prepared for <b>Jay Kochar</b> · Eterna</span>
+  <span>Capability Snapshot · Stage 1 of 5</span>
+</div></div>
+
+<header class="hero"><div class="wrap">
+  <p class="eyebrow">Candidate breakdown · Senior Software Engineer</p>
+  <h1>Nadia Farooqi</h1>
+  <div class="rule"></div>
+  <p class="lede">Read against the fourteen capabilities in your posting. Every line of evidence below is quoted from her résumé and nothing else — no inference from her job title, no credit for a requirement simply because she holds a senior role.</p>
+
+  <div class="scoreband">
+    <div>
+      <div class="bignum">89%<small>Capability match · 14 capabilities read</small></div>
+    </div>
+    <div>
+      <div class="tally">
+        <div><span style="color:var(--gold)">12</span><small>Direct evidence</small></div>
+        <div><span>2</span><small>No evidence found</small></div>
+        <div><span>0</span><small>Contradicted</small></div>
+      </div>
+      <p style="margin-top:26px;font-size:.95rem;color:var(--cream-dim)">Broad coverage across your stack, with two security capabilities the résumé does not speak to at all.</p>
+    </div>
+  </div>
+</div></header>
+
+<section><div class="wrap">
+  <p class="eyebrow">The read</p>
+  <h2>Fourteen capabilities, evidence quoted from source</h2>
+
+  <table>
+    <thead><tr>
+      <th></th><th>Capability</th><th>Read</th><th>Evidence on the résumé</th><th>Register</th>
+    </tr></thead>
+    <tbody>
+
+    <tr><td class="n">01</td><td class="cap">Design and implement microservices architecture</td>
+      <td class="read s">Strong<b>9/10</b></td>
+      <td class="ev"><q>Part of the platform team responsible for a microservices architecture serving millions of requests daily.</q> Summary claims eight years building cloud-native distributed systems.<span class="src">Lumendra · summary</span></td>
+      <td class="reg">Team</td></tr>
+
+    <tr><td class="n">02</td><td class="cap">Design and implement RESTful APIs</td>
+      <td class="read s">Strong<b>9/10</b></td>
+      <td class="ev"><q>Contributed to the design and rollout of RESTful and GraphQL API standards that were adopted org-wide, including versioning and documentation guidelines.</q><span class="src">Lumendra</span></td>
+      <td class="reg">Contributor</td></tr>
+
+    <tr><td class="n">03</td><td class="cap">Design and implement GraphQL services</td>
+      <td class="read s">Strong<b>8/10</b></td>
+      <td class="ev">Same standards work as above. Apollo GraphQL listed under frameworks.<span class="src">Lumendra · skills</span></td>
+      <td class="reg">Contributor</td></tr>
+
+    <tr><td class="n">04</td><td class="cap">Design and maintain relational database schemas</td>
+      <td class="read s">Strong<b>8/10</b></td>
+      <td class="ev"><q>Collaborated on relational schema design and query optimization for high-volume PostgreSQL workloads.</q><span class="src">Vantiq</span></td>
+      <td class="reg">Collaborator</td></tr>
+
+    <tr><td class="n">05</td><td class="cap">Optimise SQL queries and indexing</td>
+      <td class="read s">Strong<b>8/10</b></td>
+      <td class="ev">Same sentence as above. No query, index or workload named; no before-and-after figure given.<span class="src">Vantiq</span></td>
+      <td class="reg">Collaborator</td></tr>
+
+    <tr><td class="n">06</td><td class="cap">Optimise system performance and scalability</td>
+      <td class="read s">Strong<b>8/10</b></td>
+      <td class="ev"><q>Assisted with performance profiling and load testing efforts across multiple backend services.</q> No tooling, target or measured outcome stated.<span class="src">Vantiq</span></td>
+      <td class="reg">Assisted</td></tr>
+
+    <tr><td class="n">07</td><td class="cap">Implement secure coding practices</td>
+      <td class="read p">No evidence<b>7/10</b></td>
+      <td class="ev"><span class="none">Nothing on the résumé addresses this.</span> The nearest adjacent line is participation in an architecture review board alongside Security. Stage 1 scored this on adjacency alone — treat the number as unverified and probe it.<span class="src">Adjacent signal only</span></td>
+      <td class="reg">—</td></tr>
+
+    <tr><td class="n">08</td><td class="cap">Implement authentication and authorisation mechanisms</td>
+      <td class="read p">No evidence<b>7/10</b></td>
+      <td class="ev"><span class="none">Nothing on the résumé addresses this.</span> OAuth2 and OIDC appear in the skills list; no system, flow or decision is described anywhere in the experience. Unverified.<span class="src">Skills list only</span></td>
+      <td class="reg">Declared</td></tr>
+
+    <tr><td class="n">09</td><td class="cap">Proficiency in multiple programming languages</td>
+      <td class="read s">Strong<b>10/10</b></td>
+      <td class="ev">Java, Python, Go, TypeScript, JavaScript, SQL. Depth per language is not evidenced in the experience section.<span class="src">Skills list</span></td>
+      <td class="reg">Declared</td></tr>
+
+    <tr><td class="n">10</td><td class="cap">Experience with distributed systems</td>
+      <td class="read s">Strong<b>9/10</b></td>
+      <td class="ev"><q>Exposure to Kubernetes, Kafka, Redis, gRPC, and service mesh technologies in a large-scale production environment.</q> Plus the microservices line at 01.<span class="src">Vantiq · Lumendra</span></td>
+      <td class="reg">Exposure</td></tr>
+
+    <tr><td class="n">11</td><td class="cap">Conduct code reviews and mentor junior engineers</td>
+      <td class="read s">Strong<b>8/10</b></td>
+      <td class="ev"><q>Engaged in mentorship and onboarding for engineers joining the platform group.</q> <q>Active participant in code reviews and design discussions.</q><span class="src">Lumendra · Vantiq</span></td>
+      <td class="reg">Participant</td></tr>
+
+    <tr><td class="n">12</td><td class="cap">Communicate with cross-functional teams</td>
+      <td class="read s">Strong<b>8/10</b></td>
+      <td class="ev"><q>Participated in the architecture review board and in cross-functional planning with Product, Data, and Security.</q><span class="src">Lumendra</span></td>
+      <td class="reg">Participant</td></tr>
+
+    <tr><td class="n">13</td><td class="cap">Manage cloud infrastructure provisioning and deployment</td>
+      <td class="read s">Strong<b>9/10</b></td>
+      <td class="ev"><q>Involved in the migration of a legacy monolith to containerized services running on AWS EKS.</q> <q>Helped drive adoption of CI/CD best practices using Terraform, Jenkins, and GitHub Actions.</q> Holds AWS Solutions Architect Professional, CKA and Terraform Associate.<span class="src">Lumendra · certifications</span></td>
+      <td class="reg">Involved</td></tr>
+
+    <tr><td class="n">14</td><td class="cap">Build and maintain monitoring and logging solutions</td>
+      <td class="read s">Strong<b>9/10</b></td>
+      <td class="ev"><q>Supported observability initiatives across the platform using Datadog, Prometheus, and Grafana.</q> No alert, SLO or incident described. On-call is not mentioned anywhere on the résumé.<span class="src">Lumendra</span></td>
+      <td class="reg">Supported</td></tr>
+
+    </tbody>
+  </table>
+</div></section>
+
+<section><div class="wrap">
+  <p class="eyebrow">The register column</p>
+  <h2>Fourteen capabilities. Zero sentences where she is the actor.</h2>
+  <p class="lede" style="margin-top:20px">Read the right-hand column down the page. Every piece of evidence on Nadia's résumé is written in a register that places her near the work rather than at it. That is not a criticism — it may simply be how she writes. But it is the one thing a résumé stage can surface and a résumé stage cannot resolve.</p>
+
+  <div class="verbs">
+    <div>
+      <h3>How her evidence is worded</h3>
+      <span class="sub">Governing verb, in résumé order</span>
+      <ul>
+        <li><b>Part of</b> the platform team</li>
+        <li><b>Contributed to</b> the design and rollout</li>
+        <li><b>Collaborated on</b> schema design</li>
+        <li><b>Assisted with</b> performance profiling</li>
+        <li><b>Exposure to</b> Kubernetes, Kafka, gRPC</li>
+        <li><b>Involved in</b> the monolith migration</li>
+        <li><b>Supported</b> observability initiatives</li>
+        <li><b>Helped drive</b> CI/CD adoption</li>
+        <li><b>Participated in</b> the review board</li>
+      </ul>
+    </div>
+    <div>
+      <h3>What that leaves open</h3>
+      <span class="sub">Unresolvable from paper</span>
+      <ul>
+        <li>Which decisions were hers</li>
+        <li>What she has personally shipped and owned</li>
+        <li>Whether she has carried production responsibility</li>
+        <li>What she does when a system she built fails</li>
+        <li>How she performs without a large platform team around her</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="panel">The 89% is honest about what it measures. She covers your stack, and that coverage is real. What it cannot tell you is how much of it was hers — and at Eterna, where an engineer owns services rather than sitting inside a three-thousand-person platform org, that distinction is the whole question.</div>
+</div></section>
+
+<section><div class="wrap">
+  <p class="eyebrow">If you take the hour</p>
+  <h2>Six questions, each anchored to a specific line</h2>
+  <p class="lede" style="margin-top:20px">Three press on what the résumé leaves unevidenced. Three press on what it claims, and all three ask for a decision she personally made.</p>
+
+  <div class="q"><div class="tag">Ownership<br>Criterion 01</div><div class="body">You describe being part of the platform team behind a microservices architecture serving millions of requests. Pick one service in that architecture and take me through a design decision you personally made and defended. What was the alternative, and why did you rule it out?</div></div>
+
+  <div class="q"><div class="tag">On-call<br>Criterion 14</div><div class="body">Observability appears on your résumé but on-call does not. Describe a production incident you personally handled. What failed, what did you do in the first ten minutes, and what changed afterwards to stop it recurring?</div></div>
+
+  <div class="q"><div class="tag">Security<br>Criteria 07 &amp; 08</div><div class="body">OAuth2 and OIDC are on your skills list but no authorisation work appears in your experience. Describe an authentication or authorisation model you designed or materially changed. What were the failure modes you were guarding against?</div></div>
+
+  <div class="q"><div class="tag">API evolution<br>Criterion 02</div><div class="body">You contributed to API standards adopted across the organisation. Which specific guideline in those standards was yours, what problem was it solving, and how did you get engineers outside your team to follow it?</div></div>
+
+  <div class="q"><div class="tag">Performance<br>Criteria 05 &amp; 06</div><div class="body">Take one slow query or one slow endpoint you worked on. What were the numbers before, what did you change, and what were the numbers after? How did you measure it?</div></div>
+
+  <div class="q"><div class="tag">Domain<br>Cross-cutting</div><div class="body">You would be moving into insurance. Describe a time you had to learn an unfamiliar business domain fast enough to make good technical calls in it. What did you get wrong first?</div></div>
+
+  <div class="panel">Two of these are worth asking regardless of who the candidate is. The other four exist only because of what her particular résumé does and doesn't say — which is the point of running the stage at all.</div>
+</div></section>
+
+<section><div class="wrap">
+  <p class="eyebrow">What this is not</p>
+  <h2>Stage 1 doesn't decide anything</h2>
+  <p class="lede" style="margin-top:20px">This is a résumé-stage read. It tells you Nadia is worth an hour and exactly what to spend that hour on. It does not tell you whether to hire her, and it is not built to. The questions above are the ones Stages 2 through 4 are designed to answer under structured conditions — before your engineers spend interview slots, rather than after.</p>
+  <p style="color:var(--cream-dim);max-width:62ch">FaujX assesses. Your team interviews and decides.</p>
+</div></section>
+
+<footer><div class="wrap">
+  <p>
+    <b>About this document:</b> a bespoke capability breakdown prepared for Eterna. Capability scores are as produced by the Stage 1 read; the evidence column has been rewritten to quote the source résumé directly and to identify where a score rests on adjacency rather than evidence.<br><br>
+    <b>About this candidate:</b> Nadia Farooqi is a constructed profile, built against your posted requirements to show how the read works. No real applicant data was used, and none of your 140 applicants have been processed.<br><br>
+    <b>About the method:</b> capability reads are AI-assisted and human-decided, designed for consistency and neutrality across every candidate in a stack. FaujX is not a staffing or recruiting agency — we don't send you candidates, we produce evidence on the ones you already have.<br><br>
+    FAUJX® · Arber, Inc. · Prepared for Jay Kochar, Eterna · August 2026 · Confidential
+  </p>
+</div></footer>
+
+</body>
+</html>
