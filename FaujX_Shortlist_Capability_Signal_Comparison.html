@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Capability Signal — Shortlist Comparison</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0E2018;
+    --gold:#C9A75E;
+    --cream:#F2F0EA;
+    --paper:#FFFFFF;
+    --line:#DCD8CE;
+    --muted:#6B7A72;
+    --strong:#1F514C;
+    --partial:#B07D2B;
+    --gap:#9B3A32;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;padding:0;background:var(--cream);color:var(--ink);
+    font-family:'DM Sans',-apple-system,sans-serif;font-size:15px;line-height:1.6;
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:48px 40px 80px;}
+  .eyebrow{
+    font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--muted);margin:0 0 10px;
+  }
+  h1{font-family:'Playfair Display',serif;font-size:38px;line-height:1.15;margin:0 0 8px;font-weight:700;}
+  .sub{font-size:17px;color:var(--muted);margin:0 0 4px;}
+  .rule{height:3px;background:var(--ink);margin:26px 0 40px;}
+  h2{
+    font-family:'Playfair Display',serif;font-size:25px;margin:56px 0 6px;font-weight:600;
+  }
+  h2:first-of-type{margin-top:0;}
+  .lede{color:var(--muted);margin:0 0 22px;max-width:70ch;}
+  .card{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:24px 26px;}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:8px;}
+  .cand-name{font-weight:700;font-size:16px;margin:0 0 2px;letter-spacing:.01em;}
+  .cand-loc{font-size:13px;color:var(--muted);margin:0 0 14px;}
+  .score{font-family:'Playfair Display',serif;font-size:40px;line-height:1;margin:0 0 2px;}
+  .score-cap{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);}
+  .tally{display:flex;gap:16px;margin-top:16px;padding-top:14px;border-top:1px solid var(--line);}
+  .tally div{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.08em;color:var(--muted);}
+  .tally b{display:block;font-family:'Playfair Display',serif;font-size:22px;color:var(--ink);letter-spacing:0;}
+  table{width:100%;border-collapse:collapse;background:var(--paper);border:1px solid var(--line);border-radius:10px;overflow:hidden;}
+  th{
+    font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--muted);text-align:left;padding:14px 14px;border-bottom:1px solid var(--line);font-weight:500;
+    background:#FAF9F6;
+  }
+  td{padding:13px 14px;border-bottom:1px solid var(--line);vertical-align:top;font-size:14px;}
+  tr:last-child td{border-bottom:none;}
+  .cap{font-weight:500;}
+  .v{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.06em;white-space:nowrap;}
+  .v b{font-family:'DM Sans',sans-serif;font-size:14px;letter-spacing:0;}
+  .s{color:var(--strong);}
+  .p{color:var(--partial);}
+  .g{color:var(--gap);}
+  .note{
+    background:var(--paper);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;
+    padding:18px 22px;margin:22px 0;
+  }
+  .note h3{font-size:15px;margin:0 0 6px;font-weight:700;}
+  .note p{margin:0;color:#33443C;}
+  .qgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  .qcol{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:20px 22px;}
+  .qcol h3{font-size:15px;margin:0 0 16px;font-weight:700;}
+  .q{margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--line);}
+  .q:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none;}
+  .qtag{
+    font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--muted);display:block;margin-bottom:5px;
+  }
+  .q p{margin:0;font-size:13.5px;line-height:1.5;}
+  .hl{background:rgba(201,167,94,.28);padding:1px 3px;border-radius:2px;}
+  footer{
+    margin-top:64px;padding-top:22px;border-top:1px solid var(--line);
+    font-size:12px;color:var(--muted);
+  }
+  footer p{margin:0 0 6px;}
+  @media print{body{background:#fff;} .wrap{padding:0;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Capability Signal · Shortlist Comparison</p>
+  <h1>Three candidates, one role benchmark</h1>
+  <p class="sub">Teamcenter PLM Solution Architect · August 2026</p>
+  <div class="rule"></div>
+
+  <h2>Where the shortlist stands</h2>
+  <p class="lede">Each candidate was read against the same twelve role capabilities extracted from the job description. The percentage is a match signal, not a decision. Every line below is traceable to specific text in the candidate's resume.</p>
+
+  <div class="cards">
+    <div class="card">
+      <p class="cand-name">Rohit Deshmukh</p>
+      <p class="cand-loc">Pune, India</p>
+      <p class="score">93.2%</p>
+      <span class="score-cap">Capability match</span>
+      <div class="tally">
+        <div><b>12</b>Strong</div><div><b>0</b>Partial</div><div><b>0</b>Gap</div>
+      </div>
+    </div>
+    <div class="card">
+      <p class="cand-name">Sandhya Venkataraman</p>
+      <p class="cand-loc">Bengaluru, India</p>
+      <p class="score">90.5%</p>
+      <span class="score-cap">Capability match</span>
+      <div class="tally">
+        <div><b>11</b>Strong</div><div><b>1</b>Partial</div><div><b>0</b>Gap</div>
+      </div>
+    </div>
+    <div class="card">
+      <p class="cand-name">Thomas Reilly</p>
+      <p class="cand-loc">Wichita, KS, USA</p>
+      <p class="score">57.6%</p>
+      <span class="score-cap">Capability match</span>
+      <div class="tally">
+        <div><b>6</b>Strong</div><div><b>1</b>Partial</div><div><b>5</b>Gap</div>
+      </div>
+    </div>
+  </div>
+
+  <h2>Capability breakdown</h2>
+  <p class="lede">The same twelve capabilities, scored per candidate. Read the pattern across a row, not the total at the bottom.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width:31%">Role capability</th>
+        <th>Deshmukh</th>
+        <th>Venkataraman</th>
+        <th>Reilly</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td class="cap">Siemens Teamcenter implementation &amp; solution architecture</td>
+        <td class="v s">STRONG <b>9</b></td><td class="v s">STRONG <b>9</b></td><td class="v g">GAP <b>0</b></td></tr>
+      <tr><td class="cap">PLM business processes &amp; product lifecycle management</td>
+        <td class="v s">STRONG <b>9</b></td><td class="v s">STRONG <b>9</b></td><td class="v s">STRONG <b>9</b></td></tr>
+      <tr><td class="cap">Change Management (ECR / ECO / ECN)</td>
+        <td class="v s">STRONG <b>9</b></td><td class="v s">STRONG <b>9</b></td><td class="v s">STRONG <b>9</b></td></tr>
+      <tr><td class="cap">Product Structure &amp; BOM Management</td>
+        <td class="v s">STRONG <b>9</b></td><td class="v s">STRONG <b>9</b></td><td class="v s">STRONG <b>8</b></td></tr>
+      <tr><td class="cap">Document &amp; Content Management</td>
+        <td class="v s">STRONG <b>8</b></td><td class="v s">STRONG <b>8</b></td><td class="v p">PARTIAL <b>7</b></td></tr>
+      <tr><td class="cap">Workflow Design</td>
+        <td class="v s">STRONG <b>9</b></td><td class="v s">STRONG <b>8</b></td><td class="v g">GAP <b>0</b></td></tr>
+      <tr><td class="cap">Configuration Management</td>
+        <td class="v s">STRONG <b>8</b></td><td class="v s">STRONG <b>9</b></td><td class="v s">STRONG <b>9</b></td></tr>
+      <tr><td class="cap">Classification &amp; Parts Management</td>
+        <td class="v s">STRONG <b>9</b></td><td class="v p">PARTIAL <b>7</b></td><td class="v g">GAP <b>0</b></td></tr>
+      <tr><td class="cap">Teamcenter modules (AWC, Structure Manager, Workflow Designer, BMIDE)</td>
+        <td class="v s">STRONG <b>10</b></td><td class="v s">STRONG <b>8</b></td><td class="v g">GAP <b>0</b></td></tr>
+      <tr><td class="cap">Workshop facilitation &amp; business requirement translation</td>
+        <td class="v s">STRONG <b>8</b></td><td class="v s">STRONG <b>9</b></td><td class="v s">STRONG <b>8</b></td></tr>
+      <tr><td class="cap">Stakeholder management &amp; customer-facing consulting</td>
+        <td class="v s">STRONG <b>8</b></td><td class="v s">STRONG <b>9</b></td><td class="v s">STRONG <b>8</b></td></tr>
+      <tr><td class="cap">Agile &amp; global delivery environments</td>
+        <td class="v s">STRONG <b>10</b></td><td class="v s">STRONG <b>9</b></td><td class="v g">GAP <b>2</b></td></tr>
+    </tbody>
+  </table>
+
+  <div class="note">
+    <h3>What the rows show that the totals don't</h3>
+    <p>On the six business-architecture capabilities — PLM process, change management, BOM, configuration management, workshop facilitation, stakeholder management — all three candidates land in the same band. The separation is entirely on Teamcenter product depth. That is a useful thing to know before the client interview, because it tells you which conversation each candidate can and cannot carry.</p>
+  </div>
+
+  <h2>Probe questions — and how they differ</h2>
+  <p class="lede">Six questions were generated per candidate against the same role. <strong>No question is repeated across the three sets.</strong> Each is anchored to what that specific resume did and did not evidence. Highlighted below are the places where the same subject is raised for opposite reasons.</p>
+
+  <div class="qgrid">
+
+    <div class="qcol">
+      <h3>Rohit Deshmukh</h3>
+      <div class="q"><span class="qtag">Solution leadership</span><p>Describe a complex PLM transformation where you led the business architecture and solution design — specifically how you engaged stakeholders to define end-to-end PLM processes.</p></div>
+      <div class="q"><span class="qtag">Classification complexity</span><p><span class="hl">You've configured Classification hierarchies and managed parts. Tell me about harmonizing classification data across multiple sources or business units.</span></p></div>
+      <div class="q"><span class="qtag">Integration breadth</span><p><span class="hl">Your integration experience is with CAD. The role also names ERP, MES, and SCM. Share a Teamcenter integration involving an ERP or MES system.</span></p></div>
+      <div class="q"><span class="qtag">Strategic guidance</span><p>Describe influencing senior business leaders to adopt a new Teamcenter strategy or a significant change in their PLM roadmap.</p></div>
+      <div class="q"><span class="qtag">Mentorship &amp; Agile</span><p>Describe mentoring functional consultants in a distributed team under tight deadlines or unexpected technical hurdles.</p></div>
+      <div class="q"><span class="qtag">Domain exposure</span><p>Discuss a project where your Teamcenter solution touched Manufacturing, Supply Chain, or Service Lifecycle Management.</p></div>
+    </div>
+
+    <div class="qcol">
+      <h3>Sandhya Venkataraman</h3>
+      <div class="q"><span class="qtag">Strategic PLM alignment</span><p>Describe reconciling conflicting requirements between business units — engineering versus manufacturing — while defining an end-to-end PLM process.</p></div>
+      <div class="q"><span class="qtag">BOM management depth</span><p>Walk through a project where you designed the EBOM to MBOM handoff — the alignment challenges, and how you ensured data integrity and ownership clarity.</p></div>
+      <div class="q"><span class="qtag">Integration complexity</span><p><span class="hl">Describe a complex integration you led bridging Teamcenter and a major enterprise system. Key technical and functional hurdles.</span></p></div>
+      <div class="q"><span class="qtag">Cross-domain awareness</span><p>How have your Teamcenter solutions supported adjacent domains — Manufacturing, Supply Chain, or SLM — even where you weren't directly responsible?</p></div>
+      <div class="q"><span class="qtag">Mentorship &amp; influence</span><p>Describe guiding a team through a challenging functional design problem or a difficult stakeholder negotiation.</p></div>
+      <div class="q"><span class="qtag">Strategic adoption</span><p>Describe influencing a client or internal team to adopt a Teamcenter strategy that improved their PLM maturity.</p></div>
+    </div>
+
+    <div class="qcol">
+      <h3>Thomas Reilly</h3>
+      <div class="q"><span class="qtag">Teamcenter expertise</span><p>Describe your direct experience with Siemens Teamcenter — which specific modules, and the nature of the implementations you led or contributed to.</p></div>
+      <div class="q"><span class="qtag">Workflow design</span><p>Walk through a PLM implementation where you defined and optimised workflows — how you designed or configured the workflow engine itself.</p></div>
+      <div class="q"><span class="qtag">Classification &amp; parts</span><p><span class="hl">You've defined BOM ownership and configuration management. How have you approached classification and parts management within a PLM system?</span></p></div>
+      <div class="q"><span class="qtag">Global / Agile delivery</span><p>Describe adapting your delivery approach for a globally distributed team or an Agile environment.</p></div>
+      <div class="q"><span class="qtag">Integration experience</span><p><span class="hl">Elaborate on a project integrating a PLM system with ERP or CAD — the architectural considerations and challenges.</span></p></div>
+      <div class="q"><span class="qtag">Change management</span><p>You cut change cycle time from 31 days to 12. Share a challenging change management scenario and how your solution directly resolved it.</p></div>
+    </div>
+
+  </div>
+
+  <div class="note">
+    <h3>Two patterns in the highlighted questions</h3>
+    <p><strong>Classification is raised for Deshmukh and for Reilly, for opposite reasons.</strong> Deshmukh scored 9/10 on it, so he is asked to demonstrate depth he already claims. Reilly scored 0/10, so he is asked whether the capability exists at all. Same subject, inverted purpose — which is why a generic question bank cannot do this job.</p>
+    <p style="margin-top:10px"><strong>Integration surfaces for all three.</strong> None of the three shows evidence of Teamcenter-to-ERP or MES integration. That is not a candidate finding, it is a shortlist finding: the whole slate shares one blind spot against a stated role requirement.</p>
+  </div>
+
+  <h2>What this is, and is not</h2>
+  <p class="lede">This is a capability signal produced before any live interview time is committed. It is not a hiring decision and does not replace one. Every score is a probable assessment traceable to resume evidence; the interview exists to test it. The hiring team decides.</p>
+
+  <footer>
+    <p><strong>Synthetic profiles.</strong> All three candidates in this comparison are fabricated for demonstration purposes. They are not real people and any resemblance to an actual individual is coincidental.</p>
+    <p>Generated by FaujX Capability Intelligence · FaujX Hiring Operating System</p>
+  </footer>
+
+</div>
+</body>
+</html>
