@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>From Résumé Pile to Proof — FaujX</title>
+<meta name="description" content="A white paper for job applicants on the shift to structured, evidence-based hiring, and why a transparent process is what makes it fairer.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal:#1F514C; --teal-2:#2A5F59; --brass:#C9A96E; --brass-ink:#8A6A2E; --gold:#E2C994;
+  --cream:#FAF7F2; --tint:#F1ECE2; --mint:#E6EFED; --ink:#1C2B29; --muted:#4A5856; --line:#D8D2C4; --paper:#FFFFFF;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:Manrope,Calibri,Arial,sans-serif;font-size:17px;line-height:1.65}
+a{color:var(--teal)}
+.wrap{max-width:860px;margin:0 auto;padding:0 24px}
+header.top{background:var(--paper);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+header.top .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+header.top img{height:28px;width:auto;display:block}
+header.top span{font-size:13px;font-weight:700;color:var(--brass-ink);letter-spacing:.06em;text-transform:uppercase}
+
+.hero{background:var(--teal);color:var(--cream);padding:72px 0 64px}
+.eyebrow{font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin:0 0 14px}
+.hero h1{font-family:Fraunces,Cambria,Georgia,serif;font-weight:600;font-size:clamp(38px,6vw,60px);line-height:1.08;margin:0 0 18px}
+.hero p.lede{font-size:20px;color:#CFE0DC;max-width:640px;margin:0}
+
+main{padding:48px 0 24px}
+section{margin:0 0 56px}
+h2{font-family:Fraunces,Cambria,Georgia,serif;font-weight:600;color:var(--teal);font-size:30px;line-height:1.2;margin:0 0 16px}
+h3{font-family:Fraunces,Cambria,Georgia,serif;font-weight:600;color:var(--teal);font-size:22px;margin:32px 0 12px}
+p{margin:0 0 14px}
+.note{color:var(--muted);font-style:italic}
+.num{display:inline-block;color:var(--brass-ink);margin-right:6px}
+
+.callout{background:var(--teal);color:var(--cream);border-radius:14px;padding:28px 32px;margin:0 0 48px}
+.callout .label{color:var(--gold);font-weight:700;font-size:14px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px}
+.callout p{color:var(--cream)}
+.callout p:last-child{margin:0}
+
+.table{width:100%;border-collapse:collapse;background:var(--paper);border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:15.5px;line-height:1.5;margin:8px 0 8px}
+.table th{background:var(--teal);color:var(--cream);text-align:left;font-weight:700;padding:12px 14px}
+.table td{padding:12px 14px;border-top:1px solid var(--line);vertical-align:top}
+.table tr:nth-child(even) td{background:var(--cream)}
+.table td:first-child{font-weight:700;color:var(--teal);white-space:nowrap}
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+
+ul.dots{padding-left:22px;margin:0 0 14px}
+ul.dots li{margin:0 0 8px}
+ul.dots li b{color:var(--teal)}
+
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:12px 0 18px}
+.card{background:var(--mint);border-radius:12px;padding:20px 20px 18px}
+.card .k{font-size:12px;font-weight:700;letter-spacing:.12em;color:var(--brass-ink);text-transform:uppercase}
+.card .t{font-family:Fraunces,Cambria,Georgia,serif;font-weight:600;font-size:21px;color:var(--teal);margin:4px 0 6px}
+.card p{font-size:15px;line-height:1.5;margin:0}
+
+.strong-line{font-weight:700;color:var(--teal)}
+
+ol.steps{list-style:none;counter-reset:s;padding:0;margin:0 0 14px}
+ol.steps li{counter-increment:s;position:relative;padding:0 0 0 46px;margin:0 0 14px}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:1px;width:30px;height:30px;border-radius:50%;background:var(--teal);color:var(--cream);font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center}
+ol.steps li b{color:var(--teal)}
+
+blockquote{margin:8px 0 0;background:var(--teal);color:var(--cream);border-radius:14px;padding:32px 34px 28px;position:relative}
+blockquote::before{content:"\201C";position:absolute;top:-6px;left:22px;font-family:Fraunces,Georgia,serif;font-size:96px;line-height:1;color:var(--brass)}
+blockquote p{font-family:Fraunces,Cambria,Georgia,serif;font-style:italic;font-size:19px;line-height:1.55;margin:0 0 14px;padding-top:8px}
+blockquote p + p{padding-top:0}
+blockquote footer{color:var(--gold);font-weight:700;font-size:15px;margin-top:6px}
+
+.cta{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:28px 32px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.cta h3{margin:0 0 4px}
+.cta p{margin:0;color:var(--muted)}
+.btn{display:inline-block;background:var(--teal);color:var(--cream);text-decoration:none;font-weight:700;padding:12px 20px;border-radius:999px}
+.btn:hover{background:var(--teal-2)}
+
+footer.site{border-top:1px solid var(--line);padding:24px 0 40px;color:var(--muted);font-size:13.5px}
+footer.site p{margin:0 0 6px}
+
+@media (max-width:640px){
+  body{font-size:16px}
+  .wrap{padding:0 16px}
+  .hero{padding:48px 0 44px}
+  .hero p.lede{font-size:18px}
+  .cards{grid-template-columns:1fr}
+  .callout,blockquote,.cta{padding:22px 20px}
+  h2{font-size:26px}
+  .table td:first-child{white-space:normal}
+}
+@media print{
+  header.top{position:static}
+  section{break-inside:avoid-page}
+  .btn{border:1px solid var(--teal)}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <img src="data:image/png;base64,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" alt="FaujX">
+    <span>The Un-Interview</span>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <p class="eyebrow">White paper · For job applicants</p>
+    <h1>From résumé pile to proof</h1>
+    <p class="lede">What the shift to structured, evidence-based hiring means for you, and why a transparent process is what makes it fairer.</p>
+  </div>
+</div>
+
+<main class="wrap">
+
+  <div class="callout">
+    <div class="label">In short</div>
+    <p>Hiring is moving away from judging people by their résumé, their college and a short interview, and towards asking them to show what they can actually do. The change is gradual, but it is becoming the normal way to hire.</p>
+    <p>This is not something to fear. When the process is open about how it works, applies the same bar to everyone, and leaves the final decision with people, it can reduce the bias that has long been built into hiring. This paper explains what is changing, what a fair process should give you, and how to do well in it.</p>
+  </div>
+
+  <section>
+    <h2><span class="num">1.</span>How hiring used to work</h2>
+    <p>A few decades ago, getting a job usually meant answering a newspaper advertisement, mailing a paper résumé, and hoping someone read it. Who you knew mattered a great deal. Interviews were informal, and the decision often came down to one person's impression.</p>
+    <p>HR Commune's <i>AI for Talent Acquisition Playbook</i> (November 2025) describes how hiring has changed since then. The table below follows its timeline, with what each stage meant for applicants.</p>
+    <div class="table-scroll">
+    <table class="table">
+      <tr><th>Era</th><th>How companies hired</th><th>What it meant for you</th></tr>
+      <tr><td>Before the internet</td><td>Newspaper ads, paper résumés, referrals, informal interviews</td><td>Slow replies. Contacts and first impressions counted for a lot.</td></tr>
+      <tr><td>1990s–2000s</td><td>"Post and pray": online job boards and résumés by email</td><td>You could apply widely, but so could everyone else. Many applications were never read.</td></tr>
+      <tr><td>2010–2018</td><td>Applicant tracking systems, LinkedIn and dashboards</td><td>Software began filtering résumés by keywords before a person saw them.</td></tr>
+      <tr><td>2019–2023</td><td>Automation: chatbots and scheduling tools</td><td>Faster logistics, but often less human contact and more silence.</td></tr>
+      <tr><td>2024 onward</td><td>AI-augmented hiring that looks at skills and evidence</td><td>A chance to show what you can do, if the process is fair and open.</td></tr>
+    </table>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">2.</span>Why the old way often failed applicants</h2>
+    <p>The playbook notes that a typical corporate job attracts around 270 applications, and that a recruiter spends about six seconds on each résumé. <span class="note">(These are the playbook's figures; it does not name its source.)</span></p>
+    <p>In practice, that meant:</p>
+    <ul class="dots">
+      <li><b>Keyword filters.</b> A strong candidate who described their work in different words could be screened out by software.</li>
+      <li><b>Pedigree shortcuts.</b> The playbook calls this the "keyword trap": treating a top college or a famous employer as a default filter.</li>
+      <li><b>First impressions.</b> Someone who presented well could be assumed to be good at everything, which the playbook calls the "halo effect".</li>
+      <li><b>Different bars.</b> Two interviewers could ask different questions and judge the same answer differently.</li>
+      <li><b>Silence.</b> Many applicants never heard back, and very few learned why.</li>
+    </ul>
+    <p>None of this measured whether you could actually do the job.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">3.</span>What is changing</h2>
+    <p>The playbook describes a future in which "<b>profiles give way to proof</b>" and "<b>interviews become learning experiences</b>." In plain terms, a growing number of employers now want to see evidence of what you can do, not only a list of where you have been.</p>
+    <div class="cards">
+      <div class="card"><div class="k">Then</div><div class="t">Your résumé</div><p>Titles, schools and keywords decided who got through.</p></div>
+      <div class="card"><div class="k">Now</div><div class="t">Your evidence</div><p>What you have done, and how you think through a real problem.</p></div>
+      <div class="card"><div class="k">Next</div><div class="t">Your growth</div><p>A report you can learn from, whatever the outcome.</p></div>
+    </div>
+    <p>This does not happen overnight. Many companies still use older methods, and most are changing step by step. But the direction is clear, and applicants who understand it will be better prepared.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">4.</span>Should you be worried about AI in hiring?</h2>
+    <p>It is reasonable to ask. The playbook itself is honest about the risk: algorithms do not invent prejudice, they inherit it. A system trained on biased past decisions can repeat that bias at scale.</p>
+    <p>That is why <i>how</i> a process is built matters more than whether it uses AI. The playbook sets out three golden rules for responsible AI in hiring:</p>
+    <div class="cards">
+      <div class="card"><div class="k">Rule 1</div><div class="t">Transparency</div><p>Tell candidates where AI is used.</p></div>
+      <div class="card"><div class="k">Rule 2</div><div class="t">Accountability</div><p>Keep a human as the final decision-maker.</p></div>
+      <div class="card"><div class="k">Rule 3</div><div class="t">Auditability</div><p>Keep a record of how each decision was reached.</p></div>
+    </div>
+    <p>When these rules are followed, a structured process can reduce bias rather than add to it: everyone answers the same questions, is measured against the same bar, and is judged on evidence rather than background. <span class="strong-line">No process can promise to be completely free of bias, but an open one can be checked and improved.</span></p>
+
+    <h3>Five questions you can ask any employer</h3>
+    <ol class="steps">
+      <li>Will you tell me how the process works and where AI is used?</li>
+      <li>What information will be taken from my application, and how will it be used?</li>
+      <li>Is everyone for this role assessed in the same way, against the same criteria?</li>
+      <li>Does a person make the final decision?</li>
+      <li>Will I receive feedback or a copy of my results?</li>
+    </ol>
+    <p>A fair process should be able to answer all five.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">5.</span>How FaujX approaches this</h2>
+    <p>FaujX builds the hiring process that many employers use behind their own careers pages. Because it is white-label, you will usually see the employer's name, not ours. Here is what you can expect when a role runs through FaujX:</p>
+    <div class="table-scroll">
+    <table class="table">
+      <tr><th>Stage</th><th>What happens for you</th></tr>
+      <tr><td>Before you start</td><td>You receive a declaration that explains the process and what information is taken from your application.</td></tr>
+      <tr><td>Your background</td><td>School and employer names play no part in your ratings. Ratings are built on the evidence you show.</td></tr>
+      <tr><td>The assessment</td><td>Structured and rubric-scored: everyone for the role is assessed the same way, against the same bar.</td></tr>
+      <tr><td>Your own words</td><td>The process checks authenticity and can detect copied or AI-assisted answers, so it pays to answer honestly and in your own words.</td></tr>
+      <tr><td>The decision</td><td>FaujX never rejects a candidate. It gives the employer evidence; a person on the hiring team makes the decision.</td></tr>
+      <tr><td>Afterwards</td><td>You receive a copy of your own report.</td></tr>
+    </table>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">6.</span>In an applicant's own words</h2>
+    <p>One applicant who went through a FaujX process shared this. They asked us to keep their name private.</p>
+    <blockquote>
+      <p>FaujX is the most thorough, intelligent job application system I've used and it makes both applying and hiring dramatically better.</p>
+      <p>For applicants, it goes far beyond basic forms. You can present your skills, experience, and potential with real depth, so the right opportunities actually see what you can do instead of getting lost in generic applications.</p>
+      <p>For employers, it delivers a clearer, more complete picture of candidates. You spend less time sifting and more time connecting with people who genuinely fit because the system is built to surface quality, not just volume.</p>
+      <p>It's comprehensive without being complicated, and thorough without being tedious. If you want a job system that actually works for both sides, FaujX stands out.</p>
+      <footer>— Job applicant (name withheld at their request)</footer>
+    </blockquote>
+  </section>
+
+  <section>
+    <h2><span class="num">7.</span>How to do well in an evidence-based process</h2>
+    <ol class="steps">
+      <li><b>Know your evidence.</b> Before you apply, list two or three things you have actually built, fixed or improved, and what changed because of them.</li>
+      <li><b>Explain your thinking.</b> Structured assessments look at how you reason, not only at the final answer. Say why you chose an approach.</li>
+      <li><b>Use your own words.</b> Polished but borrowed answers can be flagged. Honest, specific answers show who you really are.</li>
+      <li><b>Read the declaration.</b> Know what the process involves and what information it uses. If something is unclear, ask.</li>
+      <li><b>Use your report.</b> Whatever the outcome, your report shows where you are strong and what to build next.</li>
+      <li><b>Don't hide a non-traditional path.</b> If you are self-taught or changing fields, an evidence-based process is your chance to show capability that a résumé filter might miss.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2><span class="num">8.</span>The new normal</h2>
+    <p>For most of hiring's history, applicants were judged on signals that were easy to see but said little about ability. The shift to evidence-based hiring changes that. It will take time, and it only works when employers are open about how their process runs and keep people in charge of the decision.</p>
+    <p>Done that way, it is good news for applicants: more people get a fair chance to show what they can do.</p>
+  </section>
+
+  <div class="cta">
+    <div>
+      <h3>See the process for yourself</h3>
+      <p>FaujX's own open roles run through the same process.</p>
+    </div>
+    <a class="btn" href="https://www.faujx.com/career">View open roles</a>
+  </div>
+
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <p>Reference: <i>The AI for Talent Acquisition Playbook</i>, HR Commune, November 2025. FaujX is not affiliated with HR Commune. Figures and phrases attributed to the playbook are the playbook's own.</p>
+    <p>© FaujX · <a href="https://www.faujx.com">faujx.com</a></p>
+  </div>
+</footer>
+
+</body>
+</html>
